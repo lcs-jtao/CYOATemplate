@@ -5,10 +5,21 @@
 //  Created by Judy YU on 2023-06-03.
 //
 
+import Blackbird
 import SwiftUI
 
 struct GamingView: View {
     // MARK: Stored properties
+    
+    // What node are we on?
+    @State var currentNodeId: Int = 1
+    
+    // Needed to query database
+    @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
+    
+    // The list of nodes retrieved
+    @BlackbirdLiveModels var nodes: Blackbird.LiveResults<Node>
+    
     @State private var showPopUp: Bool = false
     
     @State var location: String = "The Coast"
@@ -56,111 +67,131 @@ struct GamingView: View {
     
     var body: some View {
         
-        ZStack {
+        if let node = nodes.results.first {
             
-            // Background
-            Color.black
-                .ignoresSafeArea(.all)
-            
-            VStack(alignment: .leading) {
+            ZStack {
                 
-                VStack(spacing: 15) {
+                // Background
+                Color.black
+                    .ignoresSafeArea(.all)
+                
+                VStack(alignment: .leading) {
                     
-                    // Day & Location
-                    HStack {
+                    VStack(spacing: 15) {
                         
-                        Text("Day 1")
+                        // Day & Location
+                        HStack {
+                            
+                            Text("Day 1")
+                            
+                            Spacer()
+                            
+                            Text("The Coast")
+                            
+                        }
+                        .padding(.horizontal, 20)
                         
-                        Spacer()
+                        // Illustration
+                        Image("Coast")
+                            .resizable()
+                            .scaledToFit()
                         
-                        Text("The Coast")
+                        NarrativesAndChoicesView()
                         
                     }
-                    .padding(.horizontal, 20)
                     
-                    // Illustration
-                    Image("Coast")
-                        .resizable()
-                        .scaledToFit()
+                    // Display changes in values
+                    Text("Energy - 1, Food + 3")
+                        .padding(.horizontal)
                     
-                    NarrativesAndChoicesView()
+                    // Divider
+                    Divider()
+                        .frame(height: 1.5)
+                        .overlay(.white)
                     
-                }
-                
-                // Display changes in values
-                Text("Energy - 1, Food + 3")
+                    // Display values
+                    HStack(alignment: .top, spacing: 15) {
+                        
+                        Text("ME")
+                            .font(.title3)
+                        
+                        VStack(alignment: .leading, spacing: 15) {
+                            
+                            HStack {
+                                // Energy
+                                Text("Energy")
+                                
+                                // Completion meter
+                                CompletionMeterView(energy: CGFloat(energy))
+                            }
+                            
+                            // Mentality & Food
+                            HStack {
+                                
+                                Text("Mentality: \(mentalityState)")
+                                    .padding(.trailing, 20)
+                                
+                                Image("Bread")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                
+                                Text(": 4")
+                                
+                            }
+                        }
+                        
+                        // Settings
+                        Button(action: {
+                            withAnimation(.linear(duration: 0.3)) {
+                                showPopUp.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "gear")
+                                .scaleEffect(2)
+                                .foregroundColor(.white)
+                        })
+                        .padding([.leading, .top], 10)
+                        
+                    }
                     .padding(.horizontal)
-                
-                // Divider
-                Divider()
-                    .frame(height: 1.5)
-                    .overlay(.white)
-                
-                // Display values
-                HStack(alignment: .top, spacing: 15) {
+                    .padding(.vertical, 5)
                     
-                    Text("ME")
-                        .font(.title3)
-                    
-                    VStack(alignment: .leading, spacing: 15) {
-                        
-                        HStack {
-                            // Energy
-                            Text("Energy")
-                            
-                            // Completion meter
-                            CompletionMeterView(energy: CGFloat(energy))
-                        }
-                        
-                        // Mentality & Food
-                        HStack {
-                            
-                            Text("Mentality: \(mentalityState)")
-                                .padding(.trailing, 20)
-                            
-                            Image("Bread")
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                            
-                            Text(": 4")
-                            
-                        }
+                }
+                .padding(.bottom, 10)
+                .edgesIgnoringSafeArea(.horizontal)
+                .edgesIgnoringSafeArea(.bottom)
+                .onChange(of: date) { newDate in
+                    if energy <= 0 {
+                        // Go to ending
                     }
-                    
-                    // Settings
-                    Button(action: {
-                        withAnimation(.linear(duration: 0.3)) {
-                            showPopUp.toggle()
-                        }
-                    }, label: {
-                        Image(systemName: "gear")
-                            .scaleEffect(2)
-                            .foregroundColor(.white)
-                    })
-                    .padding([.leading, .top], 10)
-                    
+                    energy += 1
+                    food -= 1
+                    if mentality <= 2 {
+                        energy -= 1
+                    }
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 5)
                 
+                SettingsView(show: $showPopUp)
             }
-            .padding(.bottom, 10)
-            .edgesIgnoringSafeArea(.horizontal)
-            .edgesIgnoringSafeArea(.bottom)
-            .onChange(of: date) { newDate in
-                if energy <= 0 {
-                    // Go to ending
-                }
-                energy += 1
-                food -= 1
-                if mentality <= 2 {
-                    energy -= 1
-                }
-            }
+            .foregroundColor(.white)
             
-            SettingsView(show: $showPopUp)
+        } else {
+            Text("Node with id \(currentNodeId) not found; directed graph has a gap.")
         }
-        .foregroundColor(.white)
+        
+    }
+    
+    // MARK: Initializer
+    init(currentNodeId: Int) {
+        
+        // Retrieve rows that describe nodes in the directed graph
+        _nodes = BlackbirdLiveModels({ db in
+            try await Node.read(from: db,
+                                    sqlWhere: "node_id = ?", "\(currentNodeId)")
+        })
+        
+        // Set the node we are trying to view
+        self.currentNodeId = currentNodeId
         
     }
 }
@@ -168,8 +199,9 @@ struct GamingView: View {
 // Preview provider
 struct GamingView_Previews: PreviewProvider {
     static var previews: some View {
-        GamingView()
-            .preferredColorScheme(.dark)
+        GamingView(currentNodeId: 1)
+            // Make the database available to all other view through the environment
+            .environment(\.blackbirdDatabase, AppDatabase.instance)
     }
 }
 
