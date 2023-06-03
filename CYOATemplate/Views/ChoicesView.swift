@@ -110,6 +110,12 @@ struct ChoicesView: View {
                 .padding(.horizontal, 40)
                 .padding(.vertical, 6)
                 
+            } else if edges.results.count == 1 {
+                Spacer()
+                    .onTapGesture {
+                        //currentNodeId = 2
+                        print("tapped")
+                    }
             }
         }
         .foregroundColor(.white)
@@ -122,9 +128,10 @@ struct ChoicesView: View {
         }
         .onTapGesture {
             if edges.results.count == 1 {
-                
-                
+                // Proceed to next page
+                currentNodeId = 2
             }
+            print("tapped1")
         }
         
     }

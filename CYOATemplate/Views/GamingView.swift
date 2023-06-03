@@ -12,7 +12,7 @@ struct GamingView: View {
     // MARK: Stored properties
     
     // What node are we on?
-    @State var currentNodeId: Int = 2
+    @State var currentNodeId: Int = 1
     
     // Needed to query database
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?

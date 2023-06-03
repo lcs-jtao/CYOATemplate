@@ -58,7 +58,7 @@ struct SettingsView: View {
                         }
                         
                         // Map
-                        Image("Coast3")
+                        Image("Coast")
                             .resizable()
                             .frame(maxHeight: 300)
                             .padding(.horizontal)
