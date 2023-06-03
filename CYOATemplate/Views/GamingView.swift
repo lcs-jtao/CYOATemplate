@@ -96,15 +96,11 @@ struct GamingView: View {
                             .resizable()
                             .scaledToFit()
                         
-                        VStack {
                             // Narrative
                             Text(try! AttributedString(markdown: node.narrative,
                                                        options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                                                                                                               .inlineOnlyPreservingWhitespace)))
                                 .padding(.horizontal, 10)
-                            
-                            Spacer()
-                        }
                         
                         ChoicesView(currentNodeId: $currentNodeId)
                         
