@@ -13,18 +13,13 @@ struct ChoicesView: View {
     // MARK: Stored properties
     
     // What node are we on?
-    @State var currentNodeId: Int = 1
-    
-    //@Binding var currentNodeIdTwo: Int
+    @Binding var currentNodeId: Int
     
     // Needed to query database
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
     
-    // The list of nodes retrieved
-    @BlackbirdLiveModels var nodes: Blackbird.LiveResults<Node>
-    
     // The list of edges retrieved
-    //@BlackbirdLiveModels var edges: Blackbird.LiveResults<Edge>
+    @BlackbirdLiveModels var edges: Blackbird.LiveResults<Edge>
     
     @State var choiceOne: String = "The Park"
     
@@ -39,39 +34,11 @@ struct ChoicesView: View {
     // MARK: Computed properties
     
     var body: some View {
-        if let node = nodes.results.first {
-            
-            VStack(alignment: .leading) {
-                
-                VStack {
-                    // Narrative
-                    Text(try! AttributedString(markdown: node.narrative,
-                                               options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
-                                                                                                      .inlineOnlyPreservingWhitespace)))
-                        .padding(.horizontal, 10)
-                    
-                    Spacer()
-                }
-                //.background(.yellow)
-                //.contentShape(Rectangle())
-                .onTapGesture {
-                    if numberOfEdges == 1 {
-                       //Proceed to next edge
-                        
-                    }
-                }
-                .onAppear {
-                    if numberOfEdges == 0 {
-                        withAnimation(.easeIn(duration: 1).delay(3)) {
-                            zeroEdgeShowButton = true
-                        }
-                    }
-                }
                 
                 // Choices
                 VStack {
                     
-                    if numberOfEdges == 0 {
+                    if edges.results.count == 0 {
                             
                             // Zero edge (ending)
                             HStack (alignment: .center, spacing: 15) {
@@ -111,151 +78,83 @@ struct ChoicesView: View {
                             .padding(.vertical, 10)
                             .opacity(zeroEdgeShowButton ? 1 : 0)
                         
-                    } else if numberOfEdges == 2 {
+                    } else if edges.results.count == 2 || edges.results.count == 3 {
                         
-                        
-                        
-                        // Two choices (edges)
-                        HStack {
-                            
-                            Spacer()
-                            
-                            VStack (alignment: .center, spacing: 20) {
+                        ForEach(edges.results) { currentEdge in
+
+                            HStack {
                                 
-                                // Choice 1
-                                Button(action: {
-                                    
-                                }, label: {
-                                    HStack {
-                                        
-                                        Spacer()
-                                        
-                                        Text(choiceOne)
-                                        
-                                        Spacer()
-                                    }
-                                })
-                                .buttonStyle(CustomButton())
+                                Spacer()
                                 
-                                // Choice 2
-                                Button(action: {
+                                VStack (alignment: .center) {
                                     
-                                }, label: {
-                                    HStack {
-                                        Spacer()
+                                    // Choice 1
+                                    Button(action: {
                                         
-                                        Text(choiceTwo)
-                                        
-                                        Spacer()
+                                    }, label: {
+                                        HStack {
+                                            
+                                            Spacer()
+                                            
+                                            Text(try! AttributedString(markdown: currentEdge.prompt))
+                                            
+                                            Spacer()
+                                        }
+                                    })
+                                    .buttonStyle(CustomButton())
+                                    .onTapGesture {
+                                        currentNodeId = currentEdge.to_node_id
                                     }
-                                })
-                                .buttonStyle(CustomButton())
+                                    
+                                }
+                                
+                                Spacer()
+
                             }
+
                         }
                         .padding(.horizontal, 40)
-                        .padding(.vertical, 10)
-                        
-                    } else if numberOfEdges == 3 {
-                        
-                        // Three choices (edges)
-                        HStack {
-                            
-                            Spacer()
-                            
-                            VStack (alignment: .center, spacing: 20) {
-                                
-                                // Choice 1
-                                Button(action: {
-                                    
-                                }, label: {
-                                    HStack {
-                                        
-                                        Spacer()
-                                        
-                                        Text(choiceOne)
-                                        
-                                        Spacer()
-                                    }
-                                })
-                                .buttonStyle(CustomButton())
-                                
-                                // Choice 2
-                                Button(action: {
-                                    
-                                }, label: {
-                                    HStack {
-                                        Spacer()
-                                        
-                                        Text(choiceTwo)
-                                        
-                                        Spacer()
-                                    }
-                                })
-                                .buttonStyle(CustomButton())
-                                
-                                // Choice 3
-                                Button(action: {
-                                    
-                                }, label: {
-                                    HStack {
-                                        Spacer()
-                                        
-                                        Text(choiceThree)
-                                        
-                                        Spacer()
-                                    }
-                                })
-                                .buttonStyle(CustomButton())
-                                
-                            }
-                        }
-                        .padding(.horizontal, 40)
-                        .padding(.vertical, 10)
+                        .padding(.vertical, 6)
                         
                     }
                 }
-                
-            }
-            .foregroundColor(.white)
-            
-        } else {
-            Text("Node with id \(currentNodeId) not found; directed graph has a gap.")
-        }
+                .foregroundColor(.white)
+                .onAppear {
+                    if edges.results.count == 0 {
+                        withAnimation(.easeIn(duration: 1).delay(3)) {
+                            zeroEdgeShowButton = true
+                        }
+                    }
+                }
+                .onTapGesture {
+                    if edges.results.count == 1 {
+                        
+                       //Proceed to next edge
+                        //currentNodeId = edges.to_node_id
+                    }
+                }
     
     }
     
     // MARK: Initializer
-    init(currentNodeId: Int) {
-        
-        // Retrieve rows that describe nodes in the directed graph
-        _nodes = BlackbirdLiveModels({ db in
-            try await Node.read(from: db,
-                                    sqlWhere: "node_id = ?", "\(currentNodeId)")
+    init(currentNodeId: Binding<Int>) {
+
+        // Retrieve edges for the current node in the graph
+        _edges = BlackbirdLiveModels({ db in
+            try await Edge.read(from: db,
+                                sqlWhere: "from_node_id = ?", "\(currentNodeId.wrappedValue)")
         })
-        
-        // Set the node we are trying to view
-        self.currentNodeId = currentNodeId
-        
+
+        // Set the current node
+        _currentNodeId = currentNodeId
+
     }
-    
-//    init(currentNodeIdTwo: Binding<Int>) {
-//
-//        // Retrieve edges for the current node in the graph
-//        _edges = BlackbirdLiveModels({ db in
-//            try await Edge.read(from: db,
-//                                sqlWhere: "from_node_id = ?", "\(currentNodeIdTwo.wrappedValue)")
-//        })
-//
-//        // Set the current node
-//        _currentNodeIdTwo = currentNodeIdTwo
-//
-//    }
 }
 
 // Preview provider
 struct ChoicesView_Previews: PreviewProvider {
     static var previews: some View {
-        ChoicesView(currentNodeId: 1)
+        ChoicesView(currentNodeId: .constant(2))
         // Make the database available to all other view through the environment
         .environment(\.blackbirdDatabase, AppDatabase.instance)
     }

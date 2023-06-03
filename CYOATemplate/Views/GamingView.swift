@@ -12,7 +12,7 @@ struct GamingView: View {
     // MARK: Stored properties
     
     // What node are we on?
-    @State var currentNodeId: Int = 1
+    @State var currentNodeId: Int = 2
     
     // Needed to query database
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
@@ -96,7 +96,17 @@ struct GamingView: View {
                             .resizable()
                             .scaledToFit()
                         
-                        NarrativesAndChoicesView(currentNodeId: currentNodeId)
+                        VStack {
+                            // Narrative
+                            Text(try! AttributedString(markdown: node.narrative,
+                                                       options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
+                                                                                                              .inlineOnlyPreservingWhitespace)))
+                                .padding(.horizontal, 10)
+                            
+                            Spacer()
+                        }
+                        
+                        ChoicesView(currentNodeId: $currentNodeId)
                         
                     }
                     
