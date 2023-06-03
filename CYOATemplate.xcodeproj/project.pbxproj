@@ -120,9 +120,9 @@
 			children = (
 				81C198B82A251AE00047A4B3 /* GameView.swift */,
 				22268C832A2BE7FB00DE3AFC /* GamingView.swift */,
-				22268C882A2BE97500DE3AFC /* SettingsView.swift */,
-				22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */,
 				22268C8C2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift */,
+				22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */,
+				22268C882A2BE97500DE3AFC /* SettingsView.swift */,
 				81C784AA2A28AD0B001BC867 /* NodeView.swift */,
 				81C784AE2A28B4E7001BC867 /* EdgesView.swift */,
 			);

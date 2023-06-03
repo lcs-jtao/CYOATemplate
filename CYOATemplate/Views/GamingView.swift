@@ -96,7 +96,7 @@ struct GamingView: View {
                             .resizable()
                             .scaledToFit()
                         
-                        NarrativesAndChoicesView()
+                        NarrativesAndChoicesView(currentNodeId: currentNodeId)
                         
                     }
                     
