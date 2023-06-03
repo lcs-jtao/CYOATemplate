@@ -12,6 +12,7 @@
 		22268C892A2BE97500DE3AFC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C882A2BE97500DE3AFC /* SettingsView.swift */; };
 		22268C8B2A2BE9C700DE3AFC /* CompletionMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */; };
 		22268C8D2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C8C2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift */; };
+		22268C8F2A2BFC7700DE3AFC /* ChoicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C8E2A2BFC7700DE3AFC /* ChoicesView.swift */; };
 		81C198A92A251ABB0047A4B3 /* CYOATemplateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */; };
 		81C198AD2A251ABC0047A4B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C198AC2A251ABC0047A4B3 /* Assets.xcassets */; };
 		81C198B02A251ABC0047A4B3 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81C198AF2A251ABC0047A4B3 /* Preview Assets.xcassets */; };
@@ -32,6 +33,7 @@
 		22268C882A2BE97500DE3AFC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionMeterView.swift; sourceTree = "<group>"; };
 		22268C8C2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NarrativesAndChoicesView.swift; sourceTree = "<group>"; };
+		22268C8E2A2BFC7700DE3AFC /* ChoicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesView.swift; sourceTree = "<group>"; };
 		81C198A52A251ABB0047A4B3 /* CYOATemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CYOATemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CYOATemplateApp.swift; sourceTree = "<group>"; };
 		81C198AC2A251ABC0047A4B3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			children = (
 				81C198B82A251AE00047A4B3 /* GameView.swift */,
 				22268C832A2BE7FB00DE3AFC /* GamingView.swift */,
+				22268C8E2A2BFC7700DE3AFC /* ChoicesView.swift */,
 				22268C8C2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift */,
 				22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */,
 				22268C882A2BE97500DE3AFC /* SettingsView.swift */,
@@ -227,6 +230,7 @@
 				22268C842A2BE7FB00DE3AFC /* GamingView.swift in Sources */,
 				81C198BF2A251B4D0047A4B3 /* Ending.swift in Sources */,
 				22268C892A2BE97500DE3AFC /* SettingsView.swift in Sources */,
+				22268C8F2A2BFC7700DE3AFC /* ChoicesView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

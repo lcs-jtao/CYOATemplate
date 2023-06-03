@@ -1,5 +1,5 @@
 //
-//  NarrativesAndChoicesView.swift
+//  ChoicesView.swift
 //  CYOATemplate
 //
 //  Created by Judy YU on 2023-06-03.
@@ -8,7 +8,7 @@
 import Blackbird
 import SwiftUI
 
-struct NarrativesAndChoicesView: View {
+struct ChoicesView: View {
     
     // MARK: Stored properties
     
@@ -253,9 +253,9 @@ struct NarrativesAndChoicesView: View {
 }
 
 // Preview provider
-struct NarrativesAndChoicesView_Previews: PreviewProvider {
+struct ChoicesView_Previews: PreviewProvider {
     static var previews: some View {
-        NarrativesAndChoicesView(currentNodeId: 1)
+        ChoicesView(currentNodeId: 1)
         // Make the database available to all other view through the environment
         .environment(\.blackbirdDatabase, AppDatabase.instance)
     }
