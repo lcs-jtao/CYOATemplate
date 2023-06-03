@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "blackbird",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/marcoarment/Blackbird",
+      "state" : {
+        "branch" : "main",
+        "revision" : "ae978e4afcc33f9890a554d91029f1e9381566c0"
+      }
+    }
+  ],
+  "version" : 2
+}
