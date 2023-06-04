@@ -118,10 +118,16 @@ struct ChoicesView: View {
                                     currentNodeId = currentEdge.to_node_id
                                 }
                                 
-                                // Vlaue changes
+                                // Value changes
                                 energy += currentEdge.energy
                                 mentality += currentEdge.mentality
                                 food += currentEdge.food
+                                
+                                if energy > 10 {
+                                    energy = 10
+                                } else if energy < 0 {
+                                    energy = 0
+                                }
                                 
                             }, label: {
                                 HStack {
@@ -150,10 +156,16 @@ struct ChoicesView: View {
                             currentNodeId = currentEdge.to_node_id
                         }
                         
-                        // Vlaue changes
+                        // Value changes
                         energy += currentEdge.energy
                         mentality += currentEdge.mentality
                         food += currentEdge.food
+                        
+                        if energy > 10 {
+                            energy = 10
+                        } else if energy < 0 {
+                            energy = 0
+                        }
                         
                     }, label: {
                         VStack {
