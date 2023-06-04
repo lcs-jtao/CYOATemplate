@@ -49,7 +49,10 @@ struct ChoicesView: View {
                             currentNodeId = 1
                         }
                         
-                        //currentNodeId = 1
+                        // Reset values
+                        energy = 8
+                        mentality = 8
+                        food = 4
                         
                     }, label: {
                         HStack {
@@ -65,6 +68,11 @@ struct ChoicesView: View {
                     
                     // Home
                     Button(action: {
+                        
+                        // Reset values
+                        energy = 8
+                        mentality = 8
+                        food = 4
                         
                     }, label: {
                         HStack {

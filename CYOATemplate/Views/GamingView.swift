@@ -114,7 +114,7 @@ struct GamingView: View {
             .edgesIgnoringSafeArea(.horizontal)
             .edgesIgnoringSafeArea(.bottom)
             
-            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId)
+            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food)
         }
         .foregroundColor(.white)
         

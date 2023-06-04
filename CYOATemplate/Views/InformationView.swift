@@ -24,7 +24,7 @@ struct InformationView: View {
     @State var illustrationName: String = ""
     
     // Day
-    @State var numberOfDays: Int = 1
+    //@State var numberOfDays: Int = 1
     
     // Values
     @Binding var energy: Int
@@ -37,7 +37,7 @@ struct InformationView: View {
         
         if let node = nodes.results.first {
             
-            VStack(spacing: 15) {
+            VStack(alignment: .leading, spacing: 15) {
                 
                 // Day & Location
                 HStack {
@@ -50,7 +50,6 @@ struct InformationView: View {
                     Text(try! AttributedString(markdown: node.location,
                                                options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                                                     .inlineOnlyPreservingWhitespace)))
-                    .frame(alignment: .topLeading)
                     
                 }
                 .padding(.horizontal, 20)
@@ -73,16 +72,17 @@ struct InformationView: View {
                     default:
                         illustrationName = ""
                     }
-                    numberOfDays = node.day
                 }
-                .onChange(of: numberOfDays) { _ in
-                    if energy <= 0 {
-                        // Go to ending
-                    }
-                    energy += 1
-                    food -= 1
-                    if mentality <= 2 {
-                        energy -= 1
+                .onChange(of: node.day) { _ in
+                    if node.day != 1 {
+                        if energy <= 0 {
+                            // Go to ending
+                        }
+                        energy += 1
+                        food -= 1
+                        if mentality <= 2 {
+                            energy -= 1
+                        }
                     }
                 }
                 

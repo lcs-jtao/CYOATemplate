@@ -16,6 +16,13 @@ struct SettingsView: View {
     
     @Binding var currentNodeId: Int
     
+    // Values
+    @Binding var energy: Int
+    
+    @Binding var mentality: Int
+    
+    @Binding var food: Int
+    
     var body: some View {
         
         ZStack {
@@ -82,8 +89,10 @@ struct SettingsView: View {
                                 withAnimation(.linear(duration: 0.2)) {
                                     show = false
                                 }
-                                // Reset to initial values
-                                
+                                // Reset values
+                                energy = 8
+                                mentality = 8
+                                food = 4
                                 
                             }, label: {
                                 HStack {
@@ -95,7 +104,10 @@ struct SettingsView: View {
                             
                             // Home button
                             Button(action: {
-                                
+                                // Reset values
+                                energy = 8
+                                mentality = 8
+                                food = 4
                             }, label: {
                                 HStack {
                                     Image(systemName: "house")
@@ -115,11 +127,21 @@ struct SettingsView: View {
         }
         .foregroundColor(.white)
     }
+    
+    // MARK: Initializer
+//    init(energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>) {
+//
+//        // Set the initial values
+//        _energy = energy
+//        _mentality = mentality
+//        _food = food
+//
+//    }
 }
 
 // Preview provider
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(show: .constant(true), currentNodeId: .constant(1))
+        SettingsView(show: .constant(true), currentNodeId: .constant(1), energy: .constant(8), mentality: .constant(6), food: .constant(6))
     }
 }
