@@ -39,7 +39,6 @@ struct ChoicesView: View {
             if edges.results.count == 0 {
                 
                 // Zero edge (Endings)
-                //Spacer()
                 
                 HStack (alignment: .center, spacing: 15) {
                     
@@ -113,9 +112,6 @@ struct ChoicesView: View {
                 
             } else if edges.results.count == 1 {
                 
-                //Spacer()
-                
-                //VStack (alignment: .center) {
                     HStack(alignment: .center, spacing: 15) {
                         Spacer()
 
@@ -123,12 +119,11 @@ struct ChoicesView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 6)
-                //}
             }
             
         }
         .foregroundColor(.white)
-        .background(.yellow)
+        //.background(.yellow)
         .onAppear {
             if edges.results.count == 0 {
                 withAnimation(.easeIn(duration: 1).delay(3)) {
@@ -139,7 +134,7 @@ struct ChoicesView: View {
         .onTapGesture {
             if edges.results.count == 1 {
                 // Proceed to next page
-                //currentNodeId = 96
+                //currentNodeId =
             }
             print("tapped1")
         }

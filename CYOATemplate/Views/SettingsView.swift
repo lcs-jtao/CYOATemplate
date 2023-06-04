@@ -11,7 +11,10 @@ import SwiftUI
 struct SettingsView: View {
     
     // MARK: Stored Properties
+    
     @Binding var show: Bool
+    
+    @Binding var currentNodeId: Int
     
     var body: some View {
         
@@ -41,8 +44,8 @@ struct SettingsView: View {
                                     // Dismiss the pop up
                                     withAnimation(.linear(duration: 0.2)) {
                                         show = false
-                                        
                                     }
+                                    
                                 }, label: {
                                     Image(systemName: "xmark")
                                         .foregroundColor(Color.white)
@@ -72,6 +75,15 @@ struct SettingsView: View {
                             
                             // Restart button
                             Button(action: {
+                                
+                                // Go back to node 1
+                                currentNodeId = 1
+                                // Dismiss the pop up
+                                withAnimation(.linear(duration: 0.2)) {
+                                    show = false
+                                }
+                                // Reset to initial values
+                                
                                 
                             }, label: {
                                 HStack {
@@ -108,6 +120,6 @@ struct SettingsView: View {
 // Preview provider
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(show: .constant(true))
+        SettingsView(show: .constant(true), currentNodeId: .constant(1))
     }
 }

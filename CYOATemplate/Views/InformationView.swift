@@ -81,7 +81,7 @@ struct InformationView: View {
             .fixedSize(horizontal: false, vertical: true)
             .padding(.bottom, 10)
             .edgesIgnoringSafeArea(.horizontal)
-            .background(.blue)
+            //.background(.blue)
             
         }
     }
