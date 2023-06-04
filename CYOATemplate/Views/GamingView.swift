@@ -12,7 +12,7 @@ struct GamingView: View {
     // MARK: Stored properties
     
     // What node are we on?
-    @State var currentNodeId: Int = 174
+    @State var currentNodeId: Int = 1
     
     // Needed to query database
     //@Environment(\.blackbirdDatabase) var db: Blackbird.Database?
@@ -27,6 +27,18 @@ struct GamingView: View {
     @State var food: Int = 4
     
     @State private var isEnding: Bool = false
+    
+    @State var energyChange: Int = 0
+    
+    @State var mentalityChange: Int = 0
+    
+    @State var foodChange: Int = 0
+    
+    @State var lastEnergy: Int = 8
+    
+    @State var lastMentality: Int = 8
+    
+    @State var lastFood: Int = 8
     
     // MARK: Computed properties
     var mentalityState: String {
@@ -57,8 +69,38 @@ struct GamingView: View {
                 
                 if isEnding == false {
                     // Display changes in values
-                    Text("Energy - 1, Food + 3")
-                        .padding(.horizontal)
+                    HStack {
+                        Text("Energy ")
+                        if energyChange > 0 {
+                            Text("+\(energyChange)")
+                        } else {
+                            Text("\(energyChange)")
+                                .opacity(energyChange != 0 ? 1 : 0)
+                        }
+                        Text("|  Metality")
+                        if mentalityChange > 0 {
+                            Text("+\(mentalityChange)")
+                        } else {
+                            Text("\(mentalityChange)")
+                                .opacity(mentalityChange != 0 ? 1 : 0)
+                        }
+                        Text("|  Food")
+                        if foodChange > 0 {
+                            Text("+\(foodChange)")
+                        } else {
+                            Text("\(foodChange)")
+                                .opacity(foodChange != 0 ? 1 : 0)
+                        }
+                    }
+                    .padding(.horizontal)
+                    .onChange(of: currentNodeId) { _ in
+                        energyChange = energy - lastEnergy
+                        lastEnergy = energy
+                        mentalityChange = mentality - lastMentality
+                        lastMentality = mentality
+                        foodChange = food - lastFood
+                        lastFood = food
+                    }
                     
                     // Divider
                     Divider()
@@ -111,10 +153,10 @@ struct GamingView: View {
                         })
                         .padding([.leading, .top], 10)
                         
-                }
+                    }
                     .padding(.horizontal)
                     .padding(.vertical, 5)
-                
+                    
                 }
                 
             }
