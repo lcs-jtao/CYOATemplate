@@ -34,7 +34,7 @@ struct ChoicesView: View {
         // Choices
         VStack {
             
-            //Spacer()
+            Spacer()
             
             if edges.results.count == 0 {
                 
