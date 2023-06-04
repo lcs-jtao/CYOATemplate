@@ -122,9 +122,9 @@ struct ChoicesView: View {
                 .padding(.vertical, 40)
                 .opacity(zeroEdgeShowButton ? 1 : 0)
                 .onAppear {
-                        withAnimation(.easeIn(duration: 1).delay(6)) {
-                            zeroEdgeShowButton = true
-                        }
+                    withAnimation(.easeIn(duration: 1).delay(6)) {
+                        zeroEdgeShowButton = true
+                    }
                 }
                 
             } else if edges.results.count == 2 || edges.results.count == 3 {
@@ -132,40 +132,40 @@ struct ChoicesView: View {
                 Spacer()
                 
                 ForEach(edges.results) { currentEdge in
+                    
+                    VStack (alignment: .center) {
                         
-                        VStack (alignment: .center) {
+                        // Choice 1
+                        Button(action: {
                             
-                            // Choice 1
-                            Button(action: {
-                                
-                                withAnimation(.easeIn(duration: 3)) {
-                                    currentNodeId = currentEdge.to_node_id
-                                }
-                                
-                                // Value changes
-                                energy += currentEdge.energy
-                                mentality += currentEdge.mentality
-                                food += currentEdge.food
-                                
-                                if energy > 10 {
-                                    energy = 10
-                                } else if energy < 0 {
-                                    energy = 0
-                                }
-                                
-                            }, label: {
-                                HStack {
-                                    
-                                    Spacer()
-                                    
-                                    Text(try! AttributedString(markdown: currentEdge.prompt))
-                                    
-                                    Spacer()
-                                }
-                            })
-                            .buttonStyle(CustomButton())
+                            withAnimation(.easeIn(duration: 3)) {
+                                currentNodeId = currentEdge.to_node_id
+                            }
                             
-                        }
+                            // Value changes
+                            energy += currentEdge.energy
+                            mentality += currentEdge.mentality
+                            food += currentEdge.food
+                            
+                            if energy > 10 {
+                                energy = 10
+                            } else if energy < 0 {
+                                energy = 0
+                            }
+                            
+                        }, label: {
+                            HStack {
+                                
+                                Spacer()
+                                
+                                Text(try! AttributedString(markdown: currentEdge.prompt))
+                                
+                                Spacer()
+                            }
+                        })
+                        .buttonStyle(CustomButton())
+                        
+                    }
                 }
                 .padding(.horizontal, 40)
                 .padding(.vertical, 6)
@@ -203,8 +203,8 @@ struct ChoicesView: View {
                         }
                     })
                 }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 6)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 6)
             }
             
         }

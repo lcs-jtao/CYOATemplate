@@ -71,26 +71,37 @@ struct GamingView: View {
                     // Display changes in values
                     HStack {
                         Text("Energy ")
-                        if energyChange > 0 {
-                            Text("+\(energyChange)")
-                        } else {
-                            Text("\(energyChange)")
-                                .opacity(energyChange != 0 ? 1 : 0)
+                        Group {
+                            if energyChange > 0 {
+                                Text("+\(energyChange)")
+                            } else {
+                                Text("\(energyChange)")
+                                    .opacity(energyChange != 0 ? 1 : 0)
+                            }
                         }
+                        .frame(width: 30)
+                        
                         Text("|  Metality")
-                        if mentalityChange > 0 {
-                            Text("+\(mentalityChange)")
-                        } else {
-                            Text("\(mentalityChange)")
-                                .opacity(mentalityChange != 0 ? 1 : 0)
+                        Group {
+                            if mentalityChange > 0 {
+                                Text("+\(mentalityChange)")
+                            } else {
+                                Text("\(mentalityChange)")
+                                    .opacity(mentalityChange != 0 ? 1 : 0)
+                            }
                         }
+                        .frame(width: 30)
+                        
                         Text("|  Food")
-                        if foodChange > 0 {
-                            Text("+\(foodChange)")
-                        } else {
-                            Text("\(foodChange)")
-                                .opacity(foodChange != 0 ? 1 : 0)
+                        Group {
+                            if foodChange > 0 {
+                                Text("+\(foodChange)")
+                            } else {
+                                Text("\(foodChange)")
+                                    .opacity(foodChange != 0 ? 1 : 0)
+                            }
                         }
+                        .frame(width: 30)
                     }
                     .padding(.horizontal)
                     .onChange(of: currentNodeId) { _ in
