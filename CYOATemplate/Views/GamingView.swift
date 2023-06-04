@@ -12,7 +12,7 @@ struct GamingView: View {
     // MARK: Stored properties
     
     // What node are we on?
-    @State var currentNodeId: Int = 100
+    @State var currentNodeId: Int = 1
     
     // Needed to query database
     //@Environment(\.blackbirdDatabase) var db: Blackbird.Database?
@@ -25,6 +25,20 @@ struct GamingView: View {
     @State var mentality: Int = 8
     
     @State var food: Int = 4
+    
+    @State private var isEnding: Bool = false
+    
+    @State var energyChange: Int = 0
+    
+    @State var mentalityChange: Int = 0
+    
+    @State var foodChange: Int = 0
+    
+    @State var lastEnergy: Int = 8
+    
+    @State var lastMentality: Int = 8
+    
+    @State var lastFood: Int = 4
     
     // MARK: Computed properties
     var mentalityState: String {
@@ -49,72 +63,119 @@ struct GamingView: View {
             
             VStack(alignment: .leading) {
                 
-                InformationView(currentNodeId: currentNodeId)
+                InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food)
                 
-                ChoicesView(currentNodeId: $currentNodeId)
+                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
                 
-                // Display changes in values
-                Text("Energy - 1, Food + 3")
+                if isEnding == false {
+                    // Display changes in values
+                    HStack {
+                        Text("Energy ")
+                        Group {
+                            if energyChange > 0 {
+                                Text("+\(energyChange)")
+                            } else {
+                                Text("\(energyChange)")
+                                    .opacity(energyChange != 0 ? 1 : 0)
+                            }
+                        }
+                        .frame(width: 30)
+                        
+                        Text("|  Metality")
+                        Group {
+                            if mentalityChange > 0 {
+                                Text("+\(mentalityChange)")
+                            } else {
+                                Text("\(mentalityChange)")
+                                    .opacity(mentalityChange != 0 ? 1 : 0)
+                            }
+                        }
+                        .frame(width: 30)
+                        
+                        Text("|  Food")
+                        Group {
+                            if foodChange > 0 {
+                                Text("+\(foodChange)")
+                            } else {
+                                Text("\(foodChange)")
+                                    .opacity(foodChange != 0 ? 1 : 0)
+                            }
+                        }
+                        .frame(width: 30)
+                    }
                     .padding(.horizontal)
-                
-                // Divider
-                Divider()
-                    .frame(height: 1.5)
-                    .overlay(.white)
-                
-                // Display values
-                HStack(alignment: .top, spacing: 15) {
-                    
-                    Text("ME")
-                        .font(.title3)
-                    
-                    VStack(alignment: .leading, spacing: 15) {
-                        
-                        HStack {
-                            // Energy
-                            Text("Energy")
-                            
-                            // Completion meter
-                            CompletionMeterView(energy: CGFloat(energy))
-                        }
-                        
-                        // Mentality & Food
-                        HStack {
-                            
-                            Text("Mentality: \(mentalityState)")
-                                .padding(.trailing, 20)
-                            
-                            Image("Bread")
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                            
-                            Text(": \(food)")
-                            
-                        }
+                    .onChange(of: currentNodeId) { _ in
+                        energyChange = energy - lastEnergy
+                        lastEnergy = energy
+                        mentalityChange = mentality - lastMentality
+                        lastMentality = mentality
+                        foodChange = food - lastFood
+                        lastFood = food
                     }
                     
-                    // Settings
-                    Button(action: {
-                        withAnimation(.linear(duration: 0.3)) {
-                            showPopUp.toggle()
+                    // Divider
+                    Divider()
+                        .frame(height: 1.5)
+                        .overlay(.white)
+                    
+                    // Display values
+                    HStack(alignment: .top, spacing: 15) {
+                        
+                        Text("ME")
+                            .font(.title3)
+                        
+                        VStack(alignment: .leading, spacing: 15) {
+                            
+                            HStack {
+                                // Energy
+                                Text("Energy")
+                                
+                                // Completion meter
+                                CompletionMeterView(energy: CGFloat(energy))
+                            }
+                            
+                            // Mentality & Food
+                            HStack {
+                                
+                                Text("Mentality: \(mentalityState)")
+                                    .padding(.trailing, 20)
+                                
+                                Spacer()
+                                
+                                Image("Bread")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                
+                                Text(": \(food)")
+                                
+                            }
+                            .padding(.trailing, 50)
                         }
-                    }, label: {
-                        Image(systemName: "gear")
-                            .scaleEffect(2)
-                            .foregroundColor(.white)
-                    })
-                    .padding([.leading, .top], 10)
+                        
+                        // Settings
+                        Button(action: {
+                            withAnimation(.linear(duration: 0.3)) {
+                                showPopUp.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "gear")
+                                .scaleEffect(2)
+                                .foregroundColor(.white)
+                        })
+                        .padding([.leading, .top], 10)
+                        
+                    }
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
                     
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 5)
                 
             }
             .padding(.bottom, 10)
             .edgesIgnoringSafeArea(.horizontal)
             .edgesIgnoringSafeArea(.bottom)
             
-            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId)
+            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
         }
         .foregroundColor(.white)
         

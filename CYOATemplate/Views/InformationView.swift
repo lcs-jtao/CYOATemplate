@@ -27,17 +27,17 @@ struct InformationView: View {
     @State var numberOfDays: Int = 1
     
     // Values
-    @State var energy: Int = 8
+    @Binding var energy: Int
     
-    @State var mentality: Int = 8
+    @Binding var mentality: Int
     
-    @State var food: Int = 4
+    @Binding var food: Int
     
     var body: some View {
         
         if let node = nodes.results.first {
             
-            VStack(spacing: 15) {
+            VStack(alignment: .leading, spacing: 15) {
                 
                 // Day & Location
                 HStack {
@@ -53,8 +53,8 @@ struct InformationView: View {
                     
                 }
                 .padding(.horizontal, 20)
-                .onAppear {
-                    switch node.location {
+                .onChange(of: node.location) { currentLocation in
+                    switch currentLocation {
                     case "The Coast":
                         illustrationName = "Coast"
                     case "The Park":
@@ -72,17 +72,23 @@ struct InformationView: View {
                     default:
                         illustrationName = ""
                     }
-                    numberOfDays = node.day
                 }
-                .onChange(of: numberOfDays) { _ in
-                    if energy <= 0 {
-                        // Go to ending
+                .onChange(of: node.day) { currentDay in
+                    
+                    if currentDay != 1 {
+                        if energy <= 0 {
+                            // Go to ending
+                        }
+                        energy += 1
+                        if energy > 10 {
+                            energy = 10
+                        }
+                        food -= 1
+                        if mentality <= 2 {
+                            energy -= 1
+                        }
                     }
-                    energy += 1
-                    food -= 1
-                    if mentality <= 2 {
-                        energy -= 1
-                    }
+                    
                 }
                 
                 // Illustration
@@ -105,7 +111,7 @@ struct InformationView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Int) {
+    init(currentNodeId: Int, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>) {
         
         // Retrieve rows that describe nodes in the directed graph
         _nodes = BlackbirdLiveModels({ db in
@@ -116,12 +122,17 @@ struct InformationView: View {
         // Set the node we are trying to view
         self.currentNodeId = currentNodeId
         
+        // Set the initial values
+        _energy = energy
+        _mentality = mentality
+        _food = food
+        
     }
 }
 
 struct InformationView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationView(currentNodeId: 1)
+        InformationView(currentNodeId: 1, energy: .constant(8), mentality: .constant(6), food: .constant(4))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }

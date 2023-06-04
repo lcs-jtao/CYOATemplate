@@ -23,11 +23,26 @@ struct ChoicesView: View {
     @State var zeroEdgeShowButton = false
     
     // Values
-    @State var energy: Int = 8
+    @Binding var energy: Int
     
-    @State var mentality: Int = 8
+    @Binding var mentality: Int
     
-    @State var food: Int = 4
+    @Binding var food: Int
+    
+    @Binding var energyChange: Int
+    
+    @Binding var mentalityChange: Int
+    
+    @Binding var foodChange: Int
+    
+    @Binding var lastEnergy: Int
+    
+    @Binding var lastMentality: Int
+    
+    @Binding var lastFood: Int
+    
+    // Is it an ending?
+    @Binding var isEnding: Bool
     
     var body: some View {
         
@@ -49,7 +64,18 @@ struct ChoicesView: View {
                             currentNodeId = 1
                         }
                         
-                        //currentNodeId = 1
+                        isEnding = false
+                        
+                        // Reset values
+                        energy = 8
+                        mentality = 8
+                        food = 4
+                        energyChange = 0
+                        mentalityChange = 0
+                        foodChange = 0
+                        lastEnergy = 8
+                        lastMentality = 8
+                        lastFood = 4
                         
                     }, label: {
                         HStack {
@@ -66,12 +92,25 @@ struct ChoicesView: View {
                     // Home
                     Button(action: {
                         
+                        //isEnding = false
+                        
+                        // Reset values
+                        energy = 8
+                        mentality = 8
+                        food = 4
+                        energyChange = 0
+                        mentalityChange = 0
+                        foodChange = 0
+                        lastEnergy = 8
+                        lastMentality = 8
+                        lastFood = 4
+                        
                     }, label: {
                         HStack {
                             Spacer()
                             
                             Image(systemName: "house")
-                            Text("Back to Home")
+                            Text("Home")
                             
                             Spacer()
                         }
@@ -79,13 +118,13 @@ struct ChoicesView: View {
                     .buttonStyle(CustomButton())
                     
                 }
-                .padding(.horizontal, 5)
-                .padding(.vertical, 10)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 40)
                 .opacity(zeroEdgeShowButton ? 1 : 0)
                 .onAppear {
-                        withAnimation(.easeIn(duration: 1).delay(6)) {
-                            zeroEdgeShowButton = true
-                        }
+                    withAnimation(.easeIn(duration: 1).delay(6)) {
+                        zeroEdgeShowButton = true
+                    }
                 }
                 
             } else if edges.results.count == 2 || edges.results.count == 3 {
@@ -93,31 +132,40 @@ struct ChoicesView: View {
                 Spacer()
                 
                 ForEach(edges.results) { currentEdge in
+                    
+                    VStack (alignment: .center) {
                         
-                        VStack (alignment: .center) {
+                        // Choice 1
+                        Button(action: {
                             
-                            // Choice 1
-                            Button(action: {
-                                
-                                withAnimation(.easeIn(duration: 3)) {
-                                    currentNodeId = currentEdge.to_node_id
-                                }
-                                
-                                //currentNodeId = currentEdge.to_node_id
-                                
-                            }, label: {
-                                HStack {
-                                    
-                                    Spacer()
-                                    
-                                    Text(try! AttributedString(markdown: currentEdge.prompt))
-                                    
-                                    Spacer()
-                                }
-                            })
-                            .buttonStyle(CustomButton())
+                            withAnimation(.easeIn(duration: 3)) {
+                                currentNodeId = currentEdge.to_node_id
+                            }
                             
-                        }
+                            // Value changes
+                            energy += currentEdge.energy
+                            mentality += currentEdge.mentality
+                            food += currentEdge.food
+                            
+                            if energy > 10 {
+                                energy = 10
+                            } else if energy < 0 {
+                                energy = 0
+                            }
+                            
+                        }, label: {
+                            HStack {
+                                
+                                Spacer()
+                                
+                                Text(try! AttributedString(markdown: currentEdge.prompt))
+                                
+                                Spacer()
+                            }
+                        })
+                        .buttonStyle(CustomButton())
+                        
+                    }
                 }
                 .padding(.horizontal, 40)
                 .padding(.vertical, 6)
@@ -132,7 +180,16 @@ struct ChoicesView: View {
                             currentNodeId = currentEdge.to_node_id
                         }
                         
-                        //currentNodeId = currentEdge.to_node_id
+                        // Value changes
+                        energy += currentEdge.energy
+                        mentality += currentEdge.mentality
+                        food += currentEdge.food
+                        
+                        if energy > 10 {
+                            energy = 10
+                        } else if energy < 0 {
+                            energy = 0
+                        }
                         
                     }, label: {
                         VStack {
@@ -146,17 +203,22 @@ struct ChoicesView: View {
                         }
                     })
                 }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 6)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 6)
             }
             
         }
         .foregroundColor(.white)
+        .onChange(of: edges.results.count) { currentNumberOfEdges in
+            if currentNumberOfEdges == 0 {
+                isEnding = true
+            }
+        }
         
     }
     
     // MARK: Initializer
-    init(currentNodeId: Binding<Int>) {
+    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, isEnding: Binding<Bool>, energyChange: Binding<Int>, mentalityChange: Binding<Int>, foodChange: Binding<Int>, lastEnergy: Binding<Int>, lastMentality: Binding<Int>, lastFood: Binding<Int>) {
         
         // Retrieve edges for the current node in the graph
         _edges = BlackbirdLiveModels({ db in
@@ -167,13 +229,25 @@ struct ChoicesView: View {
         // Set the current node
         _currentNodeId = currentNodeId
         
+        // Set the initial values
+        _energy = energy
+        _mentality = mentality
+        _food = food
+        _isEnding = isEnding
+        _energyChange = energyChange
+        _mentalityChange = mentalityChange
+        _foodChange = foodChange
+        _lastEnergy = lastEnergy
+        _lastMentality = lastMentality
+        _lastFood = lastFood
+        
     }
 }
 
 // Preview provider
 struct ChoicesView_Previews: PreviewProvider {
     static var previews: some View {
-        ChoicesView(currentNodeId: .constant(2))
+        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6), isEnding: .constant(true), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }

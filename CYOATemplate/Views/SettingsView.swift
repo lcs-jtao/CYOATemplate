@@ -16,6 +16,25 @@ struct SettingsView: View {
     
     @Binding var currentNodeId: Int
     
+    // Values
+    @Binding var energy: Int
+    
+    @Binding var mentality: Int
+    
+    @Binding var food: Int
+    
+    @Binding var energyChange: Int
+    
+    @Binding var mentalityChange: Int
+    
+    @Binding var foodChange: Int
+    
+    @Binding var lastEnergy: Int
+    
+    @Binding var lastMentality: Int
+    
+    @Binding var lastFood: Int
+    
     var body: some View {
         
         ZStack {
@@ -82,8 +101,16 @@ struct SettingsView: View {
                                 withAnimation(.linear(duration: 0.2)) {
                                     show = false
                                 }
-                                // Reset to initial values
-                                
+                                // Reset values
+                                energy = 8
+                                mentality = 8
+                                food = 4
+                                energyChange = 0
+                                mentalityChange = 0
+                                foodChange = 0
+                                lastEnergy = 8
+                                lastMentality = 8
+                                lastFood = 4
                                 
                             }, label: {
                                 HStack {
@@ -95,6 +122,17 @@ struct SettingsView: View {
                             
                             // Home button
                             Button(action: {
+                                
+                                // Reset values
+                                energy = 8
+                                mentality = 8
+                                food = 4
+                                energyChange = 0
+                                mentalityChange = 0
+                                foodChange = 0
+                                lastEnergy = 8
+                                lastMentality = 8
+                                lastFood = 4
                                 
                             }, label: {
                                 HStack {
@@ -115,11 +153,12 @@ struct SettingsView: View {
         }
         .foregroundColor(.white)
     }
+    
 }
 
 // Preview provider
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(show: .constant(true), currentNodeId: .constant(1))
+        SettingsView(show: .constant(true), currentNodeId: .constant(1), energy: .constant(8), mentality: .constant(6), food: .constant(6), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6))
     }
 }
