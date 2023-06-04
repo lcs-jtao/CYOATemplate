@@ -53,8 +53,8 @@ struct InformationView: View {
                     
                 }
                 .padding(.horizontal, 20)
-                .onAppear {
-                    switch node.location {
+                .onChange(of: node.location) { currentLocation in
+                    switch currentLocation {
                     case "The Coast":
                         illustrationName = "Coast"
                     case "The Park":

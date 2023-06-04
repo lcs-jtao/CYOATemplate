@@ -128,15 +128,6 @@ struct SettingsView: View {
         .foregroundColor(.white)
     }
     
-    // MARK: Initializer
-//    init(energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>) {
-//
-//        // Set the initial values
-//        _energy = energy
-//        _mentality = mentality
-//        _food = food
-//
-//    }
 }
 
 // Preview provider

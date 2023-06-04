@@ -26,6 +26,8 @@ struct GamingView: View {
     
     @State var food: Int = 4
     
+    @State private var isEnding: Bool = false
+    
     // MARK: Computed properties
     var mentalityState: String {
         if mentality <= 2 {
@@ -51,63 +53,66 @@ struct GamingView: View {
                 
                 InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food)
                 
-                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food)
+                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding)
                 
-                // Display changes in values
-                Text("Energy - 1, Food + 3")
-                    .padding(.horizontal)
-                
-                // Divider
-                Divider()
-                    .frame(height: 1.5)
-                    .overlay(.white)
-                
-                // Display values
-                HStack(alignment: .top, spacing: 15) {
+                if isEnding == false {
+                    // Display changes in values
+                    Text("Energy - 1, Food + 3")
+                        .padding(.horizontal)
                     
-                    Text("ME")
-                        .font(.title3)
+                    // Divider
+                    Divider()
+                        .frame(height: 1.5)
+                        .overlay(.white)
                     
-                    VStack(alignment: .leading, spacing: 15) {
+                    // Display values
+                    HStack(alignment: .top, spacing: 15) {
                         
-                        HStack {
-                            // Energy
-                            Text("Energy")
+                        Text("ME")
+                            .font(.title3)
+                        
+                        VStack(alignment: .leading, spacing: 15) {
                             
-                            // Completion meter
-                            CompletionMeterView(energy: CGFloat(energy))
+                            HStack {
+                                // Energy
+                                Text("Energy")
+                                
+                                // Completion meter
+                                CompletionMeterView(energy: CGFloat(energy))
+                            }
+                            
+                            // Mentality & Food
+                            HStack {
+                                
+                                Text("Mentality: \(mentalityState)")
+                                    .padding(.trailing, 20)
+                                
+                                Image("Bread")
+                                    .resizable()
+                                    .frame(width: 15, height: 15)
+                                
+                                Text(": \(food)")
+                                
+                            }
                         }
                         
-                        // Mentality & Food
-                        HStack {
-                            
-                            Text("Mentality: \(mentalityState)")
-                                .padding(.trailing, 20)
-                            
-                            Image("Bread")
-                                .resizable()
-                                .frame(width: 15, height: 15)
-                            
-                            Text(": \(food)")
-                            
-                        }
-                    }
-                    
-                    // Settings
-                    Button(action: {
-                        withAnimation(.linear(duration: 0.3)) {
-                            showPopUp.toggle()
-                        }
-                    }, label: {
-                        Image(systemName: "gear")
-                            .scaleEffect(2)
-                            .foregroundColor(.white)
-                    })
-                    .padding([.leading, .top], 10)
-                    
+                        // Settings
+                        Button(action: {
+                            withAnimation(.linear(duration: 0.3)) {
+                                showPopUp.toggle()
+                            }
+                        }, label: {
+                            Image(systemName: "gear")
+                                .scaleEffect(2)
+                                .foregroundColor(.white)
+                        })
+                        .padding([.leading, .top], 10)
+                        
                 }
-                .padding(.horizontal)
-                .padding(.vertical, 5)
+                    .padding(.horizontal)
+                    .padding(.vertical, 5)
+                
+                }
                 
             }
             .padding(.bottom, 10)

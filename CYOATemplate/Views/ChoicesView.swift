@@ -29,6 +29,9 @@ struct ChoicesView: View {
     
     @Binding var food: Int
     
+    // Is it an ending?
+    @Binding var isEnding: Bool
+    
     var body: some View {
         
         // Choices
@@ -47,6 +50,7 @@ struct ChoicesView: View {
                         
                         withAnimation(.easeIn(duration: 3)) {
                             currentNodeId = 1
+                            isEnding = false
                         }
                         
                         // Reset values
@@ -69,6 +73,8 @@ struct ChoicesView: View {
                     // Home
                     Button(action: {
                         
+                        //isEnding = false
+                        
                         // Reset values
                         energy = 8
                         mentality = 8
@@ -88,7 +94,7 @@ struct ChoicesView: View {
                     
                 }
                 .padding(.horizontal, 5)
-                .padding(.vertical, 10)
+                .padding(.vertical, 30)
                 .opacity(zeroEdgeShowButton ? 1 : 0)
                 .onAppear {
                         withAnimation(.easeIn(duration: 1).delay(6)) {
@@ -160,11 +166,16 @@ struct ChoicesView: View {
             
         }
         .foregroundColor(.white)
+        .onChange(of: edges.results.count) { currentNumberOfEdges in
+            if currentNumberOfEdges == 0 {
+                isEnding = true
+            }
+        }
         
     }
     
     // MARK: Initializer
-    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>) {
+    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, isEnding: Binding<Bool>) {
         
         // Retrieve edges for the current node in the graph
         _edges = BlackbirdLiveModels({ db in
@@ -179,6 +190,7 @@ struct ChoicesView: View {
         _energy = energy
         _mentality = mentality
         _food = food
+        _isEnding = isEnding
         
     }
 }
@@ -186,7 +198,7 @@ struct ChoicesView: View {
 // Preview provider
 struct ChoicesView_Previews: PreviewProvider {
     static var previews: some View {
-        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6))
+        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6), isEnding: .constant(true))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }
