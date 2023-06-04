@@ -12,13 +12,10 @@ struct GamingView: View {
     // MARK: Stored properties
     
     // What node are we on?
-    @State var currentNodeId: Int = 1
+    @State var currentNodeId: Int = 2
     
     // Needed to query database
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
-    
-    // The list of nodes retrieved
-    @BlackbirdLiveModels var nodes: Blackbird.LiveResults<Node>
     
     @State private var showPopUp: Bool = false
     
@@ -66,8 +63,6 @@ struct GamingView: View {
     }
     
     var body: some View {
-        
-        if let node = nodes.results.first {
             
             ZStack {
                 
@@ -77,34 +72,9 @@ struct GamingView: View {
                 
                 VStack(alignment: .leading) {
                     
-                    VStack(spacing: 15) {
-                        
-                        // Day & Location
-                        HStack {
-                            
-                            Text("Day 1")
-                            
-                            Spacer()
-                            
-                            Text("The Coast")
-                            
-                        }
-                        .padding(.horizontal, 20)
-                        
-                        // Illustration
-                        Image("Coast")
-                            .resizable()
-                            .scaledToFit()
-                        
-                            // Narrative
-                            Text(try! AttributedString(markdown: node.narrative,
-                                                       options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
-                                                                                                              .inlineOnlyPreservingWhitespace)))
-                                .padding(.horizontal, 10)
-                        
-                        ChoicesView(currentNodeId: $currentNodeId)
-                        
-                    }
+                    InformationView(currentNodeId: currentNodeId)
+                    
+                    ChoicesView(currentNodeId: $currentNodeId)
                     
                     // Display changes in values
                     Text("Energy - 1, Food + 3")
@@ -180,32 +150,15 @@ struct GamingView: View {
                 SettingsView(show: $showPopUp)
             }
             .foregroundColor(.white)
-            
-        } else {
-            Text("Node with id \(currentNodeId) not found; directed graph has a gap.")
-        }
         
     }
     
-    // MARK: Initializer
-    init(currentNodeId: Int) {
-        
-        // Retrieve rows that describe nodes in the directed graph
-        _nodes = BlackbirdLiveModels({ db in
-            try await Node.read(from: db,
-                                    sqlWhere: "node_id = ?", "\(currentNodeId)")
-        })
-        
-        // Set the node we are trying to view
-        self.currentNodeId = currentNodeId
-        
-    }
 }
 
 // Preview provider
 struct GamingView_Previews: PreviewProvider {
     static var previews: some View {
-        GamingView(currentNodeId: 1)
+        GamingView()
             // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }

@@ -129,7 +129,7 @@ struct ChoicesView: View {
         .onTapGesture {
             if edges.results.count == 1 {
                 // Proceed to next page
-                currentNodeId = 2
+                //currentNodeId = 2
             }
             print("tapped1")
         }
