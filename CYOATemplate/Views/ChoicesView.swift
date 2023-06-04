@@ -34,9 +34,9 @@ struct ChoicesView: View {
         // Choices
         VStack {
             
-            Spacer()
-            
             if edges.results.count == 0 {
+                
+                Spacer()
                 
                 // Zero edge (Endings)
                 
@@ -78,10 +78,17 @@ struct ChoicesView: View {
                 .padding(.horizontal, 5)
                 .padding(.vertical, 10)
                 .opacity(zeroEdgeShowButton ? 1 : 0)
+                .onAppear {
+                    //if edges.results.count == 0 {
+                        withAnimation(.easeIn(duration: 1).delay(6)) {
+                            zeroEdgeShowButton = true
+                        }
+                    //}
+                }
                 
             } else if edges.results.count == 2 || edges.results.count == 3 {
                 
-                //Spacer()
+                Spacer()
                 
                 ForEach(edges.results) { currentEdge in
                         
@@ -89,6 +96,12 @@ struct ChoicesView: View {
                             
                             // Choice 1
                             Button(action: {
+                                
+                                withAnimation(.easeIn(duration: 6)) {
+                                    currentNodeId = currentEdge.to_node_id
+                                }
+                                
+                                //currentNodeId = currentEdge.to_node_id
                                 
                             }, label: {
                                 HStack {
@@ -101,9 +114,6 @@ struct ChoicesView: View {
                                 }
                             })
                             .buttonStyle(CustomButton())
-                            .onTapGesture {
-                                currentNodeId = currentEdge.to_node_id
-                            }
                             
                         }
                 }
@@ -112,32 +122,34 @@ struct ChoicesView: View {
                 
             } else if edges.results.count == 1 {
                 
-                    HStack(alignment: .center, spacing: 15) {
-                        Spacer()
-
-                        Text("Next...")
-                    }
+                ForEach(edges.results) { currentEdge in
+                    
+                    Button(action: {
+                        
+                        withAnimation(.easeIn(duration: 6)) {
+                            currentNodeId = currentEdge.to_node_id
+                        }
+                        
+                        //currentNodeId = currentEdge.to_node_id
+                        
+                    }, label: {
+                        VStack {
+                            Spacer()
+                            
+                            HStack {
+                                Spacer()
+                                
+                                Text("Next...")
+                            }
+                        }
+                    })
+                }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 6)
             }
             
         }
         .foregroundColor(.white)
-        //.background(.yellow)
-        .onAppear {
-            if edges.results.count == 0 {
-                withAnimation(.easeIn(duration: 1).delay(3)) {
-                    zeroEdgeShowButton = true
-                }
-            }
-        }
-        .onTapGesture {
-            if edges.results.count == 1 {
-                // Proceed to next page
-                //currentNodeId =
-            }
-            print("tapped1")
-        }
         
     }
     

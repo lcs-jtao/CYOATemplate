@@ -104,7 +104,7 @@ struct SettingsView: View {
                             })
                             .buttonStyle(CustomButton())
                         }
-                        .padding(.vertical)
+                        .padding(.bottom, 20)
                     }
                     
                 }
