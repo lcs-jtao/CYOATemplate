@@ -19,8 +19,6 @@ struct GamingView: View {
     
     @State private var showPopUp: Bool = false
     
-    @State var date: Int = 1
-    
     // Values
     @State var energy: Int = 8
     
@@ -52,8 +50,6 @@ struct GamingView: View {
             VStack(alignment: .leading) {
                 
                 InformationView(currentNodeId: currentNodeId)
-                
-//                Spacer()
                 
                 ChoicesView(currentNodeId: $currentNodeId)
                 
@@ -92,7 +88,7 @@ struct GamingView: View {
                                 .resizable()
                                 .frame(width: 15, height: 15)
                             
-                            Text(": 4")
+                            Text(": \(food)")
                             
                         }
                     }
@@ -117,16 +113,6 @@ struct GamingView: View {
             .padding(.bottom, 10)
             .edgesIgnoringSafeArea(.horizontal)
             .edgesIgnoringSafeArea(.bottom)
-            .onChange(of: date) { newDate in
-                if energy <= 0 {
-                    // Go to ending
-                }
-                energy += 1
-                food -= 1
-                if mentality <= 2 {
-                    energy -= 1
-                }
-            }
             
             SettingsView(show: $showPopUp, currentNodeId: $currentNodeId)
         }

@@ -23,6 +23,16 @@ struct InformationView: View {
     
     @State var illustrationName: String = ""
     
+    // Day
+    @State var numberOfDays: Int = 1
+    
+    // Values
+    @State var energy: Int = 8
+    
+    @State var mentality: Int = 8
+    
+    @State var food: Int = 4
+    
     var body: some View {
         
         if let node = nodes.results.first {
@@ -62,6 +72,17 @@ struct InformationView: View {
                     default:
                         illustrationName = ""
                     }
+                    numberOfDays = node.day
+                }
+                .onChange(of: numberOfDays) { _ in
+                    if energy <= 0 {
+                        // Go to ending
+                    }
+                    energy += 1
+                    food -= 1
+                    if mentality <= 2 {
+                        energy -= 1
+                    }
                 }
                 
                 // Illustration
@@ -74,8 +95,6 @@ struct InformationView: View {
                                            options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                                                 .inlineOnlyPreservingWhitespace)))
                 .padding(.horizontal, 10)
-                
-                //Spacer()
                 
             }
             .fixedSize(horizontal: false, vertical: true)
