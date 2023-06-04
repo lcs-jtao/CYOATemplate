@@ -50,8 +50,9 @@ struct ChoicesView: View {
                         
                         withAnimation(.easeIn(duration: 3)) {
                             currentNodeId = 1
-                            isEnding = false
                         }
+                        
+                        isEnding = false
                         
                         // Reset values
                         energy = 8
@@ -85,7 +86,7 @@ struct ChoicesView: View {
                             Spacer()
                             
                             Image(systemName: "house")
-                            Text("Back to Home")
+                            Text("Home")
                             
                             Spacer()
                         }
@@ -93,8 +94,8 @@ struct ChoicesView: View {
                     .buttonStyle(CustomButton())
                     
                 }
-                .padding(.horizontal, 5)
-                .padding(.vertical, 30)
+                .padding(.horizontal, 20)
+                .padding(.vertical, 40)
                 .opacity(zeroEdgeShowButton ? 1 : 0)
                 .onAppear {
                         withAnimation(.easeIn(duration: 1).delay(6)) {
@@ -117,7 +118,10 @@ struct ChoicesView: View {
                                     currentNodeId = currentEdge.to_node_id
                                 }
                                 
-                                //currentNodeId = currentEdge.to_node_id
+                                // Vlaue changes
+                                energy += currentEdge.energy
+                                mentality += currentEdge.mentality
+                                food += currentEdge.food
                                 
                             }, label: {
                                 HStack {
@@ -146,7 +150,10 @@ struct ChoicesView: View {
                             currentNodeId = currentEdge.to_node_id
                         }
                         
-                        //currentNodeId = currentEdge.to_node_id
+                        // Vlaue changes
+                        energy += currentEdge.energy
+                        mentality += currentEdge.mentality
+                        food += currentEdge.food
                         
                     }, label: {
                         VStack {

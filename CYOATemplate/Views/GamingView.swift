@@ -12,7 +12,7 @@ struct GamingView: View {
     // MARK: Stored properties
     
     // What node are we on?
-    @State var currentNodeId: Int = 100
+    @State var currentNodeId: Int = 174
     
     // Needed to query database
     //@Environment(\.blackbirdDatabase) var db: Blackbird.Database?
@@ -87,6 +87,8 @@ struct GamingView: View {
                                 Text("Mentality: \(mentalityState)")
                                     .padding(.trailing, 20)
                                 
+                                Spacer()
+                                
                                 Image("Bread")
                                     .resizable()
                                     .frame(width: 15, height: 15)
@@ -94,6 +96,7 @@ struct GamingView: View {
                                 Text(": \(food)")
                                 
                             }
+                            .padding(.trailing, 50)
                         }
                         
                         // Settings
