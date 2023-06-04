@@ -45,7 +45,11 @@ struct ChoicesView: View {
                     // Restart
                     Button(action: {
                         
-                        currentNodeId = 1
+                        withAnimation(.easeIn(duration: 3)) {
+                            currentNodeId = 1
+                        }
+                        
+                        //currentNodeId = 1
                         
                     }, label: {
                         HStack {
@@ -79,11 +83,9 @@ struct ChoicesView: View {
                 .padding(.vertical, 10)
                 .opacity(zeroEdgeShowButton ? 1 : 0)
                 .onAppear {
-                    //if edges.results.count == 0 {
                         withAnimation(.easeIn(duration: 1).delay(6)) {
                             zeroEdgeShowButton = true
                         }
-                    //}
                 }
                 
             } else if edges.results.count == 2 || edges.results.count == 3 {
@@ -97,7 +99,7 @@ struct ChoicesView: View {
                             // Choice 1
                             Button(action: {
                                 
-                                withAnimation(.easeIn(duration: 6)) {
+                                withAnimation(.easeIn(duration: 3)) {
                                     currentNodeId = currentEdge.to_node_id
                                 }
                                 
@@ -126,7 +128,7 @@ struct ChoicesView: View {
                     
                     Button(action: {
                         
-                        withAnimation(.easeIn(duration: 6)) {
+                        withAnimation(.easeIn(duration: 3)) {
                             currentNodeId = currentEdge.to_node_id
                         }
                         

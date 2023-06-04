@@ -71,6 +71,9 @@
 		22268C922A2C10AB00DE3AFC /* ExampleViews */ = {
 			isa = PBXGroup;
 			children = (
+				81C198B82A251AE00047A4B3 /* GameView.swift */,
+				81C784AA2A28AD0B001BC867 /* NodeView.swift */,
+				81C784AE2A28B4E7001BC867 /* EdgesView.swift */,
 			);
 			path = ExampleViews;
 			sourceTree = "<group>";
@@ -128,9 +131,6 @@
 		81C198B72A251AD10047A4B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				81C198B82A251AE00047A4B3 /* GameView.swift */,
-				81C784AA2A28AD0B001BC867 /* NodeView.swift */,
-				81C784AE2A28B4E7001BC867 /* EdgesView.swift */,
 				22268C832A2BE7FB00DE3AFC /* GamingView.swift */,
 				22268C902A2C0BB300DE3AFC /* InformationView.swift */,
 				22268C8E2A2BFC7700DE3AFC /* ChoicesView.swift */,
