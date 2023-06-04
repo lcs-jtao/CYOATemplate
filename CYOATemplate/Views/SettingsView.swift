@@ -39,7 +39,7 @@ struct SettingsView: View {
                                 Button(action: {
                                     
                                     // Dismiss the pop up
-                                    withAnimation(.linear(duration: 0.1)) {
+                                    withAnimation(.linear(duration: 0.2)) {
                                         show = false
                                         
                                     }

@@ -12,31 +12,41 @@ struct ChoicesView: View {
     
     // MARK: Stored properties
     
-    // What node are we on?
-    @Binding var currentNodeId: Int
-    
     // Needed to query database
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
     
     // The list of edges retrieved
     @BlackbirdLiveModels var edges: Blackbird.LiveResults<Edge>
     
+    @Binding var currentNodeId: Int
+    
     @State var zeroEdgeShowButton = false
+    
+    // Values
+    @State var energy: Int = 8
+    
+    @State var mentality: Int = 8
+    
+    @State var food: Int = 4
     
     var body: some View {
         
         // Choices
         VStack {
             
+            //Spacer()
+            
             if edges.results.count == 0 {
                 
                 // Zero edge (Endings)
-                Spacer()
+                //Spacer()
                 
                 HStack (alignment: .center, spacing: 15) {
                     
                     // Restart
                     Button(action: {
+                        
+                        currentNodeId = 1
                         
                     }, label: {
                         HStack {
@@ -72,13 +82,9 @@ struct ChoicesView: View {
                 
             } else if edges.results.count == 2 || edges.results.count == 3 {
                 
-                Spacer()
+                //Spacer()
                 
                 ForEach(edges.results) { currentEdge in
-                    
-                    HStack {
-                        
-                        Spacer()
                         
                         VStack (alignment: .center) {
                             
@@ -101,24 +107,28 @@ struct ChoicesView: View {
                             }
                             
                         }
-                        
-                        Spacer()
-                        
-                    }
-                    
                 }
                 .padding(.horizontal, 40)
                 .padding(.vertical, 6)
                 
             } else if edges.results.count == 1 {
-                Spacer()
-                    .onTapGesture {
-                        //currentNodeId = 2
-                        print("tapped")
+                
+                //Spacer()
+                
+                //VStack (alignment: .center) {
+                    HStack(alignment: .center, spacing: 15) {
+                        Spacer()
+
+                        Text("Next...")
                     }
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 6)
+                //}
             }
+            
         }
         .foregroundColor(.white)
+        .background(.yellow)
         .onAppear {
             if edges.results.count == 0 {
                 withAnimation(.easeIn(duration: 1).delay(3)) {
@@ -129,7 +139,7 @@ struct ChoicesView: View {
         .onTapGesture {
             if edges.results.count == 1 {
                 // Proceed to next page
-                //currentNodeId = 2
+                //currentNodeId = 96
             }
             print("tapped1")
         }

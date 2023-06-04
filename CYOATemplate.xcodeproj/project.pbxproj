@@ -11,7 +11,6 @@
 		22268C872A2BE84C00DE3AFC /* CustomButtonViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C862A2BE84C00DE3AFC /* CustomButtonViewModifier.swift */; };
 		22268C892A2BE97500DE3AFC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C882A2BE97500DE3AFC /* SettingsView.swift */; };
 		22268C8B2A2BE9C700DE3AFC /* CompletionMeterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */; };
-		22268C8D2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C8C2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift */; };
 		22268C8F2A2BFC7700DE3AFC /* ChoicesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C8E2A2BFC7700DE3AFC /* ChoicesView.swift */; };
 		22268C912A2C0BB300DE3AFC /* InformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C902A2C0BB300DE3AFC /* InformationView.swift */; };
 		81C198A92A251ABB0047A4B3 /* CYOATemplateApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */; };
@@ -33,7 +32,6 @@
 		22268C862A2BE84C00DE3AFC /* CustomButtonViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonViewModifier.swift; sourceTree = "<group>"; };
 		22268C882A2BE97500DE3AFC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionMeterView.swift; sourceTree = "<group>"; };
-		22268C8C2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NarrativesAndChoicesView.swift; sourceTree = "<group>"; };
 		22268C8E2A2BFC7700DE3AFC /* ChoicesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesView.swift; sourceTree = "<group>"; };
 		22268C902A2C0BB300DE3AFC /* InformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationView.swift; sourceTree = "<group>"; };
 		81C198A52A251ABB0047A4B3 /* CYOATemplate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CYOATemplate.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,6 +68,13 @@
 			path = "View Modifiers";
 			sourceTree = "<group>";
 		};
+		22268C922A2C10AB00DE3AFC /* ExampleViews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ExampleViews;
+			sourceTree = "<group>";
+		};
 		81C1989C2A251ABB0047A4B3 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +97,7 @@
 				81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */,
 				81C784A72A28AB26001BC867 /* Helpers */,
 				81C198B62A251ACD0047A4B3 /* Model */,
+				22268C922A2C10AB00DE3AFC /* ExampleViews */,
 				81C198B72A251AD10047A4B3 /* Views */,
 				22268C852A2BE81800DE3AFC /* View Modifiers */,
 				81C198AC2A251ABC0047A4B3 /* Assets.xcassets */,
@@ -123,14 +129,13 @@
 			isa = PBXGroup;
 			children = (
 				81C198B82A251AE00047A4B3 /* GameView.swift */,
+				81C784AA2A28AD0B001BC867 /* NodeView.swift */,
+				81C784AE2A28B4E7001BC867 /* EdgesView.swift */,
 				22268C832A2BE7FB00DE3AFC /* GamingView.swift */,
 				22268C902A2C0BB300DE3AFC /* InformationView.swift */,
 				22268C8E2A2BFC7700DE3AFC /* ChoicesView.swift */,
-				22268C8C2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift */,
 				22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */,
 				22268C882A2BE97500DE3AFC /* SettingsView.swift */,
-				81C784AA2A28AD0B001BC867 /* NodeView.swift */,
-				81C784AE2A28B4E7001BC867 /* EdgesView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -228,7 +233,6 @@
 				81C198BD2A251B2B0047A4B3 /* Edge.swift in Sources */,
 				81C198A92A251ABB0047A4B3 /* CYOATemplateApp.swift in Sources */,
 				22268C8B2A2BE9C700DE3AFC /* CompletionMeterView.swift in Sources */,
-				22268C8D2A2BE9EF00DE3AFC /* NarrativesAndChoicesView.swift in Sources */,
 				81C784AF2A28B4E7001BC867 /* EdgesView.swift in Sources */,
 				81C784AB2A28AD0B001BC867 /* NodeView.swift in Sources */,
 				22268C842A2BE7FB00DE3AFC /* GamingView.swift in Sources */,

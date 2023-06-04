@@ -21,6 +21,8 @@ struct InformationView: View {
     // The list of nodes retrieved
     @BlackbirdLiveModels var nodes: Blackbird.LiveResults<Node>
     
+    @State var illustrationName: String = ""
+    
     var body: some View {
         
         if let node = nodes.results.first {
@@ -30,19 +32,42 @@ struct InformationView: View {
                 // Day & Location
                 HStack {
                     
-                    Text("Day 1")
+                    Text ("Day ") +
+                    Text("\(node.day)")
                     
                     Spacer()
                     
-                    Text("The Coast")
+                    Text(try! AttributedString(markdown: node.location,
+                                               options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
+                                                    .inlineOnlyPreservingWhitespace)))
                     
                 }
                 .padding(.horizontal, 20)
+                .onAppear {
+                    switch node.location {
+                    case "The Coast":
+                        illustrationName = "Coast"
+                    case "The Park":
+                        illustrationName = "Park"
+                    case "The Hospital":
+                        illustrationName = "Hospital"
+                    case "The Factory":
+                        illustrationName = "Factory"
+                    case "The Lake":
+                        illustrationName = "Lake"
+                    case "The Cabin":
+                        illustrationName = "Cabin"
+                    case "Adventure":
+                        illustrationName = "Adventure"
+                    default:
+                        illustrationName = ""
+                    }
+                }
                 
                 // Illustration
                 Image("Coast")
                     .resizable()
-                    .scaledToFill()
+                    .scaledToFit()
                 
                 // Narrative
                 Text(try! AttributedString(markdown: node.narrative,
@@ -50,9 +75,12 @@ struct InformationView: View {
                                                 .inlineOnlyPreservingWhitespace)))
                 .padding(.horizontal, 10)
                 
+                //Spacer()
+                
             }
             .padding(.bottom, 10)
             .edgesIgnoringSafeArea(.horizontal)
+            .background(.blue)
             
         }
     }

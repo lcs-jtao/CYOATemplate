@@ -17,5 +17,7 @@ struct Node: BlackbirdModel {
     @BlackbirdColumn var ending_type_id: Int?
     @BlackbirdColumn var ending_narrative: String?
     @BlackbirdColumn var visits: Int
+    @BlackbirdColumn var day: Int
+    @BlackbirdColumn var location: String
     
 }
