@@ -38,7 +38,7 @@ struct GamingView: View {
     
     @State var lastMentality: Int = 8
     
-    @State var lastFood: Int = 8
+    @State var lastFood: Int = 4
     
     // MARK: Computed properties
     var mentalityState: String {
@@ -65,7 +65,7 @@ struct GamingView: View {
                 
                 InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food)
                 
-                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding)
+                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
                 
                 if isEnding == false {
                     // Display changes in values
@@ -164,7 +164,7 @@ struct GamingView: View {
             .edgesIgnoringSafeArea(.horizontal)
             .edgesIgnoringSafeArea(.bottom)
             
-            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food)
+            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
         }
         .foregroundColor(.white)
         

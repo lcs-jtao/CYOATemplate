@@ -29,6 +29,18 @@ struct ChoicesView: View {
     
     @Binding var food: Int
     
+    @Binding var energyChange: Int
+    
+    @Binding var mentalityChange: Int
+    
+    @Binding var foodChange: Int
+    
+    @Binding var lastEnergy: Int
+    
+    @Binding var lastMentality: Int
+    
+    @Binding var lastFood: Int
+    
     // Is it an ending?
     @Binding var isEnding: Bool
     
@@ -58,6 +70,12 @@ struct ChoicesView: View {
                         energy = 8
                         mentality = 8
                         food = 4
+                        energyChange = 0
+                        mentalityChange = 0
+                        foodChange = 0
+                        lastEnergy = 8
+                        lastMentality = 8
+                        lastFood = 4
                         
                     }, label: {
                         HStack {
@@ -80,6 +98,12 @@ struct ChoicesView: View {
                         energy = 8
                         mentality = 8
                         food = 4
+                        energyChange = 0
+                        mentalityChange = 0
+                        foodChange = 0
+                        lastEnergy = 8
+                        lastMentality = 8
+                        lastFood = 4
                         
                     }, label: {
                         HStack {
@@ -194,7 +218,7 @@ struct ChoicesView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, isEnding: Binding<Bool>) {
+    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, isEnding: Binding<Bool>, energyChange: Binding<Int>, mentalityChange: Binding<Int>, foodChange: Binding<Int>, lastEnergy: Binding<Int>, lastMentality: Binding<Int>, lastFood: Binding<Int>) {
         
         // Retrieve edges for the current node in the graph
         _edges = BlackbirdLiveModels({ db in
@@ -210,6 +234,12 @@ struct ChoicesView: View {
         _mentality = mentality
         _food = food
         _isEnding = isEnding
+        _energyChange = energyChange
+        _mentalityChange = mentalityChange
+        _foodChange = foodChange
+        _lastEnergy = lastEnergy
+        _lastMentality = lastMentality
+        _lastFood = lastFood
         
     }
 }
@@ -217,7 +247,7 @@ struct ChoicesView: View {
 // Preview provider
 struct ChoicesView_Previews: PreviewProvider {
     static var previews: some View {
-        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6), isEnding: .constant(true))
+        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6), isEnding: .constant(true), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }
