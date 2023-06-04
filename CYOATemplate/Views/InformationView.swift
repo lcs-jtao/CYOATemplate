@@ -27,11 +27,11 @@ struct InformationView: View {
     @State var numberOfDays: Int = 1
     
     // Values
-    @State var energy: Int = 8
+    @Binding var energy: Int
     
-    @State var mentality: Int = 8
+    @Binding var mentality: Int
     
-    @State var food: Int = 4
+    @Binding var food: Int
     
     var body: some View {
         
@@ -50,6 +50,7 @@ struct InformationView: View {
                     Text(try! AttributedString(markdown: node.location,
                                                options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                                                     .inlineOnlyPreservingWhitespace)))
+                    .frame(alignment: .topLeading)
                     
                 }
                 .padding(.horizontal, 20)
@@ -105,7 +106,7 @@ struct InformationView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Int) {
+    init(currentNodeId: Int, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>) {
         
         // Retrieve rows that describe nodes in the directed graph
         _nodes = BlackbirdLiveModels({ db in
@@ -116,12 +117,17 @@ struct InformationView: View {
         // Set the node we are trying to view
         self.currentNodeId = currentNodeId
         
+        // Set the initial values
+        _energy = energy
+        _mentality = mentality
+        _food = food
+        
     }
 }
 
 struct InformationView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationView(currentNodeId: 1)
+        InformationView(currentNodeId: 1, energy: .constant(8), mentality: .constant(6), food: .constant(4))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }

@@ -23,11 +23,11 @@ struct ChoicesView: View {
     @State var zeroEdgeShowButton = false
     
     // Values
-    @State var energy: Int = 8
+    @Binding var energy: Int
     
-    @State var mentality: Int = 8
+    @Binding var mentality: Int
     
-    @State var food: Int = 4
+    @Binding var food: Int
     
     var body: some View {
         
@@ -156,7 +156,7 @@ struct ChoicesView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Binding<Int>) {
+    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>) {
         
         // Retrieve edges for the current node in the graph
         _edges = BlackbirdLiveModels({ db in
@@ -167,13 +167,18 @@ struct ChoicesView: View {
         // Set the current node
         _currentNodeId = currentNodeId
         
+        // Set the initial values
+        _energy = energy
+        _mentality = mentality
+        _food = food
+        
     }
 }
 
 // Preview provider
 struct ChoicesView_Previews: PreviewProvider {
     static var previews: some View {
-        ChoicesView(currentNodeId: .constant(2))
+        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }

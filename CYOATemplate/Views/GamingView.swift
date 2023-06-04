@@ -49,9 +49,9 @@ struct GamingView: View {
             
             VStack(alignment: .leading) {
                 
-                InformationView(currentNodeId: currentNodeId)
+                InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food)
                 
-                ChoicesView(currentNodeId: $currentNodeId)
+                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food)
                 
                 // Display changes in values
                 Text("Energy - 1, Food + 3")
