@@ -24,7 +24,7 @@ struct InformationView: View {
     @State var illustrationName: String = ""
     
     // Day
-    //@State var numberOfDays: Int = 1
+    @State var numberOfDays: Int = 1
     
     // Values
     @Binding var energy: Int
@@ -73,17 +73,22 @@ struct InformationView: View {
                         illustrationName = ""
                     }
                 }
-                .onChange(of: node.day) { _ in
-                    if node.day != 1 {
+                .onChange(of: node.day) { currentDay in
+                    
+                    if currentDay != 1 {
                         if energy <= 0 {
                             // Go to ending
                         }
                         energy += 1
+                        if energy > 10 {
+                            energy = 10
+                        }
                         food -= 1
                         if mentality <= 2 {
                             energy -= 1
                         }
                     }
+                    
                 }
                 
                 // Illustration
