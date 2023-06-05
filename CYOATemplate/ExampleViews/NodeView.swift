@@ -40,15 +40,12 @@ struct NodeView: View {
                 Text(try! AttributedString(markdown: node.narrative,
                                            options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                                                                                                   .inlineOnlyPreservingWhitespace)))
-                .onAppear {
-                    // Update visits count for this node
-                    Task {
-                        try await db!.transaction { core in
-                            try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
-                            // try core.query("UPDATE Node SET visits = ? Node.visits + 1 WHERE node_id = ?", 50, currentNodeId)
-                        }
-                        
-                    }
+                .onAppear { // Only works when it first appear
+                    updateVisitCount(forNodeWithId: currentNodeId)
+                    
+                }
+                .onChange(of: currentNodeId) { newNodeId in
+                    updateVisitCount(forNodeWithId: newNodeId)
                     
                 }
                 
@@ -60,6 +57,8 @@ struct NodeView: View {
     }
     
     // MARK: Initializer
+    
+    // Function that runs once when the structure is created (runs synchronously)
     init(currentNodeId: Int) {
         
         // Retrieve rows that describe nodes in the directed graph
@@ -76,6 +75,18 @@ struct NodeView: View {
         
     }
 
+    // MARK: Function(s)
+    func updateVisitCount(forNodeWithId id: Int) {
+        
+        // Update visits count for this node (runs asynchronously)
+        Task {
+            try await db!.transaction { core in
+                try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", id)
+                // try core.query("UPDATE Node SET visits = ? Node.visits + 1 WHERE node_id = ?", 50, currentNodeId)
+            }
+            
+        }
+    }
     
 }
 
