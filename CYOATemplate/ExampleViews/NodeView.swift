@@ -40,12 +40,22 @@ struct NodeView: View {
                 Text(try! AttributedString(markdown: node.narrative,
                                            options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
                                                                                                   .inlineOnlyPreservingWhitespace)))
-                .onAppear {
+                .onAppear { // Only works when it first appear
                     // Update visits count for this node
                     Task {
                         try await db!.transaction { core in
                             try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
                             // try core.query("UPDATE Node SET visits = ? Node.visits + 1 WHERE node_id = ?", 50, currentNodeId)
+                        }
+                        
+                    }
+                    
+                }
+                .onChange(of: currentNodeId) { newNodeId in
+                    // Update visits count for this node
+                    Task {
+                        try await db!.transaction { core in
+                            try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", newNodeId)
                         }
                         
                     }
