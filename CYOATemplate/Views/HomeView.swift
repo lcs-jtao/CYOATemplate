@@ -9,8 +9,6 @@ import SwiftUI
 
 struct HomeView: View {
     
-    @Binding var show: Bool
-    
     var body: some View {
         ZStack {
             
@@ -73,6 +71,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(show: .constant(true))
+        HomeView()
     }
 }
