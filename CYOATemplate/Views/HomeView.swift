@@ -48,7 +48,7 @@ struct HomeView: View {
                     // Summary button
                     NavigationLink(destination: SummaryView()) {
                         Button(action: {
-                            print("start game")
+                            print("ending summary")
                         }, label: {
                             HStack {
                                 Image(systemName: "house")
@@ -71,6 +71,8 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        NavigationView {
+            HomeView()
+        }
     }
 }
