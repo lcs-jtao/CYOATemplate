@@ -31,32 +31,28 @@ struct HomeView: View {
                     Spacer()
                     
                     // Start button
-                    NavigationLink(destination: GamingView()) {
-                        Button(action: {
-                            print("start game")
-                        }, label: {
-                            HStack {
-                                Image(systemName: "house")
-                                Text("Start")
-                            }
-                        })
-                        .buttonStyle(CustomButton())
-                    }
+                    Button(action: {
+                        print("start game")
+                    }, label: {
+                        HStack {
+                            Image(systemName: "house")
+                            Text("Start")
+                        }
+                    })
+                    .buttonStyle(CustomButton())
                     
                     Spacer()
                     
                     // Summary button
-                    NavigationLink(destination: SummaryView()) {
-                        Button(action: {
-                            print("ending summary")
-                        }, label: {
-                            HStack {
-                                Image(systemName: "house")
-                                Text("Summary")
-                            }
-                        })
-                        .buttonStyle(CustomButton())
-                    }
+                    Button(action: {
+                        print("ending summary")
+                    }, label: {
+                        HStack {
+                            Image(systemName: "house")
+                            Text("Summary")
+                        }
+                    })
+                    .buttonStyle(CustomButton())
                     
                     Spacer()
                     
@@ -71,8 +67,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        NavigationView {
-            HomeView()
-        }
+        HomeView()
     }
 }

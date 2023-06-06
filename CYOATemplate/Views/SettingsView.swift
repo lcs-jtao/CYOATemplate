@@ -121,28 +121,26 @@ struct SettingsView: View {
                             .buttonStyle(CustomButton())
                             
                             // Home button
-                            NavigationLink(destination: HomeView()) {
-                                Button(action: {
-                                    
-                                    // Reset values
-                                    energy = 8
-                                    mentality = 8
-                                    food = 4
-                                    energyChange = 0
-                                    mentalityChange = 0
-                                    foodChange = 0
-                                    lastEnergy = 8
-                                    lastMentality = 8
-                                    lastFood = 4
-                                    
-                                }, label: {
-                                    HStack {
-                                        Image(systemName: "house")
-                                        Text("Home")
-                                    }
-                                })
-                                .buttonStyle(CustomButton())
-                            }
+                            Button(action: {
+                                
+                                // Reset values
+                                energy = 8
+                                mentality = 8
+                                food = 4
+                                energyChange = 0
+                                mentalityChange = 0
+                                foodChange = 0
+                                lastEnergy = 8
+                                lastMentality = 8
+                                lastFood = 4
+                                
+                            }, label: {
+                                HStack {
+                                    Image(systemName: "house")
+                                    Text("Home")
+                                }
+                            })
+                            .buttonStyle(CustomButton())
                         }
                         .padding(.bottom, 20)
                     }
