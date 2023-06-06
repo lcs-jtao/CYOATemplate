@@ -37,7 +37,10 @@ struct SummaryView: View {
             Color.black
                 .ignoresSafeArea(.all)
             
-            Text("A total of \(visitedNodes) nodes out of \(totalNodes) nodes overall have been visited in this story.")
+            VStack {
+                Text("You have explored \(visitedNodes) nodes out of \(totalNodes) nodes overall in this story!")
+                    .padding()
+            }
         }
         .foregroundColor(.white)
     }
