@@ -164,6 +164,10 @@ struct ChoicesView: View {
                                     energy = 0
                                 }
                                 
+                                if food < 0 {
+                                    food = 0
+                                }
+                                
                             }, label: {
                                 HStack {
                                     
@@ -205,6 +209,10 @@ struct ChoicesView: View {
                             energy = 10
                         } else if energy < 0 {
                             energy = 0
+                        }
+                        
+                        if food < 0 {
+                            food = 0
                         }
                         
                     }, label: {
