@@ -19,14 +19,17 @@ struct GamingView: View {
     
     @State private var showPopUp: Bool = false
     
+    // Show value panel or not?
+    @State private var isEnding: Bool = false
+    
+    @State private var valuePanelOpacity: CGFloat = 1
+    
     // Values
     @State var energy: Int = 8
     
     @State var mentality: Int = 8
     
     @State var food: Int = 4
-    
-    @State private var isEnding: Bool = false
     
     @State var energyChange: Int = 0
     
@@ -67,106 +70,111 @@ struct GamingView: View {
                 
                 ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
                 
-                if isEnding == false {
-                    // Display changes in values
-                    HStack {
-                        Text("Energy ")
-                        Group {
-                            if energyChange > 0 {
-                                Text("+\(energyChange)")
-                            } else {
-                                Text("\(energyChange)")
-                                    .opacity(energyChange != 0 ? 1 : 0)
+                if valuePanelOpacity == 1 {
+                    VStack {
+                        // Display changes in values
+                        HStack {
+                            Text("Energy ")
+                            Group {
+                                if energyChange > 0 {
+                                    Text("+\(energyChange)")
+                                } else {
+                                    Text("\(energyChange)")
+                                        .opacity(energyChange != 0 ? 1 : 0)
+                                }
                             }
-                        }
-                        .frame(width: 30)
-                        
-                        Text("|  Metality")
-                        Group {
-                            if mentalityChange > 0 {
-                                Text("+\(mentalityChange)")
-                            } else {
-                                Text("\(mentalityChange)")
-                                    .opacity(mentalityChange != 0 ? 1 : 0)
-                            }
-                        }
-                        .frame(width: 30)
-                        
-                        Text("|  Food")
-                        Group {
-                            if foodChange > 0 {
-                                Text("+\(foodChange)")
-                            } else {
-                                Text("\(foodChange)")
-                                    .opacity(foodChange != 0 ? 1 : 0)
-                            }
-                        }
-                        .frame(width: 30)
-                    }
-                    .padding(.horizontal)
-                    .onChange(of: currentNodeId) { _ in
-                        energyChange = energy - lastEnergy
-                        lastEnergy = energy
-                        mentalityChange = mentality - lastMentality
-                        lastMentality = mentality
-                        foodChange = food - lastFood
-                        lastFood = food
-                    }
-                    
-                    // Divider
-                    Divider()
-                        .frame(height: 1.5)
-                        .overlay(.white)
-                    
-                    // Display values
-                    HStack(alignment: .top, spacing: 15) {
-                        
-                        Text("ME")
-                            .font(.title3)
-                        
-                        VStack(alignment: .leading, spacing: 15) {
+                            .frame(width: 30)
                             
-                            HStack {
-                                // Energy
-                                Text("Energy")
-                                
-                                // Completion meter
-                                CompletionMeterView(energy: CGFloat(energy))
+                            Text("|  Metality")
+                            Group {
+                                if mentalityChange > 0 {
+                                    Text("+\(mentalityChange)")
+                                } else {
+                                    Text("\(mentalityChange)")
+                                        .opacity(mentalityChange != 0 ? 1 : 0)
+                                }
                             }
+                            .frame(width: 30)
                             
-                            // Mentality & Food
-                            HStack {
-                                
-                                Text("Mentality: \(mentalityState)")
-                                    .padding(.trailing, 20)
-                                
-                                Spacer()
-                                
-                                Image("Bread")
-                                    .resizable()
-                                    .frame(width: 15, height: 15)
-                                
-                                Text(": \(food)")
-                                
+                            Text("|  Food")
+                            Group {
+                                if foodChange > 0 {
+                                    Text("+\(foodChange)")
+                                } else {
+                                    Text("\(foodChange)")
+                                        .opacity(foodChange != 0 ? 1 : 0)
+                                }
                             }
-                            .padding(.trailing, 50)
+                            .frame(width: 30)
+                            
+                            Spacer()
+                        }
+                        .padding(.horizontal)
+                        .onChange(of: currentNodeId) { _ in
+                            energyChange = energy - lastEnergy
+                            lastEnergy = energy
+                            mentalityChange = mentality - lastMentality
+                            lastMentality = mentality
+                            foodChange = food - lastFood
+                            lastFood = food
                         }
                         
-                        // Settings
-                        Button(action: {
-                            withAnimation(.linear(duration: 0.3)) {
-                                showPopUp.toggle()
-                            }
-                        }, label: {
-                            Image(systemName: "gear")
-                                .scaleEffect(2)
-                                .foregroundColor(.white)
-                        })
-                        .padding([.leading, .top], 10)
+                        // Divider
+                        Divider()
+                            .frame(height: 1.5)
+                            .overlay(.white)
                         
+                        // Display values
+                        HStack(alignment: .top, spacing: 15) {
+                            
+                            Text("ME")
+                                .font(.title3)
+                            
+                            VStack(alignment: .leading, spacing: 15) {
+                                
+                                HStack {
+                                    // Energy
+                                    Text("Energy")
+                                    
+                                    // Completion meter
+                                    CompletionMeterView(energy: CGFloat(energy))
+                                }
+                                
+                                // Mentality & Food
+                                HStack {
+                                    
+                                    Text("Mentality: \(mentalityState)")
+                                        .padding(.trailing, 20)
+                                    
+                                    Spacer()
+                                    
+                                    Image("Bread")
+                                        .resizable()
+                                        .frame(width: 15, height: 15)
+                                    
+                                    Text(": \(food)")
+                                    
+                                }
+                                .padding(.trailing, 50)
+                            }
+                            
+                            // Settings
+                            Button(action: {
+                                withAnimation(.linear(duration: 0.3)) {
+                                    showPopUp.toggle()
+                                }
+                            }, label: {
+                                Image(systemName: "gear")
+                                    .scaleEffect(2)
+                                    .foregroundColor(.white)
+                            })
+                            .padding([.leading, .top], 10)
+                            
+                        }
+                        .padding(.horizontal)
+                        .padding(.vertical, 5)
                     }
-                    .padding(.horizontal)
-                    .padding(.vertical, 5)
+                    .opacity(valuePanelOpacity)
                     
                 }
                 
@@ -174,6 +182,17 @@ struct GamingView: View {
             .padding(.bottom, 10)
             .edgesIgnoringSafeArea(.horizontal)
             .edgesIgnoringSafeArea(.bottom)
+            .onChange(of: isEnding) { currentIsEnding in
+                if currentIsEnding {
+                    withAnimation(.easeInOut(duration: 1.5)) {
+                        valuePanelOpacity = 0
+                    }
+                } else {
+                    withAnimation(.easeInOut(duration: 1.5)) {
+                        valuePanelOpacity = 1
+                    }
+                }
+            }
             
             SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
         }

@@ -20,7 +20,7 @@ struct ChoicesView: View {
     
     @Binding var currentNodeId: Int
     
-    @State var zeroEdgeShowButton = false
+    //@State var zeroEdgeShowButton = false
     
     // Values
     @Binding var energy: Int
@@ -43,6 +43,8 @@ struct ChoicesView: View {
     
     // Is it an ending?
     @Binding var isEnding: Bool
+    
+    @State private var endingButtonsOpacity: CGFloat = 0
     
     var body: some View {
         
@@ -123,13 +125,12 @@ struct ChoicesView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
-                .opacity(zeroEdgeShowButton ? 1 : 0)
-                .onAppear {
-                    // Let the button animation show before switching to the next node
-                    Task {
-                        try await Task.sleep(for: Duration.seconds(6))
-                        
-                        zeroEdgeShowButton = true
+                .opacity(endingButtonsOpacity)
+                .onChange(of: isEnding) { currenIsEnding in
+                    if currenIsEnding {
+                        withAnimation(.easeInOut(duration: 1.5).delay(2)) {
+                            endingButtonsOpacity = 1
+                        }
                     }
                 }
                 
