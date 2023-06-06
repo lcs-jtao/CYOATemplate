@@ -11,6 +11,8 @@ import SwiftUI
 struct SummaryView: View {
     
     // MARK: Stored properties
+    @State var viewStatus = "summary"
+    
     // How many nodes have been visited?
     @BlackbirdLiveQuery(tableName: "Node", { db in
         try await db.query("SELECT COUNT(*) AS VisitedNodeCount FROM Node WHERE visits > 0")
@@ -51,24 +53,41 @@ struct SummaryView: View {
     }
     
     var body: some View {
-        ZStack {
-            Color.black
-                .ignoresSafeArea(.all)
+        if viewStatus == "main" {
+            HomeView()
+        } else {
             
-            VStack(spacing: 100) {
-                Text("You have explored \(visitedNodes) out of \(totalNodes) nodes overall in this story!")
-                    .font(.custom(
-                            "AmericanTypewriter",
-                            fixedSize: 25))
+            ZStack {
                 
-                Text("\(visitedEndings) out of \(totalEndings) endings are reached.")
-                    .font(.custom(
-                            "AmericanTypewriter",
-                            fixedSize: 15))
+                Color.black
+                    .ignoresSafeArea(.all)
+                
+                VStack(spacing: 100) {
+                    Text("You have explored \(visitedNodes) out of \(totalNodes) nodes overall in this story!")
+                        .font(.custom(
+                                "AmericanTypewriter",
+                                fixedSize: 25))
+                    
+                    Text("\(visitedEndings) out of \(totalEndings) endings are reached.")
+                        .font(.custom(
+                                "AmericanTypewriter",
+                                fixedSize: 15))
+                    
+                    Button(action: {
+                        viewStatus = "main"
+                    }, label: {
+                        HStack {
+                            Image(systemName: "house")
+                            Text("Home")
+                        }
+                    })
+                    .buttonStyle(CustomButton())
+                    
+                }
+                .padding()
             }
-            .padding()
+            .foregroundColor(.white)
         }
-        .foregroundColor(.white)
     }
 }
 

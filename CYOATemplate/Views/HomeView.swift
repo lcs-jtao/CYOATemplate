@@ -23,20 +23,14 @@ struct HomeView: View {
                 Color.black
                     .ignoresSafeArea(.all)
                     
-                VStack {
-
-                    Spacer()
+                VStack(spacing: 100) {
                     
                     Image("Coast")
                         .resizable()
                         .frame(maxHeight: 300)
                         .padding(.horizontal)
                     
-                    Spacer()
-                    
-                    HStack {
-                        
-                        Spacer()
+                    HStack(spacing: 50) {
                         
                         // Start button
                         Button(action: {
@@ -49,8 +43,6 @@ struct HomeView: View {
                         })
                         .buttonStyle(CustomButton())
                         
-                        Spacer()
-                        
                         // Summary button
                         Button(action: {
                             viewStatus = "summary"
@@ -62,11 +54,7 @@ struct HomeView: View {
                         })
                         .buttonStyle(CustomButton())
                         
-                        Spacer()
-                        
                     }
-                    
-                    Spacer()
                     
                 }
             }
