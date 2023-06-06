@@ -60,7 +60,10 @@ struct ChoicesView: View {
                     // Restart
                     Button(action: {
                         
-                        withAnimation(.easeIn(duration: 3)) {
+                        // Let the button animation show before switching to the next node
+                        Task {
+                            try await Task.sleep(for: Duration.seconds(0.15))
+                            
                             currentNodeId = 1
                         }
                         
@@ -122,7 +125,10 @@ struct ChoicesView: View {
                 .padding(.vertical, 40)
                 .opacity(zeroEdgeShowButton ? 1 : 0)
                 .onAppear {
-                    withAnimation(.easeIn(duration: 1).delay(6)) {
+                    // Let the button animation show before switching to the next node
+                    Task {
+                        try await Task.sleep(for: Duration.seconds(6))
+                        
                         zeroEdgeShowButton = true
                     }
                 }
@@ -138,7 +144,10 @@ struct ChoicesView: View {
                         // Choice 1
                         Button(action: {
                             
-                            withAnimation(.easeIn(duration: 3)) {
+                            // Let the button animation show before switching to the next node
+                            Task {
+                                try await Task.sleep(for: Duration.seconds(0.15))
+                                
                                 currentNodeId = currentEdge.to_node_id
                             }
                             
@@ -176,7 +185,10 @@ struct ChoicesView: View {
                     
                     Button(action: {
                         
-                        withAnimation(.easeIn(duration: 3)) {
+                        // Let the button animation show before switching to the next node
+                        Task {
+                            try await Task.sleep(for: Duration.seconds(0.15))
+                            
                             currentNodeId = currentEdge.to_node_id
                         }
                         
