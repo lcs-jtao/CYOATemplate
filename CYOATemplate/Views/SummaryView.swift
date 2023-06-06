@@ -5,11 +5,41 @@
 //  Created by Joyce Tao on 2023-06-05.
 //
 
+import Blackbird
 import SwiftUI
 
 struct SummaryView: View {
+    
+    // MARK: Stored properties
+    // How many nodes have been visited?
+    @BlackbirdLiveQuery(tableName: "Node", { db in
+        try await db.query("SELECT COUNT(*) AS VisitedNodeCount FROM Node WHERE Node.visits > 0")
+    }) var nodesVisitedStats
+    
+    // How many nodes are there in total?
+    @BlackbirdLiveQuery(tableName: "Node", { db in
+        try await db.query("SELECT COUNT(*) AS TotalNodeCount FROM Node")
+    }) var totalNodesStats
+    
+    // MARK: Computed properties
+    // The actual integer value for how many nodes have been visited
+    var visitedNodes: Int {
+        return nodesVisitedStats.results.first?["VisitedNodeCount"]?.intValue ?? 0
+    }
+    
+    // The total number of nodes
+    var totalNodes: Int {
+        return totalNodesStats.results.first?["TotalNodeCount"]?.intValue ?? 0
+    }
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ZStack {
+            Color.black
+                .ignoresSafeArea(.all)
+            
+            Text("A total of \(visitedNodes) nodes out of \(totalNodes) nodes overall have been visited in this story.")
+        }
+        .foregroundColor(.white)
     }
 }
 
