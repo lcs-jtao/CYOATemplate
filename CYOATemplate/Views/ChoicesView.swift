@@ -138,47 +138,50 @@ struct ChoicesView: View {
                 
                 Spacer()
                 
-                ForEach(edges.results) { currentEdge in
-                    
-                    VStack (alignment: .center) {
+                VStack {
+                    ForEach(edges.results) { currentEdge in
                         
-                        // Choice 1
-                        Button(action: {
+                        VStack (alignment: .center) {
                             
-                            // Let the button animation show before switching to the next node
-                            Task {
-                                try await Task.sleep(for: Duration.seconds(0.15))
+                            // Choice 1
+                            Button(action: {
                                 
-                                currentNodeId = currentEdge.to_node_id
-                            }
+                                // Let the button animation show before switching to the next node
+                                Task {
+                                    try await Task.sleep(for: Duration.seconds(0.15))
+                                    
+                                    currentNodeId = currentEdge.to_node_id
+                                }
+                                
+                                // Value changes
+                                energy += currentEdge.energy
+                                mentality += currentEdge.mentality
+                                food += currentEdge.food
+                                
+                                if energy > 10 {
+                                    energy = 10
+                                } else if energy < 0 {
+                                    energy = 0
+                                }
+                                
+                            }, label: {
+                                HStack {
+                                    
+                                    Spacer()
+                                    
+                                    Text(try! AttributedString(markdown: currentEdge.prompt))
+                                    
+                                    Spacer()
+                                }
+                            })
+                            .buttonStyle(CustomButton())
                             
-                            // Value changes
-                            energy += currentEdge.energy
-                            mentality += currentEdge.mentality
-                            food += currentEdge.food
-                            
-                            if energy > 10 {
-                                energy = 10
-                            } else if energy < 0 {
-                                energy = 0
-                            }
-                            
-                        }, label: {
-                            HStack {
-                                
-                                Spacer()
-                                
-                                Text(try! AttributedString(markdown: currentEdge.prompt))
-                                
-                                Spacer()
-                            }
-                        })
-                        .buttonStyle(CustomButton())
-                        
+                        }
                     }
+                    .padding(.horizontal, 40)
+                    .padding(.vertical, 6)
                 }
-                .padding(.horizontal, 40)
-                .padding(.vertical, 6)
+                .padding(.vertical, 10)
                 
             } else if edges.results.count == 1 {
                 
@@ -217,7 +220,7 @@ struct ChoicesView: View {
                     })
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 6)
+                .padding(.vertical, 10)
             }
             
         }
