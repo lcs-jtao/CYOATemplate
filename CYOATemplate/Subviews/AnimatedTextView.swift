@@ -9,6 +9,7 @@ import SwiftUI
 
 struct AnimatedTextView: View {
     
+    // MARK: Stored Properties
     @State var color = Color.white.opacity(0.8)
     
     @State var size = 100.0
@@ -46,8 +47,30 @@ struct AnimatedTextView: View {
     }
 }
 
-struct AnimatedTextView_Previews: PreviewProvider {
-    static var previews: some View {
-        AnimatedTextView()
+struct AnimatedStartView: View {
+    
+    // MARK: Stored Properties
+    @State var textColor = Color.white.opacity(0.9)
+    
+    @State var blurOpacity = 0.8
+    
+    var body: some View {
+        ZStack {
+            
+            Ellipse()
+                .foregroundColor(.white.opacity(blurOpacity))
+                .frame(width: 250, height: 6)
+                .blur(radius: 6)
+            
+            Text("- TAP TO START -")
+                .foregroundColor(textColor)
+                .font(.custom("novacut", fixedSize: 30))
+        }
+        .onAppear {
+            withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                textColor = .white.opacity(0.7)
+                blurOpacity = 0.5
+            }
+        }
     }
 }

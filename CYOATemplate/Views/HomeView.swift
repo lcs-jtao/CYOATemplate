@@ -19,8 +19,6 @@ struct HomeView: View {
     // MARK: Stored properties
     @State var viewStatus = "main"
     
-    @State var textColor = Color.white.opacity(0.9)
-    
     var body: some View {
         if viewStatus == "game" {
             GamingView()
@@ -36,35 +34,34 @@ struct HomeView: View {
                     
                     AnimatedTextView()
                     
-                    Text("TAP TO START")
-                        .foregroundColor(textColor)
-                        .font(.custom("DarumadropOne-Regular", size: 30))
-                        //.shadow(radius: 10, x: 0, y: 20)
-                        .onAppear {
-                            withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
-                                textColor = .white.opacity(0.7)
-                            }
-                        }
-                    
-                    HStack(spacing: 50) {
+                    VStack(spacing: 60) {
                         
-                        // Summary button
-                        Button(action: {
-                            // Let the button animation show before switching to the next node
-                            Task {
-                                try await Task.sleep(for: Duration.seconds(0.15))
+                        AnimatedStartView()
+                        
+                        ZStack(alignment: .topLeading) {
+                            
+                            RoundedRectangle(cornerRadius: 10)
+                                .foregroundColor(.gray.opacity(0.4))
+                                .frame(width: 130, height: 43)
+                                .blur(radius: 6)
+                            
+                            // Summary button
+                            Button(action: {
+                                Task {
+                                    try await Task.sleep(for: Duration.seconds(0.15))
+                                    
+                                    viewStatus = "summary"
+                                }
                                 
-                                viewStatus = "summary"
+                            }, label: {
+                                HStack {
+                                    Image(systemName: "square.and.pencil")
+                                    Text("Summary")
+                                }
+                            })
+                            .buttonStyle(CustomButton())
+                            .shadow(radius: 20)
                             }
-
-                        }, label: {
-                            HStack {
-                                Image(systemName: "square.and.pencil")
-                                Text("Summary")
-                            }
-                        })
-                        .buttonStyle(CustomButton())
-                        
                     }
                     
                 }
