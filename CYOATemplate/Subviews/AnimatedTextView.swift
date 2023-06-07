@@ -52,7 +52,7 @@ struct AnimatedStartView: View {
     // MARK: Stored Properties
     @State var textColor = Color.white.opacity(0.9)
     
-    @State var blurOpacity = 0.8
+    @State var blurOpacity = 0.7
     
     var body: some View {
         ZStack {

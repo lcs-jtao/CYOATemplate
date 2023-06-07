@@ -22,7 +22,9 @@ struct ChoicesView: View {
     
     //@State var zeroEdgeShowButton = false
     
-    @Binding var speed: CGFloat
+    //@Binding var speed: CGFloat
+    
+    @Binding var textAllShown: Bool
     
     // Values
     @Binding var energy: Int
@@ -205,6 +207,10 @@ struct ChoicesView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 10)
+                    .disabled(textAllShown ? false : true)
+                    .onAppear {
+                        
+                    }
                 }
                 
             }
@@ -214,11 +220,12 @@ struct ChoicesView: View {
                     isEnding = true
                 }
             }
+            .disabled(textAllShown ? false : true)
         
     }
     
     // MARK: Initializer
-    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, isEnding: Binding<Bool>, energyChange: Binding<Int>, mentalityChange: Binding<Int>, foodChange: Binding<Int>, lastEnergy: Binding<Int>, lastMentality: Binding<Int>, lastFood: Binding<Int>, speed: Binding<CGFloat>) {
+    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, isEnding: Binding<Bool>, energyChange: Binding<Int>, mentalityChange: Binding<Int>, foodChange: Binding<Int>, lastEnergy: Binding<Int>, lastMentality: Binding<Int>, lastFood: Binding<Int>, textAllShown: Binding<Bool>) {
         
         // Retrieve edges for the current node in the graph
         _edges = BlackbirdLiveModels({ db in
@@ -241,15 +248,14 @@ struct ChoicesView: View {
         _lastMentality = lastMentality
         _lastFood = lastFood
         
-        _speed = speed
-        
+        _textAllShown = textAllShown
     }
 }
 
 // Preview provider
 struct ChoicesView_Previews: PreviewProvider {
     static var previews: some View {
-        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6), isEnding: .constant(true), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6), speed: .constant(0.02))
+        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6), isEnding: .constant(true), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6), textAllShown: .constant(true))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }

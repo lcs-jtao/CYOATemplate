@@ -32,6 +32,8 @@ struct InformationView: View {
     
     @Binding var speed: CGFloat
     
+    @Binding var textAllShown: Bool
+    
     // Day
     @State var numberOfDays: Int = 1
     
@@ -41,8 +43,6 @@ struct InformationView: View {
     @Binding var mentality: Int
     
     @Binding var food: Int
-    
-    @Binding var textAllShown: Bool
     
     var body: some View {
         
@@ -120,18 +120,14 @@ struct InformationView: View {
                     .padding(.horizontal, 10)
                     .frame(maxWidth: .infinity, maxHeight:.infinity, alignment: .topLeading)
                     .onChange(of: node.narrative) { currentNarrative in
-                        narrative = ""
-                        finalNarrative = ""
+                        textAllShown = false
                         finalNarrative = currentNarrative
                         withAnimation {
-                            //speed = 0.02
                             typeWriter()
                         }
                     }
                     .onAppear {
                         if node.node_id == 1 {
-                            narrative = ""
-                            finalNarrative = ""
                             finalNarrative = node.narrative
                             Task {
                                 try await Task.sleep(for: Duration.seconds(1.5))
@@ -139,6 +135,11 @@ struct InformationView: View {
                                     typeWriter()
                                 }
                             }
+                        }
+                    }
+                    .onChange(of: narrative) { currentNarrative in
+                        if finalNarrative == currentNarrative {
+                            textAllShown = true
                         }
                     }
                 
