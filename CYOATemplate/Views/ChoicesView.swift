@@ -89,34 +89,6 @@ struct ChoicesView: View {
                     })
                     .buttonStyle(CustomButton())
                     
-                    // Home
-                    Button(action: {
-                        
-                        //isEnding = false
-                        
-                        // Reset values
-                        energy = 8
-                        mentality = 8
-                        food = 4
-                        energyChange = 0
-                        mentalityChange = 0
-                        foodChange = 0
-                        lastEnergy = 8
-                        lastMentality = 8
-                        lastFood = 4
-                        
-                    }, label: {
-                        HStack {
-                            Spacer()
-                            
-                            Image(systemName: "house")
-                            Text("Home")
-                            
-                            Spacer()
-                        }
-                    })
-                    .buttonStyle(CustomButton())
-                    
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
