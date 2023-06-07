@@ -26,6 +26,8 @@ struct GamingView: View {
     
     @State private var valuePanelOpacity: CGFloat = 1
     
+    @State var speed: CGFloat = 0.02
+    
     // Values
     @State var energy: Int = 8
     
@@ -68,7 +70,7 @@ struct GamingView: View {
             
             VStack(alignment: .leading) {
                 
-                InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food)
+                InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food, speed: $speed)
                     .onAppear {
                                     // Update visits count for this node
                                     Task {
@@ -91,7 +93,7 @@ struct GamingView: View {
 
                                     }
                 
-                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
+                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood, speed: $speed)
                 
                 if valuePanelOpacity == 1 {
                     VStack {

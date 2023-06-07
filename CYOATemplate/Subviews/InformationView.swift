@@ -30,7 +30,7 @@ struct InformationView: View {
     
     @State var finalNarrative: String = ""
     
-    @State var speed: CGFloat = 0.02
+    @Binding var speed: CGFloat
     
     // Day
     @State var numberOfDays: Int = 1
@@ -119,7 +119,8 @@ struct InformationView: View {
                     .frame(maxWidth: .infinity, maxHeight:.infinity, alignment: .topLeading)
                     .onChange(of: node.narrative) { currentNarrative in
                         finalNarrative = currentNarrative
-                        withAnimation(.default.delay(3)) {
+                        withAnimation {
+                            speed = 0.02
                             typeWriter()
                         }
                     }
@@ -134,7 +135,6 @@ struct InformationView: View {
                             }
                         }
                     }
-                    
                 
             }
             .fixedSize(horizontal: false, vertical: true)
@@ -145,7 +145,7 @@ struct InformationView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Int, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>) {
+    init(currentNodeId: Int, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, speed: Binding<CGFloat>) {
         
         // Retrieve rows that describe nodes in the directed graph
         _nodes = BlackbirdLiveModels({ db in
@@ -161,6 +161,7 @@ struct InformationView: View {
         _mentality = mentality
         _food = food
         
+        _speed = speed
     }
     
     
@@ -180,7 +181,7 @@ struct InformationView: View {
 
 struct InformationView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationView(currentNodeId: 1, energy: .constant(8), mentality: .constant(6), food: .constant(4))
+        InformationView(currentNodeId: 1, energy: .constant(8), mentality: .constant(6), food: .constant(4), speed: .constant(0.02))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }
