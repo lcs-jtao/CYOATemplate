@@ -17,6 +17,8 @@ struct EndingChecklistView: View {
     
     @BlackbirdLiveQuery var totalEndingNodeCount: Blackbird.LiveResults<Blackbird.Row>
     
+    @BlackbirdLiveQuery var currentEndingType: Blackbird.LiveResults<Blackbird.Row>
+    
     // MARK: Computed Properties
     var visitedEndingType1: Int {
         return visitedEndingNodeCount.results.first?["VisitedEndingCount1"]?.intValue ?? 0
@@ -26,8 +28,12 @@ struct EndingChecklistView: View {
         return totalEndingNodeCount.results.first?["TotalEndingCount1"]?.intValue ?? 0
     }
     
+    var endingTypeName1: String {
+        return currentEndingType.results.first?["EndingType1"]?.stringValue ?? ""
+    }
+    
     var body: some View {
-        Text("\(visitedEndingType1) / \(totalEndingType1)")
+        Text("\(endingTypeName1): \(visitedEndingType1) / \(totalEndingType1)")
     }
     
     // MARK: Initializers
@@ -38,7 +44,10 @@ struct EndingChecklistView: View {
         _totalEndingNodeCount = BlackbirdLiveQuery(tableName: "Node", { db in
             try await db.query("SELECT COUNT(*) AS TotalEndingCount1 FROM Node WHERE ending_type_id = \(endingType)")
         })
-
+        _currentEndingType = BlackbirdLiveQuery(tableName: "Node", { db in
+                    try await db.query("SELECT EndingType.type AS EndingType1 FROM EndingType INNER JOIN Node ON EndingType.id = Node.ending_type_id WHERE EndingType.id = \(endingType)")
+                    
+        })
         
         self.endingType = endingType
         
