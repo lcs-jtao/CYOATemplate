@@ -112,7 +112,6 @@ struct InformationView: View {
                 
                 TypedText(node.narrative, speed: .reallyFast)
                     .padding(.horizontal, 10)
-                    .background(.blue)
                 
             }
             .fixedSize(horizontal: false, vertical: true)

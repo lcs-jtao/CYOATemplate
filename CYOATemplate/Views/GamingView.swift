@@ -19,6 +19,8 @@ struct GamingView: View {
     
     @State private var showPopUp: Bool = false
     
+    @State private var opacity: CGFloat = 0
+    
     // Show value panel or not?
     @State private var isEnding: Bool = false
     
@@ -212,6 +214,12 @@ struct GamingView: View {
                     withAnimation(.easeInOut(duration: 1.5)) {
                         valuePanelOpacity = 1
                     }
+                }
+            }
+            .opacity(opacity)
+            .onAppear {
+                withAnimation(.easeIn(duration: 1.5)) {
+                    opacity = 1
                 }
             }
             

@@ -138,7 +138,12 @@ struct SettingsView: View {
                                     lastMentality = 8
                                     lastFood = 4
                                     
-                                    viewStatus = "main"
+                                    // Let the button animation show before switching to the next node
+                                    Task {
+                                        try await Task.sleep(for: Duration.seconds(0.15))
+                                        
+                                        viewStatus = "main"
+                                    }
                                     
                                 }, label: {
                                     HStack {
