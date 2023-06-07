@@ -128,7 +128,7 @@ struct ChoicesView: View {
                 .opacity(endingButtonsOpacity)
                 .onChange(of: isEnding) { currenIsEnding in
                     if currenIsEnding {
-                        withAnimation(.easeInOut(duration: 1.5).delay(2)) {
+                        withAnimation(.easeInOut(duration: 1.5).delay(3)) {
                             endingButtonsOpacity = 1
                         }
                     }

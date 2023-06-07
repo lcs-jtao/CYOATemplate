@@ -8,6 +8,15 @@
         "branch" : "main",
         "revision" : "ae978e4afcc33f9890a554d91029f1e9381566c0"
       }
+    },
+    {
+      "identity" : "retrotext",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/russellgordon/RetroText",
+      "state" : {
+        "revision" : "b23714fb5beb4d2331e5b0691b6913a43833f201",
+        "version" : "0.0.16"
+      }
     }
   ],
   "version" : 2
