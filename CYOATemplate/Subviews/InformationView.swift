@@ -42,6 +42,8 @@ struct InformationView: View {
     
     @Binding var food: Int
     
+    @Binding var textAllShown: Bool
+    
     var body: some View {
         
         if let node = nodes.results.first {
@@ -149,7 +151,7 @@ struct InformationView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Int, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, speed: Binding<CGFloat>) {
+    init(currentNodeId: Int, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, speed: Binding<CGFloat>, textAllShown: Binding<Bool>) {
         
         // Retrieve rows that describe nodes in the directed graph
         _nodes = BlackbirdLiveModels({ db in
@@ -166,6 +168,7 @@ struct InformationView: View {
         _food = food
         
         _speed = speed
+        _textAllShown = textAllShown
     }
     
     
@@ -185,7 +188,7 @@ struct InformationView: View {
 
 struct InformationView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationView(currentNodeId: 1, energy: .constant(8), mentality: .constant(6), food: .constant(4), speed: .constant(0.02))
+        InformationView(currentNodeId: 1, energy: .constant(8), mentality: .constant(6), food: .constant(4), speed: .constant(0.02), textAllShown: .constant(true))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }

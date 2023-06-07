@@ -27,13 +27,11 @@ struct AnimatedTextView: View {
             
             VStack {
                 Text("RAD")
-                    .italic()
                 Text("ZONE")
             }
-            .font(.custom("Copperplate", fixedSize: size))
-            .bold()
+            .font(.custom("PaletteMosaic-Regular", fixedSize: size))
             .foregroundColor(color)
-            .shadow(radius: 30)
+            .shadow(color: .black, radius: 50)
 
         }
         .onAppear {

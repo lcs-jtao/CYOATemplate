@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+/* FONTS:
+ Copyright 2020 The Palette Mosaic Project Authors (https://github.com/shibuyafont/Palette-mosaic-font-mono), all rights reserved.
+ 
+ Copyright (c) 2011, wmk69 (wmk69@o2.pl),with Reserved Font Name NovaCut.
+
+ Copyright 2020 The Darumadrop One Project Authors (https://github.com/ManiackersDesign/darumadrop) */
+
 struct HomeView: View {
     
     // MARK: Stored properties
@@ -25,23 +32,14 @@ struct HomeView: View {
                     
                 VStack(spacing: 100) {
                     
-                    Image("Coast")
-                        .resizable()
-                        .frame(maxHeight: 300)
-                        .padding(.horizontal)
+                    AnimatedTextView()
+                    
+                    Text("TAP TO START")
+                        .foregroundColor(.white.opacity(0.8))
+                        .font(.custom("DarumadropOne-Regular", fixedSize: 30))
+                        //.shadow(radius: 10, x: 0, y: 20)
                     
                     HStack(spacing: 50) {
-                        
-                        // Start button
-                        Button(action: {
-                            viewStatus = "game"
-                        }, label: {
-                            HStack {
-                                Image(systemName: "arrowtriangle.right.circle")
-                                Text("Start")
-                            }
-                        })
-                        .buttonStyle(CustomButton())
                         
                         // Summary button
                         Button(action: {

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		22263B302A30DC24005CFAD1 /* AnimatedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22263B2F2A30DC24005CFAD1 /* AnimatedTextView.swift */; };
+		22263B322A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22263B312A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf */; };
+		22263B352A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22263B342A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf */; };
+		22263B392A30E6E8005CFAD1 /* NovaCut-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22263B382A30E6E8005CFAD1 /* NovaCut-Regular.ttf */; };
 		22268C842A2BE7FB00DE3AFC /* GamingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C832A2BE7FB00DE3AFC /* GamingView.swift */; };
 		22268C872A2BE84C00DE3AFC /* CustomButtonViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C862A2BE84C00DE3AFC /* CustomButtonViewModifier.swift */; };
 		22268C892A2BE97500DE3AFC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C882A2BE97500DE3AFC /* SettingsView.swift */; };
@@ -32,6 +35,10 @@
 
 /* Begin PBXFileReference section */
 		22263B2F2A30DC24005CFAD1 /* AnimatedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedTextView.swift; sourceTree = "<group>"; };
+		22263B312A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PaletteMosaic-Regular.ttf"; sourceTree = "<group>"; };
+		22263B332A30E139005CFAD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		22263B342A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DarumadropOne-Regular.ttf"; sourceTree = "<group>"; };
+		22263B382A30E6E8005CFAD1 /* NovaCut-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NovaCut-Regular.ttf"; sourceTree = "<group>"; };
 		22268C832A2BE7FB00DE3AFC /* GamingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingView.swift; sourceTree = "<group>"; };
 		22268C862A2BE84C00DE3AFC /* CustomButtonViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonViewModifier.swift; sourceTree = "<group>"; };
 		22268C882A2BE97500DE3AFC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -115,6 +122,7 @@
 		81C198A72A251ABB0047A4B3 /* CYOATemplate */ = {
 			isa = PBXGroup;
 			children = (
+				22263B332A30E139005CFAD1 /* Info.plist */,
 				81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */,
 				81C784A72A28AB26001BC867 /* Helpers */,
 				81C198B62A251ACD0047A4B3 /* Model */,
@@ -161,6 +169,9 @@
 			isa = PBXGroup;
 			children = (
 				81C784A82A28AB38001BC867 /* AppDatabase.swift */,
+				22263B312A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf */,
+				22263B342A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf */,
+				22263B382A30E6E8005CFAD1 /* NovaCut-Regular.ttf */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -232,6 +243,9 @@
 				81C198B02A251ABC0047A4B3 /* Preview Assets.xcassets in Resources */,
 				81C784AD2A28B1D6001BC867 /* db.sqlite in Resources */,
 				81C198AD2A251ABC0047A4B3 /* Assets.xcassets in Resources */,
+				22263B352A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf in Resources */,
+				22263B392A30E6E8005CFAD1 /* NovaCut-Regular.ttf in Resources */,
+				22263B322A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,6 +404,7 @@
 				DEVELOPMENT_TEAM = 4UG443984D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CYOATemplate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -419,6 +434,7 @@
 				DEVELOPMENT_TEAM = 4UG443984D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CYOATemplate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

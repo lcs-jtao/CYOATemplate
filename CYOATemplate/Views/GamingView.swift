@@ -28,6 +28,8 @@ struct GamingView: View {
     
     @State var speed: CGFloat = 0.02
     
+    @State var textAllShown: Bool = false
+    
     // Values
     @State var energy: Int = 8
     
@@ -70,7 +72,7 @@ struct GamingView: View {
             
             VStack(alignment: .leading) {
                 
-                InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food, speed: $speed)
+                InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food, speed: $speed, textAllShown: $textAllShown)
                     .onAppear {
                                     // Update visits count for this node
                                     Task {
