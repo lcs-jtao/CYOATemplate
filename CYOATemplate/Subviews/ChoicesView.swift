@@ -167,7 +167,7 @@ struct ChoicesView: View {
                         
                         Button(action: {
                             
-                            speed = 0
+                            //speed = 0
                             
                             // Let the button animation show before switching to the next node
                             Task {

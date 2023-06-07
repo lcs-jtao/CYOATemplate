@@ -118,18 +118,22 @@ struct InformationView: View {
                     .padding(.horizontal, 10)
                     .frame(maxWidth: .infinity, maxHeight:.infinity, alignment: .topLeading)
                     .onChange(of: node.narrative) { currentNarrative in
+                        narrative = ""
+                        finalNarrative = ""
                         finalNarrative = currentNarrative
                         withAnimation {
-                            speed = 0.02
+                            //speed = 0.02
                             typeWriter()
                         }
                     }
                     .onAppear {
                         if node.node_id == 1 {
+                            narrative = ""
+                            finalNarrative = ""
+                            finalNarrative = node.narrative
                             Task {
                                 try await Task.sleep(for: Duration.seconds(1.5))
                                 withAnimation {
-                                    finalNarrative = node.narrative
                                     typeWriter()
                                 }
                             }

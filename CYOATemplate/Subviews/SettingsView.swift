@@ -86,7 +86,7 @@ struct SettingsView: View {
                             // Map
                             Image("Coast")
                                 .resizable()
-                                .frame(maxHeight: 300)
+                                .frame(maxHeight: 200)
                                 .padding(.horizontal)
                             
                             // Divider
