@@ -15,7 +15,7 @@ struct GamingView: View {
     @State var currentNodeId: Int = 1
     
     // Needed to query database
-    //@Environment(\.blackbirdDatabase) var db: Blackbird.Database?
+    @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
     
     @State private var showPopUp: Bool = false
     
@@ -64,6 +64,27 @@ struct GamingView: View {
             VStack(alignment: .leading) {
                 
                 InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food)
+                    .onAppear {
+                                    // Update visits count for this node
+                                    Task {
+                                        try await db!.transaction { core in
+                                            try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
+                                            // try core.query("UPDATE Node SET visits = ? Node.visits + 1 WHERE node_id = ?", 50, currentNodeId)
+                                        }
+
+                                    }
+
+                                }
+                    .onChange(of: currentNodeId) { newNodeId in
+                                        // Update visits count for this node
+                                        Task {
+                                            try await db!.transaction { core in
+                                                try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", newNodeId)
+                                            }
+
+                                        }
+
+                                    }
                 
                 ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
                 

@@ -11,6 +11,7 @@ import SwiftUI
 struct SettingsView: View {
     
     // MARK: Stored Properties
+    @State var viewStatus = "setting"
     
     @Binding var show: Bool
     
@@ -37,121 +38,128 @@ struct SettingsView: View {
     
     var body: some View {
         
-        ZStack {
-            if show {
-                // PopUp background color
-                Color.black.opacity(show ? 0.4 : 0)
-                    .edgesIgnoringSafeArea(.all)
-                
-                // PopUp Window
-                VStack(alignment: .center, spacing: 15) {
+        if viewStatus == "main" {
+            HomeView()
+        } else {
+            ZStack {
+                if show {
+                    // PopUp background color
+                    Color.black.opacity(show ? 0.4 : 0)
+                        .edgesIgnoringSafeArea(.all)
                     
-                    VStack {
+                    // PopUp Window
+                    VStack(alignment: .center, spacing: 15) {
                         
-                        ZStack {
+                        VStack {
                             
-                            Text("- SETTINGS -")
-                                .padding(.top)
+                            ZStack {
+                                
+                                Text("- SETTINGS -")
+                                    .padding(.top)
+                                
+                                HStack {
+                                    
+                                    Spacer()
+                                    
+                                    // Close button
+                                    Button(action: {
+                                        
+                                        // Dismiss the pop up
+                                        withAnimation(.linear(duration: 0.2)) {
+                                            show = false
+                                        }
+                                        
+                                    }, label: {
+                                        Image(systemName: "xmark")
+                                            .foregroundColor(Color.white)
+                                            .font(.title)
+                                            .frame(width: 30, height: 30)
+                                            .padding(5)
+                                            .border(.white)
+                                            .cornerRadius(6)
+                                        
+                                    })
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
                             
-                            HStack {
+                            // Map
+                            Image("Coast")
+                                .resizable()
+                                .frame(maxHeight: 300)
+                                .padding(.horizontal)
+                            
+                            // Divider
+                            Divider()
+                                .frame(width: 200, height: 1.5)
+                                .overlay(.gray)
+                            
+                            HStack(spacing: 20) {
                                 
-                                Spacer()
-                                
-                                // Close button
+                                // Restart button
                                 Button(action: {
                                     
+                                    // Go back to node 1
+                                    currentNodeId = 1
                                     // Dismiss the pop up
                                     withAnimation(.linear(duration: 0.2)) {
                                         show = false
                                     }
+                                    // Reset values
+                                    energy = 8
+                                    mentality = 8
+                                    food = 4
+                                    energyChange = 0
+                                    mentalityChange = 0
+                                    foodChange = 0
+                                    lastEnergy = 8
+                                    lastMentality = 8
+                                    lastFood = 4
                                     
                                 }, label: {
-                                    Image(systemName: "xmark")
-                                        .foregroundColor(Color.white)
-                                        .font(.title)
-                                        .frame(width: 30, height: 30)
-                                        .padding(5)
-                                        .border(.white)
-                                        .cornerRadius(6)
-                                    
+                                    HStack {
+                                        Image(systemName: "arrow.counterclockwise")
+                                        Text("Restart")
+                                    }
                                 })
-                                .buttonStyle(PlainButtonStyle())
+                                .buttonStyle(CustomButton())
+                                
+                                // Home button
+                                Button(action: {
+                                    
+                                    // Reset values
+                                    energy = 8
+                                    mentality = 8
+                                    food = 4
+                                    energyChange = 0
+                                    mentalityChange = 0
+                                    foodChange = 0
+                                    lastEnergy = 8
+                                    lastMentality = 8
+                                    lastFood = 4
+                                    
+                                    viewStatus = "main"
+                                    
+                                }, label: {
+                                    HStack {
+                                        Image(systemName: "house")
+                                        Text("Home")
+                                    }
+                                })
+                                .buttonStyle(CustomButton())
                             }
+                            .padding(.bottom, 20)
                         }
                         
-                        // Map
-                        Image("Coast")
-                            .resizable()
-                            .frame(maxHeight: 300)
-                            .padding(.horizontal)
-                        
-                        // Divider
-                        Divider()
-                            .frame(width: 200, height: 1.5)
-                            .overlay(.gray)
-                        
-                        HStack(spacing: 20) {
-                            
-                            // Restart button
-                            Button(action: {
-                                
-                                // Go back to node 1
-                                currentNodeId = 1
-                                // Dismiss the pop up
-                                withAnimation(.linear(duration: 0.2)) {
-                                    show = false
-                                }
-                                // Reset values
-                                energy = 8
-                                mentality = 8
-                                food = 4
-                                energyChange = 0
-                                mentalityChange = 0
-                                foodChange = 0
-                                lastEnergy = 8
-                                lastMentality = 8
-                                lastFood = 4
-                                
-                            }, label: {
-                                HStack {
-                                    Image(systemName: "arrow.counterclockwise")
-                                    Text("Restart")
-                                }
-                            })
-                            .buttonStyle(CustomButton())
-                            
-                            // Home button
-                            Button(action: {
-                                
-                                // Reset values
-                                energy = 8
-                                mentality = 8
-                                food = 4
-                                energyChange = 0
-                                mentalityChange = 0
-                                foodChange = 0
-                                lastEnergy = 8
-                                lastMentality = 8
-                                lastFood = 4
-                                
-                            }, label: {
-                                HStack {
-                                    Image(systemName: "house")
-                                    Text("Home")
-                                }
-                            })
-                            .buttonStyle(CustomButton())
-                        }
-                        .padding(.bottom, 20)
                     }
-                    
+                    .frame(maxWidth: 320)
+                    .border(Color.white, width: 1)
+                    .background(Color.black)
                 }
-                .frame(maxWidth: 320)
-                .border(Color.white, width: 1)
-                .background(Color.black)
             }
+            .foregroundColor(.white)
         }
-        .foregroundColor(.white)
+        
     }
     
 }
