@@ -33,7 +33,21 @@ struct EndingChecklistView: View {
     }
     
     var body: some View {
-        Text("\(endingTypeName1): \(visitedEndingType1) / \(totalEndingType1)")
+        HStack {
+            Text("\(endingTypeName1): \(visitedEndingType1) / \(totalEndingType1)")
+                .textCase(.uppercase)
+                .font(.custom(
+                        "AmericanTypewriter",
+                        fixedSize: 17))
+            
+            Spacer()
+            
+            if visitedEndingType1 == totalEndingType1 {
+                Text("✅")
+            }
+            
+            Spacer()
+        }
     }
     
     // MARK: Initializers
