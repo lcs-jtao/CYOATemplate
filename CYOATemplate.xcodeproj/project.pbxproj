@@ -27,6 +27,7 @@
 		81C784AF2A28B4E7001BC867 /* EdgesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C784AE2A28B4E7001BC867 /* EdgesView.swift */; };
 		BF3793CE2A2E6336009554E7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3793CD2A2E6336009554E7 /* HomeView.swift */; };
 		BF3793D02A2E6419009554E7 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3793CF2A2E6419009554E7 /* SummaryView.swift */; };
+		BF5DC7152A30DC580033167D /* EndingChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DC7142A30DC580033167D /* EndingChecklistView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		81C784AE2A28B4E7001BC867 /* EdgesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgesView.swift; sourceTree = "<group>"; };
 		BF3793CD2A2E6336009554E7 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		BF3793CF2A2E6419009554E7 /* SummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryView.swift; sourceTree = "<group>"; };
+		BF5DC7142A30DC580033167D /* EndingChecklistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndingChecklistView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				22268C882A2BE97500DE3AFC /* SettingsView.swift */,
 				BF3793CD2A2E6336009554E7 /* HomeView.swift */,
 				BF3793CF2A2E6419009554E7 /* SummaryView.swift */,
+				BF5DC7142A30DC580033167D /* EndingChecklistView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				BF3793CE2A2E6336009554E7 /* HomeView.swift in Sources */,
 				22268C872A2BE84C00DE3AFC /* CustomButtonViewModifier.swift in Sources */,
 				BF3793D02A2E6419009554E7 /* SummaryView.swift in Sources */,
+				BF5DC7152A30DC580033167D /* EndingChecklistView.swift in Sources */,
 				81C784A92A28AB38001BC867 /* AppDatabase.swift in Sources */,
 				81C198BD2A251B2B0047A4B3 /* Edge.swift in Sources */,
 				81C198A92A251ABB0047A4B3 /* CYOATemplateApp.swift in Sources */,

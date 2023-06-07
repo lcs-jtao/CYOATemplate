@@ -62,7 +62,7 @@ struct SummaryView: View {
                 Color.black
                     .ignoresSafeArea(.all)
                 
-                VStack(spacing: 100) {
+                VStack(spacing: 50) {
                     Text("You have explored \(visitedNodes) out of \(totalNodes) nodes overall in this story!")
                         .font(.custom(
                                 "AmericanTypewriter",
@@ -72,6 +72,15 @@ struct SummaryView: View {
                         .font(.custom(
                                 "AmericanTypewriter",
                                 fixedSize: 15))
+                    
+                    VStack(spacing: 10) {
+                        Text("Checklist for Endings")
+                        EndingChecklistView(endingType: 1)
+                        EndingChecklistView(endingType: 2)
+                        EndingChecklistView(endingType: 3)
+                        EndingChecklistView(endingType: 4)
+                        EndingChecklistView(endingType: 5)
+                    }
                     
                     Button(action: {
                         viewStatus = "main"
