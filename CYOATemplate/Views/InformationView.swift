@@ -7,6 +7,7 @@
 
 import Blackbird
 import SwiftUI
+import RetroText
 
 struct InformationView: View {
     
@@ -76,14 +77,22 @@ struct InformationView: View {
                 .onChange(of: node.day) { currentDay in
                     
                     if currentDay != 1 {
-                        if energy <= 0 {
-                            // Go to ending
-                        }
+                        
                         energy += 1
+                        
+                        // Max value for energy: 10
                         if energy > 10 {
                             energy = 10
                         }
-                        food -= 1
+                        
+                        // No food results in energy - 1
+                        if food > 0 {
+                            food -= 1
+                        } else {
+                            energy -= 1
+                        }
+                        
+                        // Poor mentality results in energy - 1
                         if mentality <= 2 {
                             energy -= 1
                         }
@@ -97,10 +106,13 @@ struct InformationView: View {
                     .scaledToFit()
                 
                 // Narrative
-                Text(try! AttributedString(markdown: node.narrative,
-                                           options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
-                                                .inlineOnlyPreservingWhitespace)))
-                .padding(.horizontal, 10)
+//                                Text(try! AttributedString(markdown: node.narrative,
+//                                                           options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
+//                                                                .inlineOnlyPreservingWhitespace)))
+                
+                TypedText(node.narrative, speed: .reallyFast)
+                    .padding(.horizontal, 10)
+                    .background(.blue)
                 
             }
             .fixedSize(horizontal: false, vertical: true)

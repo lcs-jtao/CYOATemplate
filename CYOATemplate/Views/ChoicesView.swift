@@ -20,7 +20,7 @@ struct ChoicesView: View {
     
     @Binding var currentNodeId: Int
     
-    @State var zeroEdgeShowButton = false
+    //@State var zeroEdgeShowButton = false
     
     // Values
     @Binding var energy: Int
@@ -44,6 +44,8 @@ struct ChoicesView: View {
     // Is it an ending?
     @Binding var isEnding: Bool
     
+    @State private var endingButtonsOpacity: CGFloat = 0
+    
     var body: some View {
         
         // Choices
@@ -60,7 +62,10 @@ struct ChoicesView: View {
                     // Restart
                     Button(action: {
                         
-                        withAnimation(.easeIn(duration: 3)) {
+                        // Let the button animation show before switching to the next node
+                        Task {
+                            try await Task.sleep(for: Duration.seconds(0.15))
+                            
                             currentNodeId = 1
                         }
                         
@@ -92,10 +97,12 @@ struct ChoicesView: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
-                .opacity(zeroEdgeShowButton ? 1 : 0)
-                .onAppear {
-                    withAnimation(.easeIn(duration: 1).delay(6)) {
-                        zeroEdgeShowButton = true
+                .opacity(endingButtonsOpacity)
+                .onChange(of: isEnding) { currenIsEnding in
+                    if currenIsEnding {
+                        withAnimation(.easeInOut(duration: 1.5).delay(3)) {
+                            endingButtonsOpacity = 1
+                        }
                     }
                 }
                 
@@ -103,44 +110,54 @@ struct ChoicesView: View {
                 
                 Spacer()
                 
-                ForEach(edges.results) { currentEdge in
-                    
-                    VStack (alignment: .center) {
+                VStack {
+                    ForEach(edges.results) { currentEdge in
                         
-                        // Choice 1
-                        Button(action: {
+                        VStack (alignment: .center) {
                             
-                            withAnimation(.easeIn(duration: 3)) {
-                                currentNodeId = currentEdge.to_node_id
-                            }
-                            
-                            // Value changes
-                            energy += currentEdge.energy
-                            mentality += currentEdge.mentality
-                            food += currentEdge.food
-                            
-                            if energy > 10 {
-                                energy = 10
-                            } else if energy < 0 {
-                                energy = 0
-                            }
-                            
-                        }, label: {
-                            HStack {
+                            // Choice 1
+                            Button(action: {
                                 
-                                Spacer()
+                                // Let the button animation show before switching to the next node
+                                Task {
+                                    try await Task.sleep(for: Duration.seconds(0.15))
+                                    
+                                    currentNodeId = currentEdge.to_node_id
+                                }
                                 
-                                Text(try! AttributedString(markdown: currentEdge.prompt))
+                                // Value changes
+                                energy += currentEdge.energy
+                                mentality += currentEdge.mentality
+                                food += currentEdge.food
                                 
-                                Spacer()
-                            }
-                        })
-                        .buttonStyle(CustomButton())
-                        
+                                if energy > 10 {
+                                    energy = 10
+                                } else if energy < 0 {
+                                    energy = 0
+                                }
+                                
+                                if food < 0 {
+                                    food = 0
+                                }
+                                
+                            }, label: {
+                                HStack {
+                                    
+                                    Spacer()
+                                    
+                                    Text(try! AttributedString(markdown: currentEdge.prompt))
+                                    
+                                    Spacer()
+                                }
+                            })
+                            .buttonStyle(CustomButton())
+                            
+                        }
                     }
+                    .padding(.horizontal, 40)
+                    .padding(.vertical, 6)
                 }
-                .padding(.horizontal, 40)
-                .padding(.vertical, 6)
+                .padding(.vertical, 10)
                 
             } else if edges.results.count == 1 {
                 
@@ -148,7 +165,10 @@ struct ChoicesView: View {
                     
                     Button(action: {
                         
-                        withAnimation(.easeIn(duration: 3)) {
+                        // Let the button animation show before switching to the next node
+                        Task {
+                            try await Task.sleep(for: Duration.seconds(0.15))
+                            
                             currentNodeId = currentEdge.to_node_id
                         }
                         
@@ -161,6 +181,10 @@ struct ChoicesView: View {
                             energy = 10
                         } else if energy < 0 {
                             energy = 0
+                        }
+                        
+                        if food < 0 {
+                            food = 0
                         }
                         
                     }, label: {
@@ -176,7 +200,7 @@ struct ChoicesView: View {
                     })
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 6)
+                .padding(.vertical, 10)
             }
             
         }
