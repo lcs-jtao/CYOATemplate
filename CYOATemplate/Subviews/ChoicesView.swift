@@ -24,6 +24,8 @@ struct ChoicesView: View {
     
     //@Binding var speed: CGFloat
     
+    @State var opacity: CGFloat = 0.0
+    
     @Binding var textAllShown: Bool
     
     // Values
@@ -162,6 +164,7 @@ struct ChoicesView: View {
                         .padding(.vertical, 6)
                     }
                     .padding(.vertical, 10)
+                    .opacity(opacity)
                     
                 } else if edges.results.count == 1 {
                     
@@ -207,10 +210,8 @@ struct ChoicesView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 10)
-                    .disabled(textAllShown ? false : true)
-                    .onAppear {
-                        
-                    }
+                    .opacity(opacity)
+                    //.disabled(textAllShown ? false : true)
                 }
                 
             }
@@ -221,6 +222,17 @@ struct ChoicesView: View {
                 }
             }
             .disabled(textAllShown ? false : true)
+            .onChange(of: textAllShown) { currentState in
+                if currentState {
+                    withAnimation(.default.delay(0.2)) {
+                        opacity = 1
+                    }
+                }
+            }
+            .onChange(of: currentNodeId) { _ in
+                opacity = 0
+            }
+        
         
     }
     

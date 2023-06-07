@@ -26,7 +26,7 @@ struct GamingView: View {
     
     @State private var valuePanelOpacity: CGFloat = 1
     
-    @State var speed: CGFloat = 0.02
+    @State var speed: CGFloat = 0.015
     
     @State var textAllShown: Bool = false
     
