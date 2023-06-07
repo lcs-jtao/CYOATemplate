@@ -37,7 +37,7 @@ struct HomeView: View {
                             viewStatus = "game"
                         }, label: {
                             HStack {
-                                Image(systemName: "house")
+                                Image(systemName: "arrowtriangle.right.circle")
                                 Text("Start")
                             }
                         })
@@ -48,7 +48,7 @@ struct HomeView: View {
                             viewStatus = "summary"
                         }, label: {
                             HStack {
-                                Image(systemName: "house")
+                                Image(systemName: "square.and.pencil")
                                 Text("Summary")
                             }
                         })
