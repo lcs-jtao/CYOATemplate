@@ -19,6 +19,8 @@ struct HomeView: View {
     // MARK: Stored properties
     @State var viewStatus = "main"
     
+    @State var textColor = Color.white.opacity(0.9)
+    
     var body: some View {
         if viewStatus == "game" {
             GamingView()
@@ -35,15 +37,26 @@ struct HomeView: View {
                     AnimatedTextView()
                     
                     Text("TAP TO START")
-                        .foregroundColor(.white.opacity(0.8))
-                        .font(.custom("DarumadropOne-Regular", fixedSize: 30))
+                        .foregroundColor(textColor)
+                        .font(.custom("DarumadropOne-Regular", size: 30))
                         //.shadow(radius: 10, x: 0, y: 20)
+                        .onAppear {
+                            withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
+                                textColor = .white.opacity(0.7)
+                            }
+                        }
                     
                     HStack(spacing: 50) {
                         
                         // Summary button
                         Button(action: {
-                            viewStatus = "summary"
+                            // Let the button animation show before switching to the next node
+                            Task {
+                                try await Task.sleep(for: Duration.seconds(0.15))
+                                
+                                viewStatus = "summary"
+                            }
+
                         }, label: {
                             HStack {
                                 Image(systemName: "square.and.pencil")
@@ -55,6 +68,9 @@ struct HomeView: View {
                     }
                     
                 }
+            }
+            .onTapGesture {
+                viewStatus = "game"
             }
 
         }
