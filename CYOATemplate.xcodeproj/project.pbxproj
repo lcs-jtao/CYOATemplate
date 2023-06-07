@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22263B2B2A301D29005CFAD1 /* RetroText in Frameworks */ = {isa = PBXBuildFile; productRef = 22263B2A2A301D29005CFAD1 /* RetroText */; };
 		22268C842A2BE7FB00DE3AFC /* GamingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C832A2BE7FB00DE3AFC /* GamingView.swift */; };
 		22268C872A2BE84C00DE3AFC /* CustomButtonViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C862A2BE84C00DE3AFC /* CustomButtonViewModifier.swift */; };
 		22268C892A2BE97500DE3AFC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C882A2BE97500DE3AFC /* SettingsView.swift */; };
@@ -58,7 +57,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22263B2B2A301D29005CFAD1 /* RetroText in Frameworks */,
 				81C784A62A28AADA001BC867 /* Blackbird in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,7 +180,6 @@
 			name = CYOATemplate;
 			packageProductDependencies = (
 				81C784A52A28AADA001BC867 /* Blackbird */,
-				22263B2A2A301D29005CFAD1 /* RetroText */,
 			);
 			productName = CYOATemplate;
 			productReference = 81C198A52A251ABB0047A4B3 /* CYOATemplate.app */;
@@ -214,7 +211,6 @@
 			mainGroup = 81C1989C2A251ABB0047A4B3;
 			packageReferences = (
 				81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */,
-				22263B292A301D29005CFAD1 /* XCRemoteSwiftPackageReference "RetroText" */,
 			);
 			productRefGroup = 81C198A62A251ABB0047A4B3 /* Products */;
 			projectDirPath = "";
@@ -461,14 +457,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		22263B292A301D29005CFAD1 /* XCRemoteSwiftPackageReference "RetroText" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/russellgordon/RetroText";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.16;
-			};
-		};
 		81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marcoarment/Blackbird";
@@ -480,11 +468,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		22263B2A2A301D29005CFAD1 /* RetroText */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 22263B292A301D29005CFAD1 /* XCRemoteSwiftPackageReference "RetroText" */;
-			productName = RetroText;
-		};
 		81C784A52A28AADA001BC867 /* Blackbird */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */;

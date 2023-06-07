@@ -24,6 +24,14 @@ struct InformationView: View {
     
     @State var illustrationName: String = ""
     
+    //@State var narrativeOpacity: CGFloat = 0
+    
+    @State var narrative: String = ""
+    
+    @State var finalNarrative: String = ""
+    
+    @State var speed: CGFloat = 0.02
+    
     // Day
     @State var numberOfDays: Int = 1
     
@@ -106,12 +114,27 @@ struct InformationView: View {
                     .scaledToFit()
                 
                 // Narrative
-//                                Text(try! AttributedString(markdown: node.narrative,
-//                                                           options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
-//                                                                .inlineOnlyPreservingWhitespace)))
-                
-                TypedText(node.narrative, speed: .reallyFast)
+                Text(narrative)
                     .padding(.horizontal, 10)
+                    .frame(maxWidth: .infinity, maxHeight:.infinity, alignment: .topLeading)
+                    .onChange(of: node.narrative) { currentNarrative in
+                        finalNarrative = currentNarrative
+                        withAnimation(.default.delay(3)) {
+                            typeWriter()
+                        }
+                    }
+                    .onAppear {
+                        if node.node_id == 1 {
+                            Task {
+                                try await Task.sleep(for: Duration.seconds(1.5))
+                                withAnimation {
+                                    finalNarrative = node.narrative
+                                    typeWriter()
+                                }
+                            }
+                        }
+                    }
+                    
                 
             }
             .fixedSize(horizontal: false, vertical: true)
@@ -139,6 +162,20 @@ struct InformationView: View {
         _food = food
         
     }
+    
+    
+    // MARK: Functions
+    func typeWriter(at position: Int = 0) {
+        if position == 0 {
+            narrative = ""
+        }
+        if position < finalNarrative.count {
+            DispatchQueue.main.asyncAfter(deadline: .now() + speed) {
+                narrative.append(finalNarrative[position])
+                typeWriter(at: position + 1)
+            }
+        }
+    }
 }
 
 struct InformationView_Previews: PreviewProvider {
@@ -146,5 +183,11 @@ struct InformationView_Previews: PreviewProvider {
         InformationView(currentNodeId: 1, energy: .constant(8), mentality: .constant(6), food: .constant(4))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
+    }
+}
+
+extension String {
+    subscript(offset: Int) -> Character {
+        self[index(startIndex, offsetBy: offset)]
     }
 }
