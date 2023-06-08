@@ -31,7 +31,7 @@ struct AppDatabase {
 //            // Remove temporary files too
 //            do { try fileManager.removeItem(atPath: dbPath + "-shm") } catch { print(error) }
 //            do { try fileManager.removeItem(atPath: dbPath + "-wal") } catch { print(error) }
-            print("removed.")
+//            print("removed.")
             
             // When no database currently exists at that path, copy one from the app bundle
             if !fileManager.fileExists(atPath: dbPath) {
