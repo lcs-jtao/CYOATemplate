@@ -32,6 +32,7 @@
 		BF3793CE2A2E6336009554E7 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3793CD2A2E6336009554E7 /* HomeView.swift */; };
 		BF3793D02A2E6419009554E7 /* SummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF3793CF2A2E6419009554E7 /* SummaryView.swift */; };
 		BF5DC7152A30DC580033167D /* EndingChecklistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF5DC7142A30DC580033167D /* EndingChecklistView.swift */; };
+		BFEBA54F2A3204A400BC4ADE /* RetroText in Frameworks */ = {isa = PBXBuildFile; productRef = BFEBA54E2A3204A400BC4ADE /* RetroText */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BFEBA54F2A3204A400BC4ADE /* RetroText in Frameworks */,
 				81C784A62A28AADA001BC867 /* Blackbird in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -197,6 +199,7 @@
 			name = CYOATemplate;
 			packageProductDependencies = (
 				81C784A52A28AADA001BC867 /* Blackbird */,
+				BFEBA54E2A3204A400BC4ADE /* RetroText */,
 			);
 			productName = CYOATemplate;
 			productReference = 81C198A52A251ABB0047A4B3 /* CYOATemplate.app */;
@@ -228,6 +231,7 @@
 			mainGroup = 81C1989C2A251ABB0047A4B3;
 			packageReferences = (
 				81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */,
+				BFEBA54D2A3204A400BC4ADE /* XCRemoteSwiftPackageReference "RetroText" */,
 			);
 			productRefGroup = 81C198A62A251ABB0047A4B3 /* Products */;
 			projectDirPath = "";
@@ -489,6 +493,14 @@
 				kind = branch;
 			};
 		};
+		BFEBA54D2A3204A400BC4ADE /* XCRemoteSwiftPackageReference "RetroText" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/russellgordon/RetroText";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.16;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -496,6 +508,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */;
 			productName = Blackbird;
+		};
+		BFEBA54E2A3204A400BC4ADE /* RetroText */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BFEBA54D2A3204A400BC4ADE /* XCRemoteSwiftPackageReference "RetroText" */;
+			productName = RetroText;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
