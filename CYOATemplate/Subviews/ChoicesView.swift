@@ -11,6 +11,7 @@ import SwiftUI
 struct ChoicesView: View {
     
     // MARK: Stored properties
+    @Binding var viewStatus: String
     
     // Needed to query database
     @Environment(\.blackbirdDatabase) var db: Blackbird.Database?
@@ -94,6 +95,43 @@ struct ChoicesView: View {
                                 
                                 Image(systemName: "arrow.counterclockwise")
                                 Text("Restart")
+                                
+                                Spacer()
+                            }
+                        })
+                        .buttonStyle(CustomButton())
+                        
+                        // Summary
+                        Button(action: {
+                            
+                            // Let the button animation show before switching to the next node
+                            Task {
+                                try await Task.sleep(for: Duration.seconds(0.15))
+                                
+                                currentNodeId = 1
+                            }
+                            
+                            isEnding = false
+                            
+                            // Reset values
+                            energy = 8
+                            mentality = 8
+                            food = 4
+                            energyChange = 0
+                            mentalityChange = 0
+                            foodChange = 0
+                            lastEnergy = 8
+                            lastMentality = 8
+                            lastFood = 4
+                            
+                            viewStatus = "summary"
+                            
+                        }, label: {
+                            HStack {
+                                Spacer()
+                                
+                                Image(systemName: "square.and.pencil")
+                                Text("Summary")
                                 
                                 Spacer()
                             }
@@ -237,7 +275,7 @@ struct ChoicesView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, isEnding: Binding<Bool>, energyChange: Binding<Int>, mentalityChange: Binding<Int>, foodChange: Binding<Int>, lastEnergy: Binding<Int>, lastMentality: Binding<Int>, lastFood: Binding<Int>, textAllShown: Binding<Bool>) {
+    init(currentNodeId: Binding<Int>, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, isEnding: Binding<Bool>, energyChange: Binding<Int>, mentalityChange: Binding<Int>, foodChange: Binding<Int>, lastEnergy: Binding<Int>, lastMentality: Binding<Int>, lastFood: Binding<Int>, textAllShown: Binding<Bool>, viewStatus: Binding<String>) {
         
         // Retrieve edges for the current node in the graph
         _edges = BlackbirdLiveModels({ db in
@@ -261,13 +299,14 @@ struct ChoicesView: View {
         _lastFood = lastFood
         
         _textAllShown = textAllShown
+        _viewStatus = viewStatus
     }
 }
 
 // Preview provider
 struct ChoicesView_Previews: PreviewProvider {
     static var previews: some View {
-        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6), isEnding: .constant(true), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6), textAllShown: .constant(true))
+        ChoicesView(currentNodeId: .constant(2), energy: .constant(8), mentality: .constant(6), food: .constant(6), isEnding: .constant(true), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6), textAllShown: .constant(true), viewStatus: .constant(""))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
     }

@@ -11,7 +11,7 @@ import SwiftUI
 struct SummaryView: View {
     
     // MARK: Stored properties
-    @State var viewStatus = "summary"
+    @Binding var viewStatus: String
     
     // How many nodes have been visited?
     @BlackbirdLiveQuery(tableName: "Node", { db in
@@ -55,7 +55,10 @@ struct SummaryView: View {
     var body: some View {
         if viewStatus == "main" {
             HomeView()
-        } else {
+        } else if viewStatus == "game" {
+            GamingView(viewStatus: $viewStatus)
+        }
+        else {
             
             ZStack {
                 
@@ -117,6 +120,6 @@ struct SummaryView: View {
 
 struct SummaryView_Previews: PreviewProvider {
     static var previews: some View {
-        SummaryView()
+        SummaryView(viewStatus: .constant(""))
     }
 }
