@@ -101,12 +101,19 @@ struct SettingsView: View {
                                 // Restart button
                                 Button(action: {
                                     
-                                    // Go back to node 1
-                                    currentNodeId = 1
-                                    // Dismiss the pop up
-                                    withAnimation(.linear(duration: 0.2)) {
-                                        show = false
+                                    // Let the button animation show before switching to the next node
+                                    Task {
+                                        try await Task.sleep(for: Duration.seconds(0.15))
+                                        
+                                        // Go back to node 1
+                                        currentNodeId = 1
+                                        
+                                        // Dismiss the pop up
+                                        withAnimation(.linear(duration: 0.2)) {
+                                            show = false
+                                        }
                                     }
+                                    
                                     // Reset values
                                     energy = 8
                                     mentality = 8

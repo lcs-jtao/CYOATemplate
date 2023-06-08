@@ -224,7 +224,7 @@ struct ChoicesView: View {
             .disabled(textAllShown ? false : true)
             .onChange(of: textAllShown) { currentState in
                 if currentState {
-                    withAnimation(.default.delay(0.2)) {
+                    withAnimation(.default) {
                         opacity = 1
                     }
                 }
