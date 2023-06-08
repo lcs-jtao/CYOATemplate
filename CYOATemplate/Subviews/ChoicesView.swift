@@ -143,6 +143,8 @@ struct ChoicesView: View {
                         withAnimation(.easeInOut(duration: 1.5).delay(3)) {
                             endingButtonsOpacity = 1
                         }
+                    } else {
+                        endingButtonsOpacity = 0
                     }
                 }
                 
