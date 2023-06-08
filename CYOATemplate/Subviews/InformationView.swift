@@ -179,9 +179,21 @@ struct InformationView: View {
             narrative = ""
         }
         if position < finalNarrative.count {
-            DispatchQueue.main.asyncAfter(deadline: .now() + speed) {
-                narrative.append(finalNarrative[position])
-                typeWriter(at: position + 1)
+            if finalNarrative[position] == "."{
+                DispatchQueue.main.asyncAfter(deadline: .now() + speed * 5) {
+                    narrative.append(finalNarrative[position])
+                    typeWriter(at: position + 1)
+                }
+            } else if finalNarrative[position] == "," || finalNarrative[position] == ":"{
+                DispatchQueue.main.asyncAfter(deadline: .now() + speed * 3) {
+                    narrative.append(finalNarrative[position])
+                    typeWriter(at: position + 1)
+                }
+            } else {
+                DispatchQueue.main.asyncAfter(deadline: .now() + speed) {
+                    narrative.append(finalNarrative[position])
+                    typeWriter(at: position + 1)
+                }
             }
         }
     }
