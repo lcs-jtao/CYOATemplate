@@ -109,6 +109,8 @@ struct ChoicesView: View {
                                 try await Task.sleep(for: Duration.seconds(0.15))
                                 
                                 currentNodeId = 1
+                                
+                                viewStatus = "summary"
                             }
                             
                             isEnding = false
@@ -123,8 +125,6 @@ struct ChoicesView: View {
                             lastEnergy = 8
                             lastMentality = 8
                             lastFood = 4
-                            
-                            viewStatus = "summary"
                             
                         }, label: {
                             HStack {
