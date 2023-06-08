@@ -19,10 +19,16 @@ struct GamingView: View {
     
     @State private var showPopUp: Bool = false
     
+    @State private var opacity: CGFloat = 0
+    
     // Show value panel or not?
     @State private var isEnding: Bool = false
     
     @State private var valuePanelOpacity: CGFloat = 1
+    
+    @State var speed: CGFloat = 0.01
+    
+    @State var textAllShown: Bool = false
     
     // Values
     @State var energy: Int = 8
@@ -66,7 +72,7 @@ struct GamingView: View {
             
             VStack(alignment: .leading) {
                 
-                InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food)
+                InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food, speed: $speed, textAllShown: $textAllShown)
                     .onAppear {
                                     // Update visits count for this node
                                     Task {
@@ -89,7 +95,7 @@ struct GamingView: View {
 
                                     }
                 
-                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
+                ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood, textAllShown: $textAllShown)
                 
                 if valuePanelOpacity == 1 {
                     VStack {
@@ -214,8 +220,14 @@ struct GamingView: View {
                     }
                 }
             }
+            .opacity(opacity)
+            .onAppear {
+                withAnimation(.easeIn(duration: 1.5)) {
+                    opacity = 1
+                }
+            }
             
-            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
+            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, textAllShown: $textAllShown, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
         }
         .foregroundColor(.white)
         

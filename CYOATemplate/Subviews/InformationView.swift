@@ -24,6 +24,16 @@ struct InformationView: View {
     
     @State var illustrationName: String = ""
     
+    //@State var narrativeOpacity: CGFloat = 0
+    
+    @State var narrative: String = ""
+    
+    @State var finalNarrative: String = ""
+    
+    @Binding var speed: CGFloat
+    
+    @Binding var textAllShown: Bool
+    
     // Day
     @State var numberOfDays: Int = 1
     
@@ -106,13 +116,32 @@ struct InformationView: View {
                     .scaledToFit()
                 
                 // Narrative
-//                                Text(try! AttributedString(markdown: node.narrative,
-//                                                           options: AttributedString.MarkdownParsingOptions(interpretedSyntax:
-//                                                                .inlineOnlyPreservingWhitespace)))
-                
-                TypedText(node.narrative, speed: .reallyFast)
+                Text(narrative)
                     .padding(.horizontal, 10)
-                    .background(.blue)
+                    .frame(maxWidth: .infinity, maxHeight:.infinity, alignment: .topLeading)
+                    .onChange(of: node.narrative) { currentNarrative in
+                        textAllShown = false
+                        finalNarrative = currentNarrative
+                        withAnimation {
+                            typeWriter()
+                        }
+                    }
+                    .onAppear {
+                        if node.node_id == 1 {
+                            finalNarrative = node.narrative
+                            Task {
+                                try await Task.sleep(for: Duration.seconds(1.5))
+                                withAnimation {
+                                    typeWriter()
+                                }
+                            }
+                        }
+                    }
+                    .onChange(of: narrative) { currentNarrative in
+                        if finalNarrative == currentNarrative {
+                            textAllShown = true
+                        }
+                    }
                 
             }
             .fixedSize(horizontal: false, vertical: true)
@@ -123,7 +152,7 @@ struct InformationView: View {
     }
     
     // MARK: Initializer
-    init(currentNodeId: Int, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>) {
+    init(currentNodeId: Int, energy: Binding<Int>, mentality: Binding<Int>, food: Binding<Int>, speed: Binding<CGFloat>, textAllShown: Binding<Bool>) {
         
         // Retrieve rows that describe nodes in the directed graph
         _nodes = BlackbirdLiveModels({ db in
@@ -139,13 +168,35 @@ struct InformationView: View {
         _mentality = mentality
         _food = food
         
+        _speed = speed
+        _textAllShown = textAllShown
+    }
+    
+    
+    // MARK: Functions
+    func typeWriter(at position: Int = 0) {
+        if position == 0 {
+            narrative = ""
+        }
+        if position < finalNarrative.count {
+            DispatchQueue.main.asyncAfter(deadline: .now() + speed) {
+                narrative.append(finalNarrative[position])
+                typeWriter(at: position + 1)
+            }
+        }
     }
 }
 
 struct InformationView_Previews: PreviewProvider {
     static var previews: some View {
-        InformationView(currentNodeId: 1, energy: .constant(8), mentality: .constant(6), food: .constant(4))
+        InformationView(currentNodeId: 1, energy: .constant(8), mentality: .constant(6), food: .constant(4), speed: .constant(0.02), textAllShown: .constant(true))
         // Make the database available to all other view through the environment
             .environment(\.blackbirdDatabase, AppDatabase.instance)
+    }
+}
+
+extension String {
+    subscript(offset: Int) -> Character {
+        self[index(startIndex, offsetBy: offset)]
     }
 }

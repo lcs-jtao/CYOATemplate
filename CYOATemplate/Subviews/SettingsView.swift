@@ -17,6 +17,8 @@ struct SettingsView: View {
     
     @Binding var currentNodeId: Int
     
+    @Binding var textAllShown: Bool
+    
     // Values
     @Binding var energy: Int
     
@@ -86,7 +88,7 @@ struct SettingsView: View {
                             // Map
                             Image("Map")
                                 .resizable()
-                                .frame(maxHeight: 300)
+                                .frame(maxHeight: 200)
                                 .padding(.horizontal)
                             
                             // Divider
@@ -99,12 +101,19 @@ struct SettingsView: View {
                                 // Restart button
                                 Button(action: {
                                     
-                                    // Go back to node 1
-                                    currentNodeId = 1
-                                    // Dismiss the pop up
-                                    withAnimation(.linear(duration: 0.2)) {
-                                        show = false
+                                    // Let the button animation show before switching to the next node
+                                    Task {
+                                        try await Task.sleep(for: Duration.seconds(0.15))
+                                        
+                                        // Go back to node 1
+                                        currentNodeId = 1
+                                        
+                                        // Dismiss the pop up
+                                        withAnimation(.linear(duration: 0.2)) {
+                                            show = false
+                                        }
                                     }
+                                    
                                     // Reset values
                                     energy = 8
                                     mentality = 8
@@ -123,6 +132,8 @@ struct SettingsView: View {
                                     }
                                 })
                                 .buttonStyle(CustomButton())
+                                .disabled(textAllShown ? false : true)
+                                .opacity(textAllShown ? 1 : 0.7)
                                 
                                 // Home button
                                 Button(action: {
@@ -138,7 +149,12 @@ struct SettingsView: View {
                                     lastMentality = 8
                                     lastFood = 4
                                     
-                                    viewStatus = "main"
+                                    // Let the button animation show before switching to the next node
+                                    Task {
+                                        try await Task.sleep(for: Duration.seconds(0.15))
+                                        
+                                        viewStatus = "main"
+                                    }
                                     
                                 }, label: {
                                     HStack {
@@ -167,6 +183,6 @@ struct SettingsView: View {
 // Preview provider
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(show: .constant(true), currentNodeId: .constant(1), energy: .constant(8), mentality: .constant(6), food: .constant(6), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6))
+        SettingsView(show: .constant(true), currentNodeId: .constant(1), textAllShown: .constant(true), energy: .constant(8), mentality: .constant(6), food: .constant(6), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6))
     }
 }

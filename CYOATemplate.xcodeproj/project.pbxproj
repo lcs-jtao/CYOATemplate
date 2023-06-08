@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22263B2B2A301D29005CFAD1 /* RetroText in Frameworks */ = {isa = PBXBuildFile; productRef = 22263B2A2A301D29005CFAD1 /* RetroText */; };
+		22263B302A30DC24005CFAD1 /* AnimatedTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22263B2F2A30DC24005CFAD1 /* AnimatedTextView.swift */; };
+		22263B322A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22263B312A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf */; };
+		22263B352A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22263B342A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf */; };
+		22263B392A30E6E8005CFAD1 /* NovaCut-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22263B382A30E6E8005CFAD1 /* NovaCut-Regular.ttf */; };
 		22268C842A2BE7FB00DE3AFC /* GamingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C832A2BE7FB00DE3AFC /* GamingView.swift */; };
 		22268C872A2BE84C00DE3AFC /* CustomButtonViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C862A2BE84C00DE3AFC /* CustomButtonViewModifier.swift */; };
 		22268C892A2BE97500DE3AFC /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22268C882A2BE97500DE3AFC /* SettingsView.swift */; };
@@ -32,6 +35,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		22263B2F2A30DC24005CFAD1 /* AnimatedTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedTextView.swift; sourceTree = "<group>"; };
+		22263B312A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PaletteMosaic-Regular.ttf"; sourceTree = "<group>"; };
+		22263B332A30E139005CFAD1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		22263B342A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DarumadropOne-Regular.ttf"; sourceTree = "<group>"; };
+		22263B382A30E6E8005CFAD1 /* NovaCut-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NovaCut-Regular.ttf"; sourceTree = "<group>"; };
 		22268C832A2BE7FB00DE3AFC /* GamingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamingView.swift; sourceTree = "<group>"; };
 		22268C862A2BE84C00DE3AFC /* CustomButtonViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonViewModifier.swift; sourceTree = "<group>"; };
 		22268C882A2BE97500DE3AFC /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -60,7 +68,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22263B2B2A301D29005CFAD1 /* RetroText in Frameworks */,
 				81C784A62A28AADA001BC867 /* Blackbird in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -68,6 +75,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		22263B2C2A30292F005CFAD1 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				22268C902A2C0BB300DE3AFC /* InformationView.swift */,
+				22268C8E2A2BFC7700DE3AFC /* ChoicesView.swift */,
+				22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */,
+				22268C882A2BE97500DE3AFC /* SettingsView.swift */,
+				22263B2F2A30DC24005CFAD1 /* AnimatedTextView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		22268C852A2BE81800DE3AFC /* View Modifiers */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,11 +124,13 @@
 		81C198A72A251ABB0047A4B3 /* CYOATemplate */ = {
 			isa = PBXGroup;
 			children = (
+				22263B332A30E139005CFAD1 /* Info.plist */,
 				81C198A82A251ABB0047A4B3 /* CYOATemplateApp.swift */,
 				81C784A72A28AB26001BC867 /* Helpers */,
 				81C198B62A251ACD0047A4B3 /* Model */,
 				22268C922A2C10AB00DE3AFC /* ExampleViews */,
 				81C198B72A251AD10047A4B3 /* Views */,
+				22263B2C2A30292F005CFAD1 /* Subviews */,
 				22268C852A2BE81800DE3AFC /* View Modifiers */,
 				81C198AC2A251ABC0047A4B3 /* Assets.xcassets */,
 				81C198AE2A251ABC0047A4B3 /* Preview Content */,
@@ -139,12 +160,8 @@
 		81C198B72A251AD10047A4B3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				22268C832A2BE7FB00DE3AFC /* GamingView.swift */,
-				22268C902A2C0BB300DE3AFC /* InformationView.swift */,
-				22268C8E2A2BFC7700DE3AFC /* ChoicesView.swift */,
-				22268C8A2A2BE9C700DE3AFC /* CompletionMeterView.swift */,
-				22268C882A2BE97500DE3AFC /* SettingsView.swift */,
 				BF3793CD2A2E6336009554E7 /* HomeView.swift */,
+				22268C832A2BE7FB00DE3AFC /* GamingView.swift */,
 				BF3793CF2A2E6419009554E7 /* SummaryView.swift */,
 				BF5DC7142A30DC580033167D /* EndingChecklistView.swift */,
 			);
@@ -155,6 +172,9 @@
 			isa = PBXGroup;
 			children = (
 				81C784A82A28AB38001BC867 /* AppDatabase.swift */,
+				22263B312A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf */,
+				22263B342A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf */,
+				22263B382A30E6E8005CFAD1 /* NovaCut-Regular.ttf */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -177,7 +197,6 @@
 			name = CYOATemplate;
 			packageProductDependencies = (
 				81C784A52A28AADA001BC867 /* Blackbird */,
-				22263B2A2A301D29005CFAD1 /* RetroText */,
 			);
 			productName = CYOATemplate;
 			productReference = 81C198A52A251ABB0047A4B3 /* CYOATemplate.app */;
@@ -209,7 +228,6 @@
 			mainGroup = 81C1989C2A251ABB0047A4B3;
 			packageReferences = (
 				81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */,
-				22263B292A301D29005CFAD1 /* XCRemoteSwiftPackageReference "RetroText" */,
 			);
 			productRefGroup = 81C198A62A251ABB0047A4B3 /* Products */;
 			projectDirPath = "";
@@ -228,6 +246,9 @@
 				81C198B02A251ABC0047A4B3 /* Preview Assets.xcassets in Resources */,
 				81C784AD2A28B1D6001BC867 /* db.sqlite in Resources */,
 				81C198AD2A251ABC0047A4B3 /* Assets.xcassets in Resources */,
+				22263B352A30E2FC005CFAD1 /* DarumadropOne-Regular.ttf in Resources */,
+				22263B392A30E6E8005CFAD1 /* NovaCut-Regular.ttf in Resources */,
+				22263B322A30E0E4005CFAD1 /* PaletteMosaic-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +274,7 @@
 				81C784AB2A28AD0B001BC867 /* NodeView.swift in Sources */,
 				22268C842A2BE7FB00DE3AFC /* GamingView.swift in Sources */,
 				81C198BF2A251B4D0047A4B3 /* Ending.swift in Sources */,
+				22263B302A30DC24005CFAD1 /* AnimatedTextView.swift in Sources */,
 				22268C892A2BE97500DE3AFC /* SettingsView.swift in Sources */,
 				22268C8F2A2BFC7700DE3AFC /* ChoicesView.swift in Sources */,
 			);
@@ -386,6 +408,7 @@
 				DEVELOPMENT_TEAM = 4UG443984D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CYOATemplate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -415,6 +438,7 @@
 				DEVELOPMENT_TEAM = 4UG443984D;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CYOATemplate/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -457,14 +481,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		22263B292A301D29005CFAD1 /* XCRemoteSwiftPackageReference "RetroText" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/russellgordon/RetroText";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.0.16;
-			};
-		};
 		81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marcoarment/Blackbird";
@@ -476,11 +492,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		22263B2A2A301D29005CFAD1 /* RetroText */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 22263B292A301D29005CFAD1 /* XCRemoteSwiftPackageReference "RetroText" */;
-			productName = RetroText;
-		};
 		81C784A52A28AADA001BC867 /* Blackbird */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 81C784A42A28AADA001BC867 /* XCRemoteSwiftPackageReference "Blackbird" */;
