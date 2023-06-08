@@ -21,9 +21,9 @@ struct HomeView: View {
     
     var body: some View {
         if viewStatus == "game" {
-            GamingView()
+            GamingView(viewStatus: $viewStatus)
         } else if viewStatus == "summary" {
-            SummaryView()
+            SummaryView(viewStatus: $viewStatus)
         } else {
             ZStack {
                 
