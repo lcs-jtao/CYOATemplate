@@ -36,7 +36,7 @@ struct AnimatedTextView: View {
             .font(.custom("PaletteMosaic-Regular", fixedSize: size))
             .foregroundColor(color)
             .shadow(color: .black, radius: 50)
-
+            
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
@@ -46,7 +46,7 @@ struct AnimatedTextView: View {
                 blurSize = 57.0
             }
         }
-
+        
     }
 }
 

@@ -37,8 +37,8 @@ struct EndingChecklistView: View {
             Text("\(endingTypeName1): \(visitedEndingType1) / \(totalEndingType1)")
                 .textCase(.uppercase)
                 .font(.custom(
-                        "AmericanTypewriter",
-                        fixedSize: 17))
+                    "AmericanTypewriter",
+                    fixedSize: 17))
             
             Spacer()
             
@@ -59,8 +59,8 @@ struct EndingChecklistView: View {
             try await db.query("SELECT COUNT(*) AS TotalEndingCount1 FROM Node WHERE ending_type_id = \(endingType)")
         })
         _currentEndingType = BlackbirdLiveQuery(tableName: "Node", { db in
-                    try await db.query("SELECT EndingType.type AS EndingType1 FROM EndingType INNER JOIN Node ON EndingType.id = Node.ending_type_id WHERE EndingType.id = \(endingType)")
-                    
+            try await db.query("SELECT EndingType.type AS EndingType1 FROM EndingType INNER JOIN Node ON EndingType.id = Node.ending_type_id WHERE EndingType.id = \(endingType)")
+            
         })
         
         self.endingType = endingType

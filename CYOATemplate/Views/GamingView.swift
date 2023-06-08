@@ -80,26 +80,26 @@ struct GamingView: View {
                     
                     InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food, speed: $speed, textAllShown: $textAllShown)
                         .onAppear {
-                                        // Update visits count for this node
-                                        Task {
-                                            try await db!.transaction { core in
-                                                try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
-                                                // try core.query("UPDATE Node SET visits = ? Node.visits + 1 WHERE node_id = ?", 50, currentNodeId)
-                                            }
-
-                                        }
-
-                                    }
+                            // Update visits count for this node
+                            Task {
+                                try await db!.transaction { core in
+                                    try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
+                                    // try core.query("UPDATE Node SET visits = ? Node.visits + 1 WHERE node_id = ?", 50, currentNodeId)
+                                }
+                                
+                            }
+                            
+                        }
                         .onChange(of: currentNodeId) { newNodeId in
-                                            // Update visits count for this node
-                                            Task {
-                                                try await db!.transaction { core in
-                                                    try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", newNodeId)
-                                                }
-
-                                            }
-
-                                        }
+                            // Update visits count for this node
+                            Task {
+                                try await db!.transaction { core in
+                                    try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", newNodeId)
+                                }
+                                
+                            }
+                            
+                        }
                     
                     ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood, textAllShown: $textAllShown, viewStatus: $viewStatus)
                     
