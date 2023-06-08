@@ -61,6 +61,7 @@ struct SettingsView: View {
                             ZStack {
                                 
                                 Text("- SETTINGS -")
+                                    .font(.title3)
                                     .padding(.top)
                                 
                                 HStack {
@@ -129,15 +130,15 @@ struct SettingsView: View {
                                 .onChange(of: textSpeed) { currentTextSpeed in
                                     switch currentTextSpeed {
                                     case "Medium":
-                                        speed = 0.02
+                                        speed = 0.025
                                     case "Fast":
                                         speed = 0.01
                                     case "Really fast":
                                         speed = 0.005
                                     case "Slow":
-                                        speed = 0.03
+                                        speed = 0.04
                                     default:
-                                        speed = 0.02
+                                        speed = 0.025
                                     }
                                 }
                                 
