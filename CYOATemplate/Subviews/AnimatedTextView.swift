@@ -10,7 +10,7 @@ import SwiftUI
 struct AnimatedTextView: View {
     
     // MARK: Stored Properties
-    @State var color = Color.white.opacity(0.8)
+    @State var color = Color.white.opacity(1)
     
     @State var size = 100.0
     
@@ -41,7 +41,7 @@ struct AnimatedTextView: View {
         .onAppear {
             withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {
                 size = 100.1
-                color = .white.opacity(0.5)
+                color = .white.opacity(0.7)
                 blurOpacity = 0.4
                 blurSize = 57.0
             }
@@ -53,7 +53,7 @@ struct AnimatedTextView: View {
 struct AnimatedStartView: View {
     
     // MARK: Stored Properties
-    @State var textColor = Color.white.opacity(0.9)
+    @State var textColor = Color.white.opacity(1)
     
     @State var blurOpacity = 0.7
     

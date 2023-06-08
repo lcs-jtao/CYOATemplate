@@ -21,9 +21,9 @@ struct CompletionMeterView: View {
     // Set timer
     let timer = Timer.publish(every: 0.03, on: .main, in: .common).autoconnect()
     
-    let width: CGFloat = 190.0
+    let width: CGFloat = 210.0
     
-    let height: CGFloat = 22.0
+    let height: CGFloat = 25.0
     
     var body: some View {
         

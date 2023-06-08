@@ -160,9 +160,6 @@ struct GamingView: View {
                             // Display values
                             HStack(alignment: .top, spacing: 15) {
                                 
-                                Text("ME")
-                                    .font(.title3)
-                                
                                 VStack(alignment: .leading, spacing: 15) {
                                     
                                     HStack {
