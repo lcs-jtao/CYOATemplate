@@ -126,7 +126,7 @@ struct SettingsView: View {
                                 })
                                 .buttonStyle(CustomButton())
                                 .disabled(textAllShown ? false : true)
-                                .foregroundColor(textAllShown ? .white : .gray)
+                                .opacity(textAllShown ? 1 : 0.7)
                                 
                                 // Home button
                                 Button(action: {
