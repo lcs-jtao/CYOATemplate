@@ -227,7 +227,7 @@ struct GamingView: View {
                 }
             }
             
-            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
+            SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, textAllShown: $textAllShown, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
         }
         .foregroundColor(.white)
         

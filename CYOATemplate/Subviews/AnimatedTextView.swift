@@ -23,12 +23,15 @@ struct AnimatedTextView: View {
             
             Ellipse()
                 .foregroundColor(.white.opacity(blurOpacity))
-                .frame(width: 290, height: 190)
+                .frame(width: 290, height: 230)
                 .blur(radius: blurSize)
             
             VStack {
                 Text("RAD")
                 Text("ZONE")
+                Text("Survival Island")
+                    .font(.custom("PaletteMosaic-Regular", fixedSize: 20))
+                    .tracking(4)
             }
             .font(.custom("PaletteMosaic-Regular", fixedSize: size))
             .foregroundColor(color)
@@ -64,7 +67,7 @@ struct AnimatedStartView: View {
             
             Text("- TAP TO START -")
                 .foregroundColor(textColor)
-                .font(.custom("novacut", fixedSize: 30))
+                .font(.custom("novacut", fixedSize: 25))
         }
         .onAppear {
             withAnimation(.easeInOut(duration: 2).repeatForever(autoreverses: true)) {

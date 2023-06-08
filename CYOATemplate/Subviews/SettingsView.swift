@@ -17,6 +17,8 @@ struct SettingsView: View {
     
     @Binding var currentNodeId: Int
     
+    @Binding var textAllShown: Bool
+    
     // Values
     @Binding var energy: Int
     
@@ -123,6 +125,8 @@ struct SettingsView: View {
                                     }
                                 })
                                 .buttonStyle(CustomButton())
+                                .disabled(textAllShown ? false : true)
+                                .foregroundColor(textAllShown ? .white : .gray)
                                 
                                 // Home button
                                 Button(action: {
@@ -172,6 +176,6 @@ struct SettingsView: View {
 // Preview provider
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
-        SettingsView(show: .constant(true), currentNodeId: .constant(1), energy: .constant(8), mentality: .constant(6), food: .constant(6), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6))
+        SettingsView(show: .constant(true), currentNodeId: .constant(1), textAllShown: .constant(true), energy: .constant(8), mentality: .constant(6), food: .constant(6), energyChange: .constant(0), mentalityChange: .constant(0), foodChange: .constant(0), lastEnergy: .constant(8), lastMentality: .constant(6), lastFood: .constant(6))
     }
 }
