@@ -22,7 +22,7 @@ struct InformationView: View {
     // The list of nodes retrieved
     @BlackbirdLiveModels var nodes: Blackbird.LiveResults<Node>
     
-    @State var illustrationName: String = ""
+    @State var illustrationName: String = "Coast"
     
     //@State var narrativeOpacity: CGFloat = 0
     
@@ -65,23 +65,25 @@ struct InformationView: View {
                 }
                 .padding(.horizontal, 20)
                 .onChange(of: node.location) { currentLocation in
-                    switch currentLocation {
-                    case "The Coast":
-                        illustrationName = "Coast"
-                    case "The Park":
-                        illustrationName = "Park"
-                    case "The Hospital":
-                        illustrationName = "Hospital"
-                    case "The Factory":
-                        illustrationName = "Factory"
-                    case "The Lake":
-                        illustrationName = "Lake"
-                    case "The Cabin":
-                        illustrationName = "Cabin"
-                    case "Adventure":
-                        illustrationName = "Adventure"
-                    default:
-                        illustrationName = ""
+                    withAnimation {
+                        switch currentLocation {
+                        case "The Coast":
+                            illustrationName = "Coast"
+                        case "The Park":
+                            illustrationName = "Park"
+                        case "The Hospital":
+                            illustrationName = "Hospital"
+                        case "The Factory":
+                            illustrationName = "Factory"
+                        case "The Lake":
+                            illustrationName = "Lake"
+                        case "The Cabin":
+                            illustrationName = "Cabin"
+                        case "Adventure":
+                            illustrationName = "Adventure"
+                        default:
+                            illustrationName = ""
+                        }
                     }
                 }
                 .onChange(of: node.day) { currentDay in
@@ -111,7 +113,7 @@ struct InformationView: View {
                 }
                 
                 // Illustration
-                Image("Coast")
+                Image(illustrationName)
                     .resizable()
                     .scaledToFit()
                 
