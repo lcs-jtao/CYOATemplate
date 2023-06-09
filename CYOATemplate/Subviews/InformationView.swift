@@ -82,7 +82,7 @@ struct InformationView: View {
                         case "Adventure":
                             illustrationName = "Adventure"
                         default:
-                            illustrationName = ""
+                            illustrationName = "Coast"
                         }
                     }
                 }

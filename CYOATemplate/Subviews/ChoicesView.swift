@@ -138,15 +138,6 @@ struct ChoicesView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
                 .opacity(endingButtonsOpacity)
-                .onChange(of: textAllShown) { currenState in
-                    if currenState {
-                        withAnimation(.easeInOut(duration: 1.5).delay(2)) {
-                            endingButtonsOpacity = 1
-                        }
-                    } else {
-                        endingButtonsOpacity = 0
-                    }
-                }
                 
             } else if edges.results.count == 2 || edges.results.count == 3 {
                 
@@ -265,10 +256,14 @@ struct ChoicesView: View {
                 withAnimation(.default) {
                     opacity = 1
                 }
+                withAnimation(.easeInOut(duration: 1.5).delay(1.5)) {
+                    endingButtonsOpacity = 1
+                }
             }
         }
         .onChange(of: currentNodeId) { _ in
             opacity = 0
+            endingButtonsOpacity = 0
             textAllShown = false
         }
         
