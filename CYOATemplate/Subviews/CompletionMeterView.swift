@@ -25,6 +25,8 @@ struct CompletionMeterView: View {
     
     let height: CGFloat = 25.0
     
+    //@Binding var isEnergyChange: Bool
+    
     var body: some View {
         
         ZStack(alignment: .leading) {
@@ -38,6 +40,7 @@ struct CompletionMeterView: View {
             Rectangle()
                 .frame(width: fillToWidth, height: height)
                 .foregroundColor(.white)
+                //.foregroundColor(isEnergyChange ? .blue : .white)
                 .onChange(of: energy) { newEnergy in
                     withAnimation(.easeInOut(duration: 0.01)) {
                         fillToWidth = CGFloat(energy / 10) * width
@@ -58,7 +61,7 @@ struct CompletionMeterView: View {
                 // Borders
                 ForEach(0..<3) { i in
                     Rectangle()
-                        .stroke(.black, lineWidth: 3)
+                        .stroke(.black, lineWidth: 5)
                         .frame(width: width - CGFloat(i * Int(width) / 5 * 2), height: height)
                 }
             }
@@ -70,5 +73,6 @@ struct CompletionMeterView: View {
 struct CompletionMeterView_Previews: PreviewProvider {
     static var previews: some View {
         CompletionMeterView(energy: 7.0)
+        //CompletionMeterView(energy: 7.0, isEnergyChange: .constant(false))
     }
 }

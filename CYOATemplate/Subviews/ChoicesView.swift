@@ -168,7 +168,9 @@ struct ChoicesView: View {
                                 }
                                 
                                 // Value changes
-                                energy += currentEdge.energy
+                                withAnimation {
+                                    energy += currentEdge.energy
+                                }
                                 mentality += currentEdge.mentality
                                 food += currentEdge.food
                                 
@@ -216,7 +218,9 @@ struct ChoicesView: View {
                         }
                         
                         // Value changes
-                        energy += currentEdge.energy
+                        withAnimation {
+                            energy += currentEdge.energy
+                        }
                         mentality += currentEdge.mentality
                         food += currentEdge.food
                         
@@ -265,6 +269,7 @@ struct ChoicesView: View {
         }
         .onChange(of: currentNodeId) { _ in
             opacity = 0
+            textAllShown = false
         }
         
         
