@@ -138,9 +138,9 @@ struct ChoicesView: View {
                 .padding(.horizontal, 20)
                 .padding(.vertical, 40)
                 .opacity(endingButtonsOpacity)
-                .onChange(of: isEnding) { currenIsEnding in
-                    if currenIsEnding {
-                        withAnimation(.easeInOut(duration: 1.5).delay(3)) {
+                .onChange(of: textAllShown) { currenState in
+                    if currenState {
+                        withAnimation(.easeInOut(duration: 1.5).delay(2)) {
                             endingButtonsOpacity = 1
                         }
                     } else {
