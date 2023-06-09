@@ -21,9 +21,9 @@ struct CompletionMeterView: View {
     // Set timer
     let timer = Timer.publish(every: 0.03, on: .main, in: .common).autoconnect()
     
-    let width: CGFloat = 190.0
+    let width: CGFloat = 210.0
     
-    let height: CGFloat = 22.0
+    let height: CGFloat = 25.0
     
     var body: some View {
         
@@ -58,7 +58,7 @@ struct CompletionMeterView: View {
                 // Borders
                 ForEach(0..<3) { i in
                     Rectangle()
-                        .stroke(.black, lineWidth: 3)
+                        .stroke(.black, lineWidth: 5)
                         .frame(width: width - CGFloat(i * Int(width) / 5 * 2), height: height)
                 }
             }

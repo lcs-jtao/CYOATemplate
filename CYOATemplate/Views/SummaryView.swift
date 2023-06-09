@@ -68,15 +68,15 @@ struct SummaryView: View {
                 VStack(spacing: 90) {
                     Text("You have explored \(visitedNodes) out of \(totalNodes) nodes overall in this story!")
                         .font(.custom(
-                                "AmericanTypewriter",
-                                fixedSize: 25))
+                            "AmericanTypewriter",
+                            fixedSize: 25))
                     
                     VStack(spacing: 12) {
                         Text("Checklist for Endings")
                             .textCase(.uppercase)
                             .font(.custom(
-                                    "AmericanTypewriter",
-                                    fixedSize: 18))
+                                "AmericanTypewriter",
+                                fixedSize: 18))
                             .bold()
                         
                         EndingChecklistView(endingType: 1)
@@ -89,8 +89,8 @@ struct SummaryView: View {
                         
                         Text("\(visitedEndings) out of \(totalEndings) endings are reached.")
                             .font(.custom(
-                                    "AmericanTypewriter",
-                                    fixedSize: 15))
+                                "AmericanTypewriter",
+                                fixedSize: 15))
                     }
                     .background(Color.gray.opacity(0.2))
                     .padding()

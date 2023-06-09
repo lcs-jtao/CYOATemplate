@@ -174,6 +174,7 @@ struct InformationView: View {
     
     
     // MARK: Functions
+    // Adapted from: https://betterprogramming.pub/typewriter-effect-in-swiftui-ba81db10b570
     func typeWriter(at position: Int = 0) {
         if position == 0 {
             narrative = ""

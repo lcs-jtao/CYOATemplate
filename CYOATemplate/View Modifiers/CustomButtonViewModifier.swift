@@ -19,6 +19,6 @@ struct CustomButton: ButtonStyle {
             .background(configuration.isPressed ? .gray.opacity(0.2) : .black)
             .border(.white)
             .cornerRadius(6)
-            .scaleEffect(configuration.isPressed ? 1.06 : 1)
+            .scaleEffect(configuration.isPressed ? 1.05 : 1)
     }
 }

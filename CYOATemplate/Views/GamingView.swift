@@ -27,7 +27,7 @@ struct GamingView: View {
     
     @State private var valuePanelOpacity: CGFloat = 1
     
-    @State var speed: CGFloat = 0.02
+    @State var speed: CGFloat = 0.025
     
     @State var textAllShown: Bool = false
     
@@ -80,26 +80,26 @@ struct GamingView: View {
                     
                     InformationView(currentNodeId: currentNodeId, energy: $energy, mentality: $mentality, food: $food, speed: $speed, textAllShown: $textAllShown)
                         .onAppear {
-                                        // Update visits count for this node
-                                        Task {
-                                            try await db!.transaction { core in
-                                                try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
-                                                // try core.query("UPDATE Node SET visits = ? Node.visits + 1 WHERE node_id = ?", 50, currentNodeId)
-                                            }
-
-                                        }
-
-                                    }
+                            // Update visits count for this node
+                            Task {
+                                try await db!.transaction { core in
+                                    try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", currentNodeId)
+                                    // try core.query("UPDATE Node SET visits = ? Node.visits + 1 WHERE node_id = ?", 50, currentNodeId)
+                                }
+                                
+                            }
+                            
+                        }
                         .onChange(of: currentNodeId) { newNodeId in
-                                            // Update visits count for this node
-                                            Task {
-                                                try await db!.transaction { core in
-                                                    try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", newNodeId)
-                                                }
-
-                                            }
-
-                                        }
+                            // Update visits count for this node
+                            Task {
+                                try await db!.transaction { core in
+                                    try core.query("UPDATE Node SET visits = Node.visits + 1 WHERE node_id = ?", newNodeId)
+                                }
+                                
+                            }
+                            
+                        }
                     
                     ChoicesView(currentNodeId: $currentNodeId, energy: $energy, mentality: $mentality, food: $food, isEnding: $isEnding, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood, textAllShown: $textAllShown, viewStatus: $viewStatus)
                     
@@ -159,9 +159,6 @@ struct GamingView: View {
                             
                             // Display values
                             HStack(alignment: .top, spacing: 15) {
-                                
-                                Text("ME")
-                                    .font(.title3)
                                 
                                 VStack(alignment: .leading, spacing: 15) {
                                     
@@ -233,7 +230,7 @@ struct GamingView: View {
                     }
                 }
                 
-                SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, textAllShown: $textAllShown, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
+                SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, textAllShown: $textAllShown, speed: $speed, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
             }
             .foregroundColor(.white)
         }

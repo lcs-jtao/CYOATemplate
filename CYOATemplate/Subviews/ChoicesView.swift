@@ -21,10 +21,6 @@ struct ChoicesView: View {
     
     @Binding var currentNodeId: Int
     
-    //@State var zeroEdgeShowButton = false
-    
-    //@Binding var speed: CGFloat
-    
     @State var opacity: CGFloat = 0.0
     
     @Binding var textAllShown: Bool
@@ -54,222 +50,227 @@ struct ChoicesView: View {
     @State private var endingButtonsOpacity: CGFloat = 0
     
     var body: some View {
+        
+        // Choices
+        VStack {
             
-            // Choices
-            VStack {
+            if edges.results.count == 0 {
                 
-                if edges.results.count == 0 {
+                Spacer()
+                
+                // Zero edge (Endings)
+                
+                HStack (alignment: .center, spacing: 15) {
                     
-                    Spacer()
-                    
-                    // Zero edge (Endings)
-                    
-                    HStack (alignment: .center, spacing: 15) {
+                    // Restart
+                    Button(action: {
                         
-                        // Restart
-                        Button(action: {
+                        // Let the button animation show before switching to the next node
+                        Task {
+                            try await Task.sleep(for: Duration.seconds(0.15))
                             
-                            // Let the button animation show before switching to the next node
-                            Task {
-                                try await Task.sleep(for: Duration.seconds(0.15))
-                                
-                                currentNodeId = 1
-                            }
-                            
-                            isEnding = false
-                            
-                            // Reset values
-                            energy = 8
-                            mentality = 8
-                            food = 4
-                            energyChange = 0
-                            mentalityChange = 0
-                            foodChange = 0
-                            lastEnergy = 8
-                            lastMentality = 8
-                            lastFood = 4
-                            
-                        }, label: {
-                            HStack {
-                                Spacer()
-                                
-                                Image(systemName: "arrow.counterclockwise")
-                                Text("Restart")
-                                
-                                Spacer()
-                            }
-                        })
-                        .buttonStyle(CustomButton())
+                            currentNodeId = 1
+                        }
                         
-                        // Summary
-                        Button(action: {
+                        isEnding = false
+                        
+                        // Reset values
+                        energy = 8
+                        mentality = 8
+                        food = 4
+                        energyChange = 0
+                        mentalityChange = 0
+                        foodChange = 0
+                        lastEnergy = 8
+                        lastMentality = 8
+                        lastFood = 4
+                        
+                    }, label: {
+                        HStack {
+                            Spacer()
                             
-                            // Let the button animation show before switching to the next node
-                            Task {
-                                try await Task.sleep(for: Duration.seconds(0.15))
-                                
-                                currentNodeId = 1
-                            }
+                            Image(systemName: "arrow.counterclockwise")
+                            Text("Restart")
                             
-                            isEnding = false
+                            Spacer()
+                        }
+                    })
+                    .buttonStyle(CustomButton())
+                    
+                    // Summary
+                    Button(action: {
+                        
+                        // Let the button animation show before switching to the next node
+                        Task {
+                            try await Task.sleep(for: Duration.seconds(0.15))
                             
-                            // Reset values
-                            energy = 8
-                            mentality = 8
-                            food = 4
-                            energyChange = 0
-                            mentalityChange = 0
-                            foodChange = 0
-                            lastEnergy = 8
-                            lastMentality = 8
-                            lastFood = 4
+                            currentNodeId = 1
                             
                             viewStatus = "summary"
+                        }
+                        
+                        isEnding = false
+                        
+                        // Reset values
+                        energy = 8
+                        mentality = 8
+                        food = 4
+                        energyChange = 0
+                        mentalityChange = 0
+                        foodChange = 0
+                        lastEnergy = 8
+                        lastMentality = 8
+                        lastFood = 4
+                        
+                    }, label: {
+                        HStack {
+                            Spacer()
                             
-                        }, label: {
+                            Image(systemName: "square.and.pencil")
+                            Text("Summary")
+                            
+                            Spacer()
+                        }
+                    })
+                    .buttonStyle(CustomButton())
+                    
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 40)
+                .opacity(endingButtonsOpacity)
+                .onChange(of: textAllShown) { currenState in
+                    if currenState {
+                        withAnimation(.easeInOut(duration: 1.5).delay(2)) {
+                            endingButtonsOpacity = 1
+                        }
+                    } else {
+                        endingButtonsOpacity = 0
+                    }
+                }
+                
+            } else if edges.results.count == 2 || edges.results.count == 3 {
+                
+                Spacer()
+                
+                VStack {
+                    ForEach(edges.results) { currentEdge in
+                        
+                        VStack (alignment: .center) {
+                            
+                            // Choice 1
+                            Button(action: {
+                                
+                                // Let the button animation show before switching to the next node
+                                Task {
+                                    try await Task.sleep(for: Duration.seconds(0.15))
+                                    
+                                    currentNodeId = currentEdge.to_node_id
+                                }
+                                
+                                // Value changes
+                                withAnimation {
+                                    energy += currentEdge.energy
+                                }
+                                mentality += currentEdge.mentality
+                                food += currentEdge.food
+                                
+                                if energy > 10 {
+                                    energy = 10
+                                } else if energy < 0 {
+                                    energy = 0
+                                }
+                                
+                                if food < 0 {
+                                    food = 0
+                                }
+                                
+                            }, label: {
+                                HStack {
+                                    
+                                    Spacer()
+                                    
+                                    Text(try! AttributedString(markdown: currentEdge.prompt))
+                                    
+                                    Spacer()
+                                }
+                            })
+                            .buttonStyle(CustomButton())
+                            
+                        }
+                    }
+                    .padding(.horizontal, 40)
+                    .padding(.vertical, 6)
+                }
+                .padding(.vertical, 10)
+                .opacity(opacity)
+                
+            } else if edges.results.count == 1 {
+                
+                ForEach(edges.results) { currentEdge in
+                    
+                    Button(action: {
+                        
+                        // Let the button animation show before switching to the next node
+                        Task {
+                            try await Task.sleep(for: Duration.seconds(0.3))
+                            
+                            currentNodeId = currentEdge.to_node_id
+                        }
+                        
+                        // Value changes
+                        withAnimation {
+                            energy += currentEdge.energy
+                        }
+                        mentality += currentEdge.mentality
+                        food += currentEdge.food
+                        
+                        if energy > 10 {
+                            energy = 10
+                        } else if energy < 0 {
+                            energy = 0
+                        }
+                        
+                        if food < 0 {
+                            food = 0
+                        }
+                        
+                    }, label: {
+                        VStack {
+                            Spacer()
+                            
                             HStack {
                                 Spacer()
                                 
-                                Image(systemName: "square.and.pencil")
-                                Text("Summary")
-                                
-                                Spacer()
-                            }
-                        })
-                        .buttonStyle(CustomButton())
-                        
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 40)
-                    .opacity(endingButtonsOpacity)
-                    .onChange(of: isEnding) { currenIsEnding in
-                        if currenIsEnding {
-                            withAnimation(.easeInOut(duration: 1.5).delay(3)) {
-                                endingButtonsOpacity = 1
+                                Text("Next...")
                             }
                         }
-                    }
-                    
-                } else if edges.results.count == 2 || edges.results.count == 3 {
-                    
-                    Spacer()
-                    
-                    VStack {
-                        ForEach(edges.results) { currentEdge in
-                            
-                            VStack (alignment: .center) {
-                                
-                                // Choice 1
-                                Button(action: {
-                                    
-                                    // Let the button animation show before switching to the next node
-                                    Task {
-                                        try await Task.sleep(for: Duration.seconds(0.15))
-                                        
-                                        currentNodeId = currentEdge.to_node_id
-                                    }
-                                    
-                                    // Value changes
-                                    energy += currentEdge.energy
-                                    mentality += currentEdge.mentality
-                                    food += currentEdge.food
-                                    
-                                    if energy > 10 {
-                                        energy = 10
-                                    } else if energy < 0 {
-                                        energy = 0
-                                    }
-                                    
-                                    if food < 0 {
-                                        food = 0
-                                    }
-                                    
-                                }, label: {
-                                    HStack {
-                                        
-                                        Spacer()
-                                        
-                                        Text(try! AttributedString(markdown: currentEdge.prompt))
-                                        
-                                        Spacer()
-                                    }
-                                })
-                                .buttonStyle(CustomButton())
-                                
-                            }
-                        }
-                        .padding(.horizontal, 40)
-                        .padding(.vertical, 6)
-                    }
-                    .padding(.vertical, 10)
-                    .opacity(opacity)
-                    
-                } else if edges.results.count == 1 {
-                    
-                    ForEach(edges.results) { currentEdge in
-                        
-                        Button(action: {
-                            
-                            //speed = 0
-                            
-                            // Let the button animation show before switching to the next node
-                            Task {
-                                try await Task.sleep(for: Duration.seconds(0.3))
-                                
-                                currentNodeId = currentEdge.to_node_id
-                            }
-                            
-                            // Value changes
-                            energy += currentEdge.energy
-                            mentality += currentEdge.mentality
-                            food += currentEdge.food
-                            
-                            if energy > 10 {
-                                energy = 10
-                            } else if energy < 0 {
-                                energy = 0
-                            }
-                            
-                            if food < 0 {
-                                food = 0
-                            }
-                            
-                        }, label: {
-                            VStack {
-                                Spacer()
-                                
-                                HStack {
-                                    Spacer()
-                                    
-                                    Text("Next...")
-                                }
-                            }
-                        })
-                    }
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 10)
-                    .opacity(opacity)
-                    //.disabled(textAllShown ? false : true)
+                    })
                 }
-                
+                .padding(.horizontal, 20)
+                .padding(.vertical, 10)
+                .opacity(opacity)
+                //.disabled(textAllShown ? false : true)
             }
-            .foregroundColor(.white)
-            .onChange(of: edges.results.count) { currentNumberOfEdges in
-                if currentNumberOfEdges == 0 {
-                    isEnding = true
+            
+        }
+        .foregroundColor(.white)
+        .onChange(of: edges.results.count) { currentNumberOfEdges in
+            if currentNumberOfEdges == 0 {
+                isEnding = true
+            }
+        }
+        .disabled(textAllShown ? false : true)
+        .onChange(of: textAllShown) { currentState in
+            if currentState {
+                withAnimation(.default) {
+                    opacity = 1
                 }
             }
-            .disabled(textAllShown ? false : true)
-            .onChange(of: textAllShown) { currentState in
-                if currentState {
-                    withAnimation(.default) {
-                        opacity = 1
-                    }
-                }
-            }
-            .onChange(of: currentNodeId) { _ in
-                opacity = 0
-            }
+        }
+        .onChange(of: currentNodeId) { _ in
+            opacity = 0
+            textAllShown = false
+        }
         
         
     }
