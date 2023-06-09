@@ -31,8 +31,6 @@ struct GamingView: View {
     
     @State var textAllShown: Bool = false
     
-    //@State var isEnergyChange: Bool = false
-    
     // Values
     @State var energy: Int = 8
     
@@ -231,17 +229,6 @@ struct GamingView: View {
                         opacity = 1
                     }
                 }
-//                .onChange(of: energyChange) { currentEnergyChange in
-//                    if currentEnergyChange != 0 {
-//                        isEnergyChange = true
-//                        withAnimation(.easeInOut.delay(0.4)) {
-//                            isEnergyChange = false
-//                        }
-//                    }
-//                }
-//                .onChange(of: currentNodeId) { _ in
-//                    isEnergyChange = false
-//                }
                 
                 SettingsView(show: $showPopUp, currentNodeId: $currentNodeId, textAllShown: $textAllShown, speed: $speed, energy: $energy, mentality: $mentality, food: $food, energyChange: $energyChange, mentalityChange: $mentalityChange, foodChange: $foodChange, lastEnergy: $lastEnergy, lastMentality: $lastMentality, lastFood: $lastFood)
             }
